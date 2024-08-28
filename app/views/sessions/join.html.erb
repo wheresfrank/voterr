@@ -1,0 +1,10 @@
+<h1>Join Voting Session</h1>
+
+<% if @session.present? %>
+  <h2>Welcome to Session: <%= @session.session_token %></h2>
+
+  <p>Click below to start voting:</p>
+  <%= link_to "Start Voting", session_path(@session), class: "btn btn-primary" %>
+<% else %>
+  <p>Invalid session link. Please check your link and try again.</p>
+<% end %>

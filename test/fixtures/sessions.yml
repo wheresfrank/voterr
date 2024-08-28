@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  session_token: MyString
+  winner: one
+  winner_type: Winner
+
+two:
+  user: two
+  session_token: MyString
+  winner: two
+  winner_type: Winner

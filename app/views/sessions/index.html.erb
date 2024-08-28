@@ -1,0 +1,20 @@
+<h1>Your Voting Sessions</h1>
+
+<%= link_to "Create a New Session", new_session_path, class: "btn btn-primary" %>
+
+<% if @sessions.any? %>
+  <ul>
+    <% @sessions.each do |session| %>
+      <li>
+        <%= link_to "Session ##{session.id} - #{session.session_token}", session_path(session) %> 
+        <% if session.winner.present? %>
+          (Winner: <%= session.winner.title %>)
+        <% else %>
+          (In Progress)
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>You have no voting sessions yet.</p>
+<% end %>

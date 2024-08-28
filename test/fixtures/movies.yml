@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  plex_id: MyString
+  session: one
+
+two:
+  title: MyString
+  plex_id: MyString
+  session: two
