@@ -5,24 +5,6 @@
   </div>
 </section>
 
-<section class="section">
-  <% if @session.winner.present? %>
-    <h2>Winner: <%= @session.winner.title %></h2>
-    <%= image_tag(@session.winner.poster_url) %>
-  <% elsif @movie %>
-    <div class="columns is-multiline">
-      <div class="column is-two-thirds">
-        <%= turbo_frame_tag "movie_#{@movie.plex_id}" do %>
-          <%= render "movie", movie: @movie, session: @session %>
-        <% end %>
-      </div>
-      <div class="column">
-        <%= turbo_frame_tag "session_panel_#{@session.id}" do %>
-          <%= render "voting_stats", session: @session, user: @session.user %>
-        <% end %>
-      </div>
-    </div>
-  <% else %>
-    <h2>No more movies to vote on.</h2>
-  <% end %>
-</section>
+<%= turbo_frame_tag "session_#{@session.id}" do %>
+  <%= render "vote", session: @session %>
+<% end %>

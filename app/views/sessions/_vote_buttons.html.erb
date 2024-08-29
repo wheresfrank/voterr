@@ -1,10 +1,12 @@
-<div class="buttons mt-auto mb-2">
-    <%= form_with url: session_votes_path(session, movie_id: movie.id, positive: true), method: :post, local: true do |f| %>
-        <%= hidden_field_tag :session_token, session.session_token %>
-        <%= f.submit "I'd watch this", class: "button is-primary" %>
-    <% end %>
-    <%= form_with url: session_votes_path(session, movie_id: movie.id, positive: false), method: :post, local: true do |f| %>
-        <%= hidden_field_tag :session_token, session.session_token %>
-        <%= f.submit "Not interested", class: "button is-danger" %>
-    <% end %>
-</div>
+<%= turbo_frame_tag "session_#{session.id}" do %>
+    <div class="buttons mt-auto mb-2">
+        <%= form_with url: session_votes_path(session, movie_id: movie.id, positive: true), method: :post, local: true do |f| %>
+            <%= hidden_field_tag :session_token, session.session_token %>
+            <%= f.submit "I'd watch this", class: "button is-primary" %>
+        <% end %>
+        <%= form_with url: session_votes_path(session, movie_id: movie.id, positive: false), method: :post, local: true do |f| %>
+            <%= hidden_field_tag :session_token, session.session_token %>
+            <%= f.submit "Not interested", class: "button is-danger" %>
+        <% end %>
+    </div>
+<% end %>

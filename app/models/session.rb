@@ -3,20 +3,24 @@ class Session < ApplicationRecord
   belongs_to :winner, polymorphic: true, optional: true
   has_and_belongs_to_many :movies
   has_many :votes, dependent: :destroy
+  has_many :voters, dependent: :destroy
 
   validates :session_name, presence: true
   validates :session_token, presence: true, uniqueness: true
 
   before_validation :generate_session_token, on: :create
 
-  def unique_participants
-    (votes.pluck(:guest_name).uniq + votes.where.not(user_id: nil).pluck(:user_id).uniq).count
+  def all_participants_voted_for_same_movie?
+    votes.where(positive: true).group(:movie_id).having('count(distinct voter_id) = ?', unique_participants).exists?
   end
 
   def all_participants_voted_for_same_movie?
+    total_voters = voters.count
+    return false if total_voters == 0
+  
     votes.where(positive: true)
          .group(:movie_id)
-         .having('count(distinct guest_name) + count(distinct user_id) = ?', unique_participants)
+         .having('COUNT(DISTINCT voter_id) = ?', total_voters)
          .exists?
   end
 

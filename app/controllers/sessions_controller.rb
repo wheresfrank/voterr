@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :require_login, except: [:join, :guest_vote, :show_guest]
+  before_action :require_login, except: [:join, :show_guest, :guest_vote]
 
   def new
     @session = Session.new
@@ -8,6 +8,9 @@ class SessionsController < ApplicationController
   def create
     @session = current_user.sessions.new(session_params)
     if @session.save
+      # Create a voter for the main user
+      @session.voters.create!(name: current_user.name, user: @session.user)
+
       selected_movies = current_user.movies.sample(5)
       @session.movies << selected_movies
 
@@ -43,13 +46,19 @@ class SessionsController < ApplicationController
   def guest_vote
     @session = Session.find_by(session_token: params[:token])
     guest_name = params[:guest_name]
-  
+
     if guest_name.blank?
       flash.now[:alert] = "Name can't be blank."
       render :join
     else
       session[:guest_name] = guest_name
-      redirect_to show_guest_session_path(token: @session.session_token)
+      voter = @session.voters.create!(name: guest_name, user: @session.user) unless @session.voters.exists?(name: guest_name)
+      @movie = @session.movies.where.not(id: voter.votes.select(:movie_id)).sample
+
+      respond_to do |format|
+        format.html { redirect_to show_guest_session_path(@session.session_token) }
+        format.turbo_stream { render :show_guest, formats: :html }
+      end
     end
   end
 
@@ -60,8 +69,8 @@ class SessionsController < ApplicationController
   end
 
   def require_login
-    unless logged_in?
-      redirect_to new_plex_auth_path, alert: "You must be logged in to access this section"
+    unless current_user
+      redirect_to new_plex_auth_path, alert: "You must be logged in to access this page."
     end
   end
 end
