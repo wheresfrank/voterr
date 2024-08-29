@@ -1,7 +1,7 @@
 <%= turbo_frame_tag "session_#{@session.id}" do %>
     <section class="section">
     <% if @session.winner.present? %>
-        <h2 class="subtitle">We have a Winner!</h2>
+        <h2 class="title">We have a Winner!</h2>
         <%= render "sessions/movie", movie: @session.winner, session: @session %>
     <% elsif @movie %>
         <div class="columns is-multiline">
