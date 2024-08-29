@@ -6,8 +6,8 @@
 </section>
 <section class="section">
   <% if @session.winner.present? %>
-    <h2>Winner: <%= @session.winner.title %></h2>
-    <%= image_tag(@session.winner.poster_url) %>
+    <h2 class="subtitle">We have a Winner!</h2>
+    <%= render "movie", movie: @session.winner, session: @session %>
   <% elsif @movie %>
     <div class="columns is-multiline">
       <div class="column is-two-thirds">
@@ -25,3 +25,4 @@
     <h2>No more movies to vote on.</h2>
   <% end %>
 </section>
+<%= console %>

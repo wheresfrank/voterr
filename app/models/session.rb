@@ -14,7 +14,10 @@ class Session < ApplicationRecord
   end
 
   def all_participants_voted_for_same_movie?
-    votes.group(:movie_id).having('count(distinct guest_name) + count(distinct user_id) = ?', unique_participants).exists?
+    votes.where(positive: true)
+         .group(:movie_id)
+         .having('count(distinct guest_name) + count(distinct user_id) = ?', unique_participants)
+         .exists?
   end
 
   private

@@ -19,16 +19,11 @@
         <p class="has-text-weight-bold pb-3"><%= movie.tagline %></p>
         <p class="mb-5"><%= truncate(movie.summary, length: 400, omission: '...') %></p>
       </div>
-      <div class="buttons mt-auto mb-2">
-        <%= form_with url: session_votes_path(session, movie_id: movie.id, vote_type: 'positive'), method: :post, local: true do |f| %>
-          <%= hidden_field_tag :session_token, session.session_token %>
-          <%= f.submit "I'd watch this", class: "button is-primary" %>
-        <% end %>
-        <%= form_with url: session_votes_path(session, movie_id: movie.id, vote_type: 'negative'), method: :post, local: true do |f| %>
-          <%= hidden_field_tag :session_token, session.session_token %>
-          <%= f.submit "Not interested", class: "button is-danger" %>
-        <% end %>
-      </div>
+      <% if session.winner.present?%>
+        Test
+      <% else %>
+        <%= render 'sessions/vote_buttons', session: session, movie: movie %>
+      <% end %>
     </div>
   </div>
 <% end %>

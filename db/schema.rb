@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_29_030355) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_29_182127) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -56,6 +56,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_29_030355) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "plex_section_id"
+    t.string "name"
+    t.string "plex_server_id"
   end
 
   create_table "votes", force: :cascade do |t|
@@ -65,6 +67,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_29_030355) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "guest_name"
+    t.boolean "positive"
     t.index ["movie_id"], name: "index_votes_on_movie_id"
     t.index ["session_id"], name: "index_votes_on_session_id"
     t.index ["user_id"], name: "index_votes_on_user_id"

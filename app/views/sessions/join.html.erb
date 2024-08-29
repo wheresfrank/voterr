@@ -1,10 +1,12 @@
 <h1>Join Voting Session</h1>
 
-<% if @session.present? %>
-  <h2>Welcome to Session: <%= @session.session_token %></h2>
-
-  <p>Click below to start voting:</p>
-  <%= link_to "Start Voting", session_path(@session), class: "btn btn-primary" %>
-<% else %>
-  <p>Invalid session link. Please check your link and try again.</p>
+<%= form_with url: guest_vote_path, method: :post, local: true, data: { turbo: false } do |f| %>
+  <%= hidden_field_tag :token, params[:token] %>
+  <div class="field">
+    <%= label_tag :guest_name, "Enter your name" %>
+    <%= text_field_tag :guest_name, nil, class: "input" %>
+  </div>
+  <div class="field">
+    <%= f.submit "Join Session", class: "button is-primary" %>
+  </div>
 <% end %>

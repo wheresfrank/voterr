@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :require_login, except: [:join, :guest_vote]
+  before_action :require_login, except: [:join, :guest_vote, :show_guest]
 
   def new
     @session = Session.new
@@ -27,10 +27,10 @@ class SessionsController < ApplicationController
 
   def show_guest
     @session = Session.find_by(session_token: params[:token])
-    guest_name = session[:guest_name]
+    @guest_name = session[:guest_name]
 
     # Fetch a movie from the session's movies, ensuring it's not yet voted on by the guest
-    @movie = @session.movies.where.not(id: @session.votes.where(guest_name: guest_name).select(:movie_id)).sample
+    @movie = @session.movies.where.not(id: @session.votes.where(guest_name: @guest_name).select(:movie_id)).sample
   end
 
   def join
@@ -43,14 +43,13 @@ class SessionsController < ApplicationController
   def guest_vote
     @session = Session.find_by(session_token: params[:token])
     guest_name = params[:guest_name]
-
+  
     if guest_name.blank?
       flash.now[:alert] = "Name can't be blank."
       render :join
     else
       session[:guest_name] = guest_name
-      @movies = @session.movies.where.not(id: @session.votes.where(guest_name: guest_name).select(:movie_id)).sample(5)
-      render :show_guest
+      redirect_to show_guest_session_path(token: @session.session_token)
     end
   end
 
@@ -61,8 +60,8 @@ class SessionsController < ApplicationController
   end
 
   def require_login
-    unless current_user
-      redirect_to login_path, alert: "You must be logged in to access this page."
+    unless logged_in?
+      redirect_to new_plex_auth_path, alert: "You must be logged in to access this section"
     end
   end
 end

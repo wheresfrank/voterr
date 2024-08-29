@@ -1,3 +1,4 @@
 <%= turbo_frame_tag "session_panel_#{session.id}" do %>
+    <%= link_to 'Join Session', join_session_url(token: @session.session_token) %>
     <p><%= user.movies.count %> Movies in Library</p>
 <% end %>

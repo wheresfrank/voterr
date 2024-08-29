@@ -3,6 +3,7 @@ class VotesController < ApplicationController
     session_token = params[:session_token]
     movie_id = params[:movie_id]
     guest_name = session[:guest_name] || params[:guest_name]
+    positive = params[:positive] == 'true'
 
     @session = Session.find_by(session_token: session_token)
     @movie = @session.movies.find(movie_id)
@@ -11,7 +12,8 @@ class VotesController < ApplicationController
     @vote = @session.votes.create!(
       movie: @movie,
       guest_name: guest_name,
-      user_id: current_user&.id
+      user_id: @session.user.id,
+      positive: positive
     )
 
     if @session.all_participants_voted_for_same_movie?
@@ -34,15 +36,11 @@ class VotesController < ApplicationController
   private
 
   def all_movies_in_batch_voted?(session, guest_name)
-    # Check if all movies in the current batch have been voted on by the guest
     session.movies.count == session.votes.where(guest_name: guest_name).count
   end
 
   def add_new_movies_to_session(session)
-    # Find all movies that are not yet in the session
     remaining_movies = session.user.movies.where.not(id: session.movies.pluck(:id))
-    
-    # Add 5 random new movies to the session
     new_movies = remaining_movies.sample(5)
     session.movies << new_movies
   end

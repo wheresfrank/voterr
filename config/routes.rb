@@ -1,17 +1,24 @@
 Rails.application.routes.draw do
   root 'sessions#index'
-  
-  get 'plex_auth/new', to: 'plex_auth#new', as: :new_plex_auth
-  get 'plex_auth/callback', to: 'plex_auth#callback', as: :callback_plex_auth
 
-  resources :votes, only: [:create]
-
-  resources :sessions, only: [:index, :new, :create, :show] do
-    resources :votes, only: [:create]
-    member do
-      get 'join', to: 'sessions#join', as: :join
-    end
+  # Plex Authentication Routes
+  scope :plex_auth, controller: :plex_auth do
+    get 'new', action: :new, as: :new_plex_auth
+    get 'callback', action: :callback, as: :callback_plex_auth
   end
 
-  get "up" => "rails/health#show", as: :rails_health_check
+  # Sessions and Voting Routes
+  resources :sessions, only: [:index, :new, :create, :show] do
+    resources :votes, only: [:create]
+  end
+
+  # Guest Routes (not nested under resources :sessions)
+  get 'join', to: 'sessions#join', as: :join_session
+  post 'guest_vote', to: 'sessions#guest_vote', as: :guest_vote
+
+  # Guest Session Viewing Route (not nested under resources :sessions)
+  get 'guest/:token', to: 'sessions#show_guest', as: :show_guest_session
+
+  # Health Check Route
+  get "up", to: "rails/health#show", as: :rails_health_check
 end
