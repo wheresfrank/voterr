@@ -10,14 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_28_223431) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_29_030355) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "movies", force: :cascade do |t|
     t.string "title"
     t.string "plex_id"
-    t.bigint "session_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "poster_url"
@@ -29,7 +28,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_28_223431) do
     t.decimal "rating"
     t.string "rating_image"
     t.string "genres", default: [], array: true
-    t.index ["session_id"], name: "index_movies_on_session_id"
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_movies_on_user_id"
+  end
+
+  create_table "movies_sessions", id: false, force: :cascade do |t|
+    t.bigint "movie_id", null: false
+    t.bigint "session_id", null: false
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -59,12 +64,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_28_223431) do
     t.bigint "session_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "guest_name"
     t.index ["movie_id"], name: "index_votes_on_movie_id"
     t.index ["session_id"], name: "index_votes_on_session_id"
     t.index ["user_id"], name: "index_votes_on_user_id"
   end
 
-  add_foreign_key "movies", "sessions"
+  add_foreign_key "movies", "users"
   add_foreign_key "sessions", "users"
   add_foreign_key "votes", "movies"
   add_foreign_key "votes", "sessions"

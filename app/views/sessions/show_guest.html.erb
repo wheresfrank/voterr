@@ -1,0 +1,35 @@
+<h1>Welcome, <%= session[:guest_name] %>!</h1>
+<h2>Vote for Movies</h2>
+<div class="columns is-multiline">
+  <% @movies.each do |movie| %>
+    <div class="column is-one-third">
+      <turbo-frame id="movie_<%= movie[:plex_id] %>">
+        <div class="columns movie">
+          <div class="column">
+            <div class="poster-container">
+              <%= image_tag(movie[:poster_url]) %>
+            </div>
+          </div>
+          <div class="column">
+            <h3 class="subtitle mb-2"><%= movie[:title] %></h3>
+            <p class="mb-2"><%= genres(movie) %></p>
+            <div class="buttons mt-3">
+              <%= form_with url: votes_path, method: :post, local: true do |f| %>
+                <%= hidden_field_tag :movie_id, movie.id %>
+                <%= hidden_field_tag :session_token, @session.session_token %>
+                <%= hidden_field_tag :guest_name, session[:guest_name] %>
+                <%= f.submit "I'd watch this", class: "button is-primary" %>
+              <% end %>
+              <%= form_with url: votes_path, method: :post, local: true do |f| %>
+                <%= hidden_field_tag :movie_id, movie.id %>
+                <%= hidden_field_tag :session_token, @session.session_token %>
+                <%= hidden_field_tag :guest_name, session[:guest_name] %>
+                <%= f.submit "Not interested", class: "button is-danger" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </turbo-frame>
+    </div>
+  <% end %>
+</div>

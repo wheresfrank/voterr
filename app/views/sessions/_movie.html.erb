@@ -1,0 +1,34 @@
+<%= turbo_frame_tag "movie_#{movie.plex_id}" do %>
+  <div class="columns movie">
+    <div class="poster column is-one-third">
+      <div class="poster-container">
+        <%= image_tag(movie.poster_url) %>
+      </div>
+    </div>
+    <div class="column is-flex is-flex-direction-column">
+      <div class="content-wrapper">
+        <h3 class="subtitle mb-2"><%= movie.title %></h3>
+        <p class="mb-2"><%= genres(movie) %></p>
+        <div class="ratings-container is-flex flex-direction-row">
+          <div class="rating-icon"><%= rating_icon(movie) %></div>
+          <div class="pl-2 mr-4"><%= rating_percent(movie.rating) %></div>
+          <div class="rating-icon"><%= audience_rating_icon(movie) %></div>
+          <div class="pl-2"><%= rating_percent(movie.audience_rating) %></div>
+        </div>
+        <hr class="movie-divider">
+        <p class="has-text-weight-bold pb-3"><%= movie.tagline %></p>
+        <p class="mb-5"><%= truncate(movie.summary, length: 400, omission: '...') %></p>
+      </div>
+      <div class="buttons mt-auto mb-2">
+        <%= form_with url: session_votes_path(session, movie_id: movie.id, vote_type: 'positive'), method: :post, local: true do |f| %>
+          <%= hidden_field_tag :session_token, session.session_token %>
+          <%= f.submit "I'd watch this", class: "button is-primary" %>
+        <% end %>
+        <%= form_with url: session_votes_path(session, movie_id: movie.id, vote_type: 'negative'), method: :post, local: true do |f| %>
+          <%= hidden_field_tag :session_token, session.session_token %>
+          <%= f.submit "Not interested", class: "button is-danger" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -2,9 +2,9 @@
 
 <%= link_to "Create a New Session", new_session_path, class: "btn btn-primary" %>
 
-<% if @sessions.any? %>
+<% if current_user.sessions.any? %>
   <ul>
-    <% @sessions.each do |session| %>
+    <% current_user.sessions.each do |session| %>
       <li>
         <%= link_to "Session ##{session.id} - #{session.session_token}", session_path(session) %> 
         <% if session.winner.present? %>
