@@ -1,0 +1,8 @@
+<%= form_with model: @session, url: sessions_path, local: true do |f| %>
+  <div class="new-session-form field">
+    <%= f.label :session_name, "Session Name", class: "label" %>
+    <%= f.text_field :session_name, class: "input", placeholder: "Scary movie night with Chucky" %>
+  </div>
+
+  <%= f.submit "Create Session", class: "button is-primary" %>
+<% end %>

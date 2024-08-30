@@ -1,20 +1,37 @@
-<h1>Your Voting Sessions</h1>
-
-<%= link_to "Create a New Session", new_session_path, class: "btn btn-primary" %>
-
-<% if current_user.sessions.any? %>
-  <ul>
-    <% current_user.sessions.each do |session| %>
-      <li>
-        <%= link_to "Session ##{session.id} - #{session.session_token}", session_path(session) %> 
-        <% if session.winner.present? %>
-          (Winner: <%= session.winner.title %>)
-        <% else %>
-          (In Progress)
+<section class="section">
+  <div class="columns">
+    <div class="column is-one-third">
+      <h2 class="subtitle">Start a Voting Session</h2>
+      <%= render "form", session: @session %>
+      <div class="container mt-5">
+        <hr>
+        <h2 class="subtitle">Sessions in progress</h2>
+        <% if @sessions.in_progress.any? %>
+          <ul>
+            <% @sessions.in_progress.each do |session| %>
+              <li>
+                <%= link_to session.session_name, session_path(session) %>: <%= pluralize(session.votes.count, "vote")%>
+              </li>
+            <% end %>
+          </ul>
         <% end %>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>You have no voting sessions yet.</p>
-<% end %>
+      </div>
+      <hr>
+    </div>
+    <div class="column is two-thirds">
+      <h2 class="subtitle">Recent Winners</h2>
+      <% if @sessions.recent_winners.any? %>
+        <div class="winner-container grid">
+          <% @sessions.recent_winners.each do |session| %>
+            <div class="index-poster-container has-text-centered cell">
+              <p class="mb-2"><%= session.session_name %></p>
+              <%= image_tag session.winner.poster_url %>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p>You don't have any winners yet</p>
+      <% end %>
+    </div>
+  </div>
+</section>

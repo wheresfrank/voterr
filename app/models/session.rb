@@ -10,6 +10,10 @@ class Session < ApplicationRecord
 
   before_validation :generate_session_token, on: :create
 
+  scope :finished, -> { where.not(winner_id: nil).order(created_at: :desc) }
+  scope :recent_winners, -> { where.not(winner_id: nil).order(created_at: :desc).limit(10) }
+  scope :in_progress, -> { where(winner_id: nil).order(created_at: :desc) }
+
   def all_participants_voted_for_same_movie?
     votes.where(positive: true).group(:movie_id).having('count(distinct voter_id) = ?', unique_participants).exists?
   end

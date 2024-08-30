@@ -20,6 +20,11 @@ class SessionsController < ApplicationController
     end
   end
 
+  def index
+    @session = Session.new
+    @sessions = current_user.sessions
+  end
+
   def show
     @user = current_user
     @session = Session.find(params[:id])
