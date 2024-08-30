@@ -8,7 +8,7 @@
     <div class="column is-flex is-flex-direction-column">
       <div class="content-wrapper">
         <h3 class="subtitle mb-2"><%= movie.title %></h3>
-        <p class="mb-2"><%= genres(movie) %></p>
+        <p class="mb-2"><%= genres(movie) %> | Content Rating: <%= movie.content_rating || 'Unknown' %></p>
         <div class="ratings-container is-flex flex-direction-row">
           <div class="rating-icon"><%= rating_icon(movie) %></div>
           <div class="pl-2 mr-4"><%= rating_percent(movie.rating) %></div>

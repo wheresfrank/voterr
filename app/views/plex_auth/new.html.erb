@@ -1,5 +1,35 @@
-<h1>Authenticate with Plex</h1>
-
-<p>Please authenticate with your Plex account to create voting sessions.</p>
-
-<%= link_to "Authenticate with Plex", new_plex_auth_path, class: "btn btn-primary" %>
+<div class="content">
+  <div class="hero is-medium" style="background-image: linear-gradient(rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%), url('https://cdn.usegalileo.ai/sdxl10/e4449e0e-c56b-4d0e-aa2e-e8604415abac.png'); background-size: cover; background-position: center;">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <h1 class="title is-1 mb-3">VOTERR</h1>
+        <h1 class="subtitle mb-5">Pick a movie to watch with friends</h1>
+            <%= link_to "Log in with Plex", @auth_url, class: "button is-warning" %>
+      </div>
+    </div>
+  </div>
+  <section class="section">
+    <h2 class="title is-3 mt-5">How it works</h2>
+    <div class="columns is-multiline">
+        <% [
+        { title: 'Log in with Plex', description: 'Connect to Plex to vote on the movies in your Plex library. Only movies in your Plex library will be available.', image: 'https://cdn.usegalileo.ai/stability/0a7e06d4-6aef-45fc-ba73-4abfc2f47a73.png' },
+        { title: 'Start a session', description: 'Share your invite link with your friends to vote on movies. As many friends as you want can join.', image: 'https://cdn.usegalileo.ai/stability/0a54fe8d-a5f8-44f4-92e6-124c74769273.png' },
+        { title: 'Vote', description: 'You and your friends vote on movies. When a movie receives votes from everyone it is declaired the winner.', image: 'https://cdn.usegalileo.ai/stability/e8b497cf-9815-4b5c-9d10-c2a6aeb01792.png' }
+        ].each do |tile| %>
+        <div class="column is-one-third">
+            <div class="card">
+            <div class="card-image">
+                <figure class="image is-16by9">
+                <%= image_tag tile[:image] %>
+                </figure>
+            </div>
+            <div class="card-content">
+                <p class="title is-5"><%= tile[:title] %></p>
+                <p class="subtitle is-6 has-text-grey"><%= tile[:description] %></p>
+            </div>
+            </div>
+        </div>
+        <% end %>
+    </div>
+  </section>
+</div>

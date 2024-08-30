@@ -5,7 +5,6 @@ class PlexAuthController < ApplicationController
     @auth_url = plex_auth_url(@client_id, @pin['code'])
     session[:plex_client_id] = @client_id
     session[:plex_pin_id] = @pin['id']
-    redirect_to @auth_url, allow_other_host: true
   end
 
   def callback
