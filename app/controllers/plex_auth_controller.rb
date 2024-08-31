@@ -13,13 +13,18 @@ class PlexAuthController < ApplicationController
     auth_token = check_pin_status(pin_id, client_id)
   
     if auth_token
+      email = extract_email_from_plex(auth_token)
       server_id = fetch_plex_server_id(auth_token, client_id)
-      user = User.find_or_create_by(plex_client_id: client_id) do |u|
-        u.plex_token = auth_token
-        u.email = extract_email_from_plex(auth_token)
-        u.plex_server_id = server_id
-        u.name = extract_username_from_plex(auth_token)
-      end
+      username = extract_username_from_plex(auth_token)
+  
+      user = User.find_or_initialize_by(email: email) # Find user by email
+      user.update!(
+        plex_token: auth_token,
+        plex_client_id: client_id,
+        plex_server_id: server_id,
+        name: username
+      )
+  
       session[:user_id] = user.id
       FetchAndStoreMoviesJob.perform_now(user)
       redirect_to root_path, notice: 'Successfully authenticated with Plex!'

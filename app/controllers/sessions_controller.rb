@@ -33,6 +33,12 @@ class SessionsController < ApplicationController
     @movie = @session.movies.where.not(id: @session.votes.where(user_id: @user.id).select(:movie_id)).sample
   end
 
+  def destroy
+    @session = Session.find(params[:id])
+    @session.destroy
+    redirect_to sessions_path, notice: "Session was successfully deleted."
+  end
+
   def show_guest
     @session = Session.find_by(session_token: params[:token])
     @guest_name = session[:guest_name]
@@ -67,6 +73,11 @@ class SessionsController < ApplicationController
     end
   end
 
+  def logout
+    session[:user_id] = nil
+    redirect_to root_path, notice: "You have been logged out."
+  end
+  
   private
 
   def session_params

@@ -8,9 +8,11 @@ Rails.application.routes.draw do
   end
 
   # Sessions and Voting Routes
-  resources :sessions, only: [:index, :new, :create, :show] do
+  resources :sessions, only: [:index, :new, :create, :show, :destroy] do
     resources :votes, only: [:create]
   end
+
+  delete 'logout', to: 'sessions#logout', as: :logout
 
   # Guest Routes (not nested under resources :sessions)
   get 'join', to: 'sessions#join', as: :join_session
