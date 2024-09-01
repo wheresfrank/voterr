@@ -224,6 +224,7 @@ GEM
       io-console (~> 0.5)
     rexml (3.3.6)
       strscan
+    rubygems-update (3.5.18)
     rubyzip (2.3.2)
     sassc (2.4.0)
       ffi (~> 1.9)
@@ -295,6 +296,7 @@ DEPENDENCIES
   puma (>= 5.0)
   rails (~> 7.1.4)
   redis (>= 4.0.1)
+  rubygems-update (>= 3.3.22)
   sassc
   selenium-webdriver
   sidekiq
