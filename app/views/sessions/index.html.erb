@@ -25,7 +25,7 @@
           <% @sessions.recent_winners.each do |session| %>
             <div class="index-poster-container has-text-centered cell">
               <p class="mb-2"><%= session.session_name %></p>
-              <%= image_tag session.winner.poster_url %>
+              <%= image_tag(proxy_image_url(url: session.winner.poster_url)) %>
             </div>
           <% end %>
         </div>

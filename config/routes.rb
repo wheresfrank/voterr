@@ -22,6 +22,9 @@ Rails.application.routes.draw do
   # Guest Session Viewing Route (not nested under resources :sessions)
   get 'guest/:token', to: 'sessions#show_guest', as: :show_guest_session
 
+  # Image Proxy
+  get '/proxy_image', to: 'images#proxy'
+
   # Health Check Route
   get "up", to: "rails/health#show", as: :rails_health_check
 end
