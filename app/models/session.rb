@@ -17,12 +17,8 @@ class Session < ApplicationRecord
   broadcasts
 
   def all_participants_voted_for_same_movie?
-    votes.where(positive: true).group(:movie_id).having('count(distinct voter_id) = ?', unique_participants).exists?
-  end
-
-  def all_participants_voted_for_same_movie?
     total_voters = voters.count
-    return false if total_voters == 0
+    return false if total_voters < 2
   
     votes.where(positive: true)
          .group(:movie_id)
