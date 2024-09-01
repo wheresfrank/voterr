@@ -1,0 +1,6 @@
+<% session.voters.each do |voter| %>
+    <div class="mb-2">
+        <p class="has-text-weight-bold"><%= voter.name %></p>
+        <p>Votes: <%= voter.votes.count %>
+    </div>
+<% end %>

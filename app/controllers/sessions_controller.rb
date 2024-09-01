@@ -65,6 +65,13 @@ class SessionsController < ApplicationController
       session[:guest_name] = guest_name
       voter = @session.voters.create!(name: guest_name, user: @session.user) unless @session.voters.exists?(name: guest_name)
       @movie = @session.movies.where.not(id: voter.votes.select(:movie_id)).sample
+      
+      Turbo::StreamsChannel.broadcast_update_to(
+        @session, 
+        target: "voters-session-#{@session.id}",
+        partial: "sessions/voters", 
+        locals: { session: @session }
+      )
 
       respond_to do |format|
         format.html { redirect_to show_guest_session_path(@session.session_token) }

@@ -3,10 +3,10 @@
     <div class="column is-one-third">
       <h2 class="subtitle">Start a Voting Session</h2>
       <%= render "form", session: @session %>
-      <div class="container mt-5">
-        <hr>
-        <h2 class="subtitle">Sessions in progress</h2>
-        <% if @sessions.in_progress.any? %>
+      <% if @sessions.in_progress.any? %>
+        <div class="container mt-5">
+          <hr>
+          <h2 class="subtitle">Sessions in progress</h2>
           <ul>
             <% @sessions.in_progress.each do |session| %>
               <li>
@@ -14,8 +14,8 @@
               </li>
             <% end %>
           </ul>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
       <hr>
     </div>
     <div class="column is two-thirds">

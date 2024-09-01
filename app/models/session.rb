@@ -14,6 +14,8 @@ class Session < ApplicationRecord
   scope :recent_winners, -> { where.not(winner_id: nil).order(created_at: :desc).limit(10) }
   scope :in_progress, -> { where(winner_id: nil).order(created_at: :desc) }
 
+  broadcasts
+
   def all_participants_voted_for_same_movie?
     votes.where(positive: true).group(:movie_id).having('count(distinct voter_id) = ?', unique_participants).exists?
   end

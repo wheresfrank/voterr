@@ -14,12 +14,7 @@
         <hr class="movie-divider">
     <% end %>
     <p class="subtitle"><%= user.movies.count %> Movies in Library</p>
-    <div id="voters-session-<%= session.id %>">
-        <% session.voters.each do |voter| %>
-            <div class="mb-2">
-                <p class="has-text-weight-bold"><%= voter.name %></p>
-                <p>Votes: <%= voter.votes.count %>
-            </div>
-        <% end %>
-    </div>
+    <%= turbo_frame_tag "voters-session-#{session.id}" do %>
+        <%= render partial: 'voters', locals: { session: session } %>
+    <% end %>
 <% end %>
