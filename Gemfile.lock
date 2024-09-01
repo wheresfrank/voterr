@@ -108,12 +108,7 @@ GEM
       logger
     faraday-net_http (3.3.0)
       net-http
-    ffi (1.17.0-aarch64-linux-gnu)
-    ffi (1.17.0-arm-linux-gnu)
-    ffi (1.17.0-arm64-darwin)
-    ffi (1.17.0-x86-linux-gnu)
-    ffi (1.17.0-x86_64-darwin)
-    ffi (1.17.0-x86_64-linux-gnu)
+    ffi (1.16.3)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.5)
@@ -224,7 +219,6 @@ GEM
       io-console (~> 0.5)
     rexml (3.3.6)
       strscan
-    rubygems-update (3.5.18)
     rubyzip (2.3.2)
     sassc (2.4.0)
       ffi (~> 1.9)
@@ -289,6 +283,7 @@ DEPENDENCIES
   debug
   error_highlight (>= 0.4.0)
   faraday
+  ffi (< 1.17.0)
   importmap-rails
   jbuilder
   nokogiri
@@ -296,7 +291,6 @@ DEPENDENCIES
   puma (>= 5.0)
   rails (~> 7.1.4)
   redis (>= 4.0.1)
-  rubygems-update (>= 3.3.22)
   sassc
   selenium-webdriver
   sidekiq
