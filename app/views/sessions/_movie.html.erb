@@ -19,11 +19,13 @@
         <p class="has-text-weight-bold pb-3"><%= movie.tagline %></p>
         <p class="mb-5"><%= truncate(movie.summary, length: 400, omission: '...') %></p>
       </div>
-      <% if session.winner.present?%>
-          <%= link_to "Open in Plex", "https://app.plex.tv/desktop#!/server/#{@session.user.plex_server_id}/details?key=%2Flibrary%2Fmetadata%2F#{@session.winner.plex_id}", target: "_blank", class: "button is-warning" if current_user %>
-      <% else %>
-        <%= render 'sessions/vote_buttons', session: session, movie: movie %>
-      <% end %>
+      <div class="mt-auto mb-2">
+        <% if session.winner.present?%>
+            <%= link_to "Open in Plex", "https://app.plex.tv/desktop#!/server/#{@session.user.plex_server_id}/details?key=%2Flibrary%2Fmetadata%2F#{@session.winner.plex_id}", target: "_blank", class: "button is-warning" if current_user %>
+        <% else %>
+          <%= render 'sessions/vote_buttons', session: session, movie: movie %>
+        <% end %>
+      </div>
     </div>
   </div>
 <% end %>
