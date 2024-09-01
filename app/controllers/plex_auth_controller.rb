@@ -26,7 +26,7 @@ class PlexAuthController < ApplicationController
       )
   
       session[:user_id] = user.id
-      FetchAndStoreMoviesJob.perform_now(user)
+      FetchAndStoreMoviesJob.perform_later(user)
       redirect_to root_path, notice: 'Successfully authenticated with Plex!'
     else
       redirect_to root_path, alert: 'Failed to authenticate with Plex.'

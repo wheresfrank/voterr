@@ -1,12 +1,19 @@
-<h1>Join Voting Session</h1>
-
-<%= form_with url: guest_vote_path, method: :post, local: true, data: { turbo: false } do |f| %>
-  <%= hidden_field_tag :token, params[:token] %>
-  <div class="field">
-    <%= label_tag :guest_name, "Enter your name" %>
-    <%= text_field_tag :guest_name, nil, class: "input" %>
+<div class="hero is-medium is-dark">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <%= image_tag("voterr_logo_white.svg", class: "landing-logo") %>
+      <h2 class="subtitle mb-5">Enter your name below to help <%= @session.user.name %> choose a movie. </h1>
+      <%= form_with url: guest_vote_path, method: :post, local: true, data: { turbo: false } do |f| %>
+        <%= hidden_field_tag :token, params[:token] %>
+        <div class="field">
+          <%= text_field_tag :guest_name, nil, class: "input mt-4" , placeholder: "Your name" %>
+        </div>
+        <div class="field">
+          <%= f.submit "Join Session", class: "button is-warning" %>
+        </div>
+      <% end %>
+      <p class="mt-5">After joining you'll be shown available movies to vote on.</p>
+      <p>Get the popcorn ready.</p>
+    </div>
   </div>
-  <div class="field">
-    <%= f.submit "Join Session", class: "button is-primary" %>
-  </div>
-<% end %>
+</div>

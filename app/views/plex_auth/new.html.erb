@@ -1,10 +1,10 @@
 <div class="content">
-  <div class="hero is-medium" style="background-image: linear-gradient(rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%), url('https://cdn.usegalileo.ai/sdxl10/e4449e0e-c56b-4d0e-aa2e-e8604415abac.png'); background-size: cover; background-position: center;">
+  <div class="hero is-small is-dark">
     <div class="hero-body">
       <div class="container has-text-centered">
-        <h1 class="title is-1 mb-3">VOTERR</h1>
+        <%= image_tag("voterr_logo_white.svg", class: "landing-logo") %>
         <h1 class="subtitle mb-5">Pick a movie to watch with friends</h1>
-            <%= link_to "Log in with Plex", @auth_url, class: "button is-warning" %>
+            <%= link_to "Log in with Plex", @auth_url, class: "button is-large is-warning" %>
       </div>
     </div>
   </div>
@@ -18,15 +18,12 @@
         ].each do |tile| %>
         <div class="column is-one-third">
             <div class="card">
-            <div class="card-image">
-                <figure class="image is-16by9">
-                <%= image_tag tile[:image] %>
-                </figure>
-            </div>
-            <div class="card-content">
-                <p class="title is-5"><%= tile[:title] %></p>
-                <p class="subtitle is-6 has-text-grey"><%= tile[:description] %></p>
-            </div>
+              <header class="card-header">
+                <p class="card-header-title"><%= tile[:title] %></p>
+              </header>
+              <div class="card-content">
+                  <p class="subtitle is-6 has-text-grey"><%= tile[:description] %></p>
+              </div>
             </div>
         </div>
         <% end %>
