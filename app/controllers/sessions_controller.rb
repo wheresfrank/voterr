@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     @session = current_user.sessions.new(session_params)
     if @session.save
       # Create a voter for the main user
-      @session.voters.create!(name: current_user.name, user: @session.user)
+      @session.voters.create!(name: current_user.name, user: @session.user, session_owner: true)
 
       selected_movies = current_user.movies.sample(5)
       @session.movies << selected_movies
@@ -63,9 +63,9 @@ class SessionsController < ApplicationController
       render :join
     else
       session[:guest_name] = guest_name
-      voter = @session.voters.create!(name: guest_name, user: @session.user) unless @session.voters.exists?(name: guest_name)
+      voter = @session.voters.create!(name: guest_name, user: @session.user, session_owner: false) unless @session.voters.exists?(name: guest_name)
       @movie = @session.movies.where.not(id: voter.votes.select(:movie_id)).sample
-      
+
       Turbo::StreamsChannel.broadcast_update_to(
         @session, 
         target: "voters-session-#{@session.id}",

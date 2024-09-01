@@ -1,6 +1,14 @@
 <% session.voters.each do |voter| %>
-    <div class="mb-2">
-        <p class="has-text-weight-bold"><%= voter.name %></p>
-        <p>Votes: <%= voter.votes.count %>
+<div class="mb-2 is-flex is-justify-content-space-between">
+    <div>
+    <p class="has-text-weight-bold"><%= voter.name %></p>
+    <p>Votes: <%= voter.votes.count %></p>
     </div>
+    <% if current_user && !voter.session_owner %>
+        <%= button_to '', session_voter_path(session_id: session.id, id: voter.id), 
+                        method: :delete, 
+                        class: 'delete',
+                        data: { turbo_confirm: "Are you sure you want to remove #{voter.name}?" } %>
+    <% end %>
+</div>
 <% end %>

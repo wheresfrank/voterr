@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   # Sessions and Voting Routes
   resources :sessions, only: [:index, :new, :create, :show, :destroy] do
     resources :votes, only: [:create]
+    resources :voters, only: [:destroy]
   end
 
   delete 'logout', to: 'sessions#logout', as: :logout

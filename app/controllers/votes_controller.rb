@@ -40,6 +40,13 @@ class VotesController < ApplicationController
         end
       end
     end
+
+    Turbo::StreamsChannel.broadcast_update_to(
+      @session, 
+      target: "voters-session-#{@session.id}",
+      partial: "sessions/voters", 
+      locals: { session: @session }
+    )
   end
 
   private
