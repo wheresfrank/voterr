@@ -24,7 +24,7 @@ class FetchAndStoreMoviesJob < ApplicationJob
         unless user.movies.exists?(plex_id: video.attr('ratingKey'))
           user.movies.create(
             title: video.attr('title'),
-            poster_url: "http://#{server_info[:ip]}:#{server_info[:port]}#{video.attr('thumb')}?X-Plex-Token=#{user.plex_token}",
+            poster_url: "https://#{server_info[:ip]}:#{server_info[:port]}#{video.attr('thumb')}?X-Plex-Token=#{user.plex_token}",
             plex_id: video.attr('ratingKey'),
             genres: extract_genres(video),
             tagline: video.attr('tagline'),
