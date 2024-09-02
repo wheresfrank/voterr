@@ -1,32 +1,92 @@
 <div class="content">
-  <div class="hero is-small is-dark">
+  <section class="hero is-medium is-dark">
     <div class="hero-body">
       <div class="container has-text-centered">
-        <%= image_tag("voterr_logo_white.svg", class: "landing-logo") %>
-        <h1 class="subtitle mb-5">Pick a movie to watch with friends</h1>
-            <%= link_to "Log in with Plex", @auth_url, class: "button is-large is-warning" %>
+        <%= image_tag("voterr_logo_white.svg", class: "landing-logo mb-5") %>
+        <h1 class="title is-2 mb-4">Movie Night Made Easy</h1>
+        <h2 class="subtitle is-4 mb-5">Democratize your movie nights with friends using your Plex library</h2>
+        <%= link_to "Get Started with Plex", @auth_url, class: "button is-warning is-large is-rounded has-text-weight-bold px-6" %>
       </div>
     </div>
-  </div>
+  </section>
+
   <section class="section">
-    <h2 class="title is-3 mt-5">How it works</h2>
-    <div class="columns is-multiline">
+    <div class="container">
+      <h2 class="title is-2 has-text-centered mb-6">How Voterr Works</h2>
+      <div class="columns is-multiline">
         <% [
-        { title: 'Log in with Plex', description: 'Connect to Plex to vote on the movies in your Plex library. Only movies in your Plex library will be available.', image: 'https://cdn.usegalileo.ai/stability/0a7e06d4-6aef-45fc-ba73-4abfc2f47a73.png' },
-        { title: 'Start a session', description: 'Share your invite link with your friends to vote on movies. As many friends as you want can join.', image: 'https://cdn.usegalileo.ai/stability/0a54fe8d-a5f8-44f4-92e6-124c74769273.png' },
-        { title: 'Vote', description: 'You and your friends vote on movies. When a movie receives votes from everyone it is declaired the winner.', image: 'https://cdn.usegalileo.ai/stability/e8b497cf-9815-4b5c-9d10-c2a6aeb01792.png' }
+          { 
+            title: 'Connect with Plex',
+            description: "Seamlessly integrate with your Plex account to access your personal movie library. Voterr ensures that you and your friends only vote on the movies available in your collection.",
+            icon: 'fas fa-link'
+          },
+          { 
+            title: 'Create a Voting Session',
+            description: "Initiate a movie night by starting a new session. Share a unique invite link with your friends, allowing them to join and participate in the voting process. There's no limit to how many friends can join!",
+            icon: 'fas fa-users'
+          },
+          { 
+            title: 'Vote and Enjoy',
+            description: "Cast your votes on the available movies. When a movie receives unanimous approval from all participants, it's declared the winner. Say goodbye to indecision and hello to your next great movie night!",
+            icon: 'fas fa-check-circle'
+          }
         ].each do |tile| %>
-        <div class="column is-one-third">
+          <div class="column is-one-third">
             <div class="card">
-              <header class="card-header">
-                <p class="card-header-title"><%= tile[:title] %></p>
-              </header>
               <div class="card-content">
-                  <p class="subtitle is-6 has-text-grey"><%= tile[:description] %></p>
+                <div class="has-text-centered mb-4">
+                  <span class="icon is-large has-text-warning">
+                    <i class="<%= tile[:icon] %> fa-3x"></i>
+                  </span>
+                </div>
+                <p class="title is-4 has-text-centered mb-4"><%= tile[:title] %></p>
+                <div class="content">
+                  <p><%= tile[:description] %></p>
+                </div>
               </div>
             </div>
-        </div>
+          </div>
         <% end %>
+      </div>
+    </div>
+  </section>
+
+  <section class="section has-background-warning">
+    <div class="container">
+      <h2 class="title is-2 has-text-centered mb-6">Why Choose Voterr?</h2>
+      <div class="columns is-multiline">
+        <div class="column is-half">
+          <div class="box">
+            <h3 class="title is-4"><i class="fas fa-film mr-2"></i>Personalized Selection</h3>
+            <p>Vote only on movies from your Plex library, ensuring every option is available to watch.</p>
+          </div>
+        </div>
+        <div class="column is-half">
+          <div class="box">
+            <h3 class="title is-4"><i class="fas fa-handshake mr-2"></i>Democratic Decision-Making</h3>
+            <p>Everyone's vote counts equally, making sure the chosen movie is a group favorite.</p>
+          </div>
+        </div>
+        <div class="column is-half">
+          <div class="box">
+            <h3 class="title is-4"><i class="fas fa-clock mr-2"></i>Save Time</h3>
+            <p>No more endless scrolling or debates. Quickly find a movie everyone wants to watch.</p>
+          </div>
+        </div>
+        <div class="column is-half">
+          <div class="box">
+            <h3 class="title is-4"><i class="fas fa-smile mr-2"></i>Enhance Movie Nights</h3>
+            <p>Make movie selection a fun part of the experience, not a chore.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container has-text-centered">
+      <h2 class="title is-2 mb-6">Ready to Transform Your Movie Nights?</h2>
+      <%= link_to "Start Voting Now", @auth_url, class: "button is-warning is-large is-rounded has-text-weight-bold px-6" %>
     </div>
   </section>
 </div>

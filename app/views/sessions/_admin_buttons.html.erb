@@ -1,0 +1,4 @@
+<%= link_to "Back to Dashboard", sessions_path, class: "button", data: { turbo: false } %>
+<%= form_with url: session_path(session), method: :delete, data: { turbo: false, confirm: "Are you sure you want to delete this session?" }, local: true do |form| %>
+    <%= form.submit "Delete Session", class: "button is-danger" %>
+<% end %>

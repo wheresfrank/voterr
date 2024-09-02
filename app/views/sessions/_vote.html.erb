@@ -6,17 +6,18 @@
     <% else %>
         <div class="columns is-multiline">
             <div class="column is-two-thirds">
-                <%= turbo_frame_tag "movie_#{@movie.plex_id}" do %>
-                    <% if @movie %>
+                <% if @movie %>
+                    <%= turbo_frame_tag "movie_#{@movie.plex_id}" do %>
                         <%= render "sessions/movie", movie: @movie, session: @session %>
-                    <% else %>
-                        <h2>No more movies to vote on.</h2>
                     <% end %>
+                <% else %>
+                    <h2 class="subtitle">Error loading movies</h2>
+                    <p>Movies may still be loading in the background. Try deleting session and creating a new session.</p>
                 <% end %>
             </div>
             <div class="column">
                 <%= turbo_frame_tag "session_panel_#{@session.id}" do %>
-                <%= render "sessions/voting_stats", session: @session, user: @session.user %>
+                    <%= render "sessions/voting_stats", session: @session, user: @session.user %>
                 <% end %>
             </div>
         </div>
