@@ -1,23 +1,25 @@
-<nav class="navbar is-warning" role="navigation" aria-label="main navigation">
+<nav class="navbar is-warning" role="navigation" aria-label="main navigation" data-controller="navbar">
   <div class="navbar-brand">
     <%= link_to root_path, class: "navbar-item", alt: "Voterr Logo" do %>
-        <%= image_tag("voterr_logo.svg", alt: "Voterr Logo") %>
-    <% end%>
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <%= image_tag("voterr_logo.svg", alt: "Voterr Logo") %>
+    <% end %>
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-action="click->navbar#toggleMenu" data-navbar-target="burger">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
     </a>
   </div>
-
-  <div id="navbarBasicExample" class="navbar-menu">
+  <div id="navbar" class="navbar-menu" data-navbar-target="menu">
+    <div class="navbar-start">
+      <!-- Add your navbar start items here -->
+    </div>
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-            <% if current_user %>
-                <%= button_to "Logout", logout_path, method: :delete, data: { turbo: false, confirm: "Are you sure you want to log out?" }, class: "button" %>
-            <% end %>
+          <% if current_user %>
+            <%= button_to "Logout", logout_path, method: :delete, data: { turbo: false, confirm: "Are you sure you want to log out?" }, class: "button" %>
+          <% end %>
         </div>
       </div>
     </div>
