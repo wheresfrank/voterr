@@ -16,6 +16,24 @@ Voterr is an open-source web application that democratizes movie night decisions
 - Mobile-responsive design
 - Open movie in Plex from the winner page
 
+## Screenshots
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <img src="app/assets/images/screenshot_dash.png" alt="Dashboard" width="100%"><br>
+      <em>Dashboard - See past winners and ongoing voting sessions.</em>
+    </td>
+    <td align="center" width="33%">
+      <img src="app/assets//images/screenshot_vote.png" alt="Vote Page" width="100%"><br>
+      <em>Vote Page - Vote on movies and get see the voting progress of friends.</em>
+    </td>
+    <td align="center" width="33%">
+      <img src="app/assets/images/screenshot_mobile.png" alt="Mobile" width="100%"><br>
+      <em>Mobile - Everything looks good on mobile devices too</em>
+    </td>
+  </tr>
+</table>
+
 ## Tech Stack
 
 - Ruby 3.1.1
