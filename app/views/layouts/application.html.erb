@@ -1,15 +1,52 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Voterr</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title><%= content_for?(:title) ? yield(:title) : "Voterr - Democratize Your Movie Nights" %></title>
+  
+  <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Voterr helps you and your friends choose movies from your Plex library for the perfect movie night. Vote, decide, and enjoy together!" %>">
+  
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+  
+  <%= favicon_link_tag asset_path('favicon.png') %>
+  
+  <link rel="canonical" href="<%= request.original_url %>">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="<%= request.original_url %>">
+  <meta property="og:title" content="<%= content_for?(:title) ? yield(:title) : "Voterr - Democratize Your Movie Nights" %>">
+  <meta property="og:description" content="<%= content_for?(:description) ? yield(:description) : "Voterr helps you and your friends choose movies from your Plex library for the perfect movie night. Vote, decide, and enjoy together!" %>">
+  <meta property="og:image" content="<%= asset_url('voterr_logo.svg') %>">
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-    <%= favicon_link_tag asset_path('favicon.png') %>
-  </head>
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="<%= request.original_url %>">
+  <meta property="twitter:title" content="<%= content_for?(:title) ? yield(:title) : "Voterr - Democratize Your Movie Nights" %>">
+  <meta property="twitter:description" content="<%= content_for?(:description) ? yield(:description) : "Voterr helps you and your friends choose movies from your Plex library for the perfect movie night. Vote, decide, and enjoy together!" %>">
+  <meta property="twitter:image" content="<%= asset_url('voterr_logo.svg') %>">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Voterr",
+    "description": "Voterr helps you and your friends choose movies from your Plex library for the perfect movie night. Vote, decide, and enjoy together!",
+    "url": "<%= request.base_url %>",
+    "applicationCategory": "EntertainmentApplication",
+    "operatingSystem": "Web"
+  }
+  </script>
+
+  <%= yield(:head) %>
+</head>
 
   <body>
     <%= render "layouts/navbar" %>
