@@ -1,11 +1,4 @@
 <%= turbo_stream_from @session %>
-<section class="hero is-warning">
-  <div class="hero-body">
-    <p class="title">Hi <%= @guest_name %>, what are we watching?</p>
-    <p class="subtitle">Keep voting on movies. When all your friends agree on a movie we'll display the winner</p>
-  </div>
-</section>
-
 <%= turbo_frame_tag "session_#{@session.id}" do %>
   <%= render "vote", session: @session %>
 <% end %>

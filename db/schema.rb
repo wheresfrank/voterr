@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_01_210756) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_02_054734) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -29,6 +29,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_01_210756) do
     t.string "rating_image"
     t.string "genres", default: [], array: true
     t.bigint "user_id", null: false
+    t.integer "year"
+    t.integer "duration"
     t.index ["user_id"], name: "index_movies_on_user_id"
   end
 

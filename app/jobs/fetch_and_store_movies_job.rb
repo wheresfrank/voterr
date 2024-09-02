@@ -166,6 +166,8 @@ class FetchAndStoreMoviesJob < ApplicationJob
       title: movie['title'],
       poster_url: "#{library[:uri]}#{movie['thumb']}?X-Plex-Token=#{library[:access_token]}",
       genres: movie['Genre']&.map { |g| g['tag'] } || [],
+      year: movie['year'],
+      duration: movie['duration'],
       tagline: movie['tagline'],
       summary: movie['summary'],
       content_rating: movie['contentRating'],

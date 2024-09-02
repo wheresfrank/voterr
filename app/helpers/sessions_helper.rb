@@ -20,6 +20,11 @@ module SessionsHelper
     movie[:genres].join(', ')
   end
 
+  def duration(movie)
+    duration = ActiveSupport::Duration.build(movie['duration'] / 1000).parts
+    "#{pluralize(duration[:hours], 'hours')} #{pluralize(duration[:minutes], 'minutes')}"
+  end
+
   def audience_rating_icon(movie)
     audience_rating = movie[:audience_rating].to_f
 
@@ -30,10 +35,6 @@ module SessionsHelper
         audience_rating_negative_icon
       end
     end
-  end
-
-  def genres(movie)
-    movie[:genres].join(', ')
   end
 
   def ripe_icon
