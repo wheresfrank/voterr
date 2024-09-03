@@ -64,6 +64,7 @@ class VotesController < ApplicationController
   end
 
   def add_new_movies_to_session(movies)
+    movies = movies.unwatched if @session.only_unwatched
     # Add 5 new random movies
     new_movies = movies.sample(5)
     @session.movies << new_movies

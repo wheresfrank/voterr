@@ -7,11 +7,13 @@ class SessionsController < ApplicationController
 
   def create
     @session = current_user.sessions.new(session_params)
+    byebug
+    @movies = @session.only_unwatched ? current_user.movies.unwatched : current_user.movies
     if @session.save
       # Create a voter for the main user
       @session.voters.create!(name: current_user.name, user: @session.user, session_owner: true)
 
-      selected_movies = current_user.movies.sample(5)
+      selected_movies = @movies.sample(5)
       @session.movies << selected_movies
 
       redirect_to @session, notice: 'Session created successfully!'
@@ -88,7 +90,7 @@ class SessionsController < ApplicationController
   private
 
   def session_params
-    params.require(:session).permit(:session_name)
+    params.require(:session).permit(:session_name, :only_unwatched)
   end
 
   def require_login
