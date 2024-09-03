@@ -3,6 +3,10 @@
     <%= f.label :session_name, "Session Name", class: "label" %>
     <%= f.text_field :session_name, class: "input", placeholder: "Scary movie night with Chucky" %>
   </div>
-
+  <div class="field">
+    <label class="checkbox">
+      <%= f.check_box :only_unwatched %> Only include unwatched movies
+    </label>
+  </div>
   <%= f.submit "Create Session", class: "button is-primary" %>
 <% end %>

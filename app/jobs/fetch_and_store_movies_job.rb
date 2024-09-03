@@ -146,6 +146,7 @@ class FetchAndStoreMoviesJob < ApplicationJob
 
       if response.status == 200
         movies = JSON.parse(response.body)['MediaContainer']['Metadata']
+        
         Rails.logger.info("Found #{movies.length} movies in library #{library[:title]}")
         movies.each do |movie|
           create_or_update_movie(user, movie, library)
@@ -172,7 +173,8 @@ class FetchAndStoreMoviesJob < ApplicationJob
       summary: movie['summary'],
       content_rating: movie['contentRating'],
       audience_rating: movie['audienceRating'],
-      rating: movie['rating']
+      rating: movie['rating'],
+      unwatched: movie['viewCount'].to_i == 0
     )
     Rails.logger.info("Created or updated movie: #{movie['title']}")
   end

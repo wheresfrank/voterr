@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_02_054734) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_03_020048) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,6 +31,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_02_054734) do
     t.bigint "user_id", null: false
     t.integer "year"
     t.integer "duration"
+    t.boolean "unwatched", default: false
     t.index ["user_id"], name: "index_movies_on_user_id"
   end
 
@@ -47,6 +48,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_02_054734) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "session_name"
+    t.boolean "only_unwatched", default: false
     t.index ["user_id"], name: "index_sessions_on_user_id"
     t.index ["winner_type", "winner_id"], name: "index_sessions_on_winner"
   end
