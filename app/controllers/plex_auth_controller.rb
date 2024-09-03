@@ -61,11 +61,7 @@ class PlexAuthController < ApplicationController
       'X-Plex-Platform' => 'Web',
       'X-Plex-Platform-Version' => PLEX_VERSION,
       'X-Plex-Device' => 'Browser',
-      'X-Plex-Device-Name' => 'Voterr Web App',
-      'X-Plex-Model' => 'Voterr',
-      'X-Plex-Sync-Version' => '2',
-      'X-Plex-Features' => 'external-media,indirect-media',
-      'X-Plex-Language' => 'en'
+      'X-Plex-Device-Name' => 'Voterr Web App'
     }
   end
 
@@ -109,19 +105,27 @@ class PlexAuthController < ApplicationController
   def plex_auth_url(pin_code)
     base_url = "https://app.plex.tv/auth#"
     params = {
-      'clientID' => VOTERR_CLIENT_ID,
-      'code' => pin_code,
-      'context[device][product]' => PLEX_PRODUCT,
-      'context[device][version]' => PLEX_VERSION,
-      'context[device][platform]' => 'Web',
-      'context[device][platformVersion]' => PLEX_VERSION,
-      'context[device][device]' => 'Browser',
-      'context[device][deviceName]' => 'Voterr Web App',
-      'context[device][model]' => 'Voterr',
-      'context[device][screenResolution]' => '1920x1080',
-      'context[device][layout]' => 'desktop',
-      'context[device][language]' => 'en',
-      'forwardUrl' => callback_plex_auth_url
+      clientID: VOTERR_CLIENT_ID,
+      code: pin_code,
+      context: {
+        device: {
+          product: PLEX_PRODUCT,
+          version: PLEX_VERSION,
+          platform: 'Web',
+          platformVersion: PLEX_VERSION,
+          device: 'Browser',
+          deviceName: "Voterr Web App",
+          model: "Voterr"
+        }
+      },
+      'X-Plex-Product': PLEX_PRODUCT,
+      'X-Plex-Version': PLEX_VERSION,
+      'X-Plex-Client-Identifier': VOTERR_CLIENT_ID,
+      'X-Plex-Platform': 'Web',
+      'X-Plex-Platform-Version': PLEX_VERSION,
+      'X-Plex-Device': 'Browser',
+      'X-Plex-Device-Name': 'Voterr Web App',
+      forwardUrl: callback_plex_auth_url
     }
     
     "#{base_url}?#{params.to_query}"
@@ -178,6 +182,7 @@ class PlexAuthController < ApplicationController
     response = plex_connection.send(method, endpoint) do |req|
       req.headers.merge!(plex_headers)
       req.headers['X-Plex-Token'] = auth_token if auth_token
+      req.headers['Accept'] = 'application/json'
       req.headers['Content-Type'] = 'application/json'
       req.params.merge!(params)
     end
