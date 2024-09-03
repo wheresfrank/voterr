@@ -7,8 +7,9 @@ class SessionsController < ApplicationController
 
   def create
     @session = current_user.sessions.new(session_params)
-    byebug
+    # Only show unwatched based on session.only_watched
     @movies = @session.only_unwatched ? current_user.movies.unwatched : current_user.movies
+    
     if @session.save
       # Create a voter for the main user
       @session.voters.create!(name: current_user.name, user: @session.user, session_owner: true)
