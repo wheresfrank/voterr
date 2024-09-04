@@ -20,7 +20,14 @@ export default class extends Controller {
     try {
       const pin = await this.generatePlexPin()
       const authUrl = this.constructAuthUrl(pin.code)
-      window.open(authUrl, '_blank')
+      
+      const windowFeatures = 'width=500,height=600,resizable,scrollbars=yes,status=1'
+      this.authWindow = window.open(authUrl, 'PlexAuth', windowFeatures)
+      
+      if (this.authWindow) {
+        this.authWindow.focus()
+      }
+      
       await this.checkPinStatus(pin.id)
     } catch (error) {
       console.error('Plex authentication failed:', error)
@@ -73,20 +80,19 @@ export default class extends Controller {
           'X-Plex-Client-Identifier': this.clientIdValue
         }
       })
-
       if (!response.ok) {
         throw new Error('Failed to check PIN status')
       }
-
       const data = await response.json()
       if (data.authToken) {
+        if (this.authWindow && !this.authWindow.closed) {
+          this.authWindow.close()
+        }
         await this.sendAuthTokenToServer(data.authToken)
         return
       }
-
       await new Promise(resolve => setTimeout(resolve, 1000)) // Wait 1 second before checking again
     }
-
     throw new Error('PIN authentication timed out')
   }
 
@@ -101,14 +107,14 @@ export default class extends Controller {
         },
         body: JSON.stringify({ plex_auth: { auth_token: authToken } })
       });
-  
       console.log('Response status:', response.status);
       const result = await response.json();
       console.log('Response body:', result);
-      result
+  
       if (result.success) {
         this.statusTarget.textContent = result.message;
-        window.location.href = '/';
+        // Redirect in the main window
+        window.location.href = '/'; // or wherever you want to redirect after successful auth
       } else {
         throw new Error(result.message);
       }

@@ -13,7 +13,7 @@ class PlexAuthController < ApplicationController
     @browser_name = browser.name
     @browser_version = browser.version
     @device = browser.platform.name
-    @device_name = "(Voterr)#{browser.name}"
+    @device_name = "#{browser.name} (Voterr)"
     @callback_url = callback_plex_auth_url
   end
 
