@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   # Plex Authentication Routes
   scope :plex_auth, controller: :plex_auth do
     get 'new', action: :new, as: :new_plex_auth
-    get 'callback', action: :callback, as: :callback_plex_auth
+    post 'callback', action: :callback, as: :callback_plex_auth
   end
 
   # Sessions and Voting Routes

@@ -7,9 +7,24 @@
             <div class="pt-6">
               <%= image_tag("voterr_logo_white.svg", class: "landing-logo mb-5") %>
               <h1 class="title is-size-4-mobile has-text-light mb-2">Movie Night Made Easy</h1>
-              <h2 class="subtitle is-4 is-size-5-mobile has-text-light mt-2 mb-6">Democratize your movie nights with friends using your Plex library</h2>
-              <%= link_to "Get Started with Plex", @auth_url, class: "button is-warning is-large has-text-weight-bold px-6" %>
-            </div>
+              <h2 class="subtitle is-4 is-size-5-mobile has-text-light mt-2 mb-6">
+                Democratize your movie nights with friends using your Plex library
+              </h2>
+              <div data-controller="plex-auth"
+                  data-plex-auth-plex-base-url-value="https://plex.tv"
+                  data-plex-auth-plex-product-value="<%= @plex_product %>"
+                  data-plex-auth-plex-version-value="<%= @plex_version %>"
+                  data-plex-auth-client-id-value="<%= @client_id %>"
+                  data-plex-auth-browser-name-value="<%= @browser_name %>"
+                  data-plex-auth-browser-version-value="<%= @browser_version %>"
+                  data-plex-auth-device-value="<%= @device %>"
+                  data-plex-auth-device-name-value="<%= @device_name %>"
+                  data-plex-auth-callback-url-value="<%= @callback_url %>">
+                
+                <h1>Sign In with Plex</h1>
+                <button data-action="click->plex-auth#initiate">Get Started with Plex</button>
+                <p data-plex-auth-target="status"></p>
+              </div>
           </div>
           <div class="column is-one-third">
             <figure class="image is-flex is-justify-content-center">
@@ -101,3 +116,13 @@
     </div>
   </section>
 </div>
+
+data-plex-auth-plex-base-url-value="https://plex.tv"
+              data-plex-auth-plex-product-value="<%= @plex_product %>"
+              data-plex-auth-plex-version-value="<%= @plex_version %>"
+              data-plex-auth-client-id-value="<%= @client_id %>"
+              data-plex-auth-browser-name-value="<%= @browser_name %>"
+              data-plex-auth-browser-version-value="<%= @browser_version %>"
+              data-plex-auth-device-value="<%= @device %>"
+              data-plex-auth-device-name-value="<%= @device_name %>"
+              data-plex-auth-callback-url-value="<%= @callback_url %>">
