@@ -2,15 +2,15 @@ class PlexAuthController < ApplicationController
   PLEX_BASE_URL = 'https://plex.tv'.freeze
   PLEX_PRODUCT = 'Voterr'.freeze
   PLEX_VERSION = '1.0'.freeze
-  VOTERR_CLIENT_ID = 'voterr-8a7b6c5d-4e3f-2g1h-9i8j-7k6l5m4n3o2p'
+  VOTERR_CLIENT_ID = ENV['VOTERR_CLIENT_ID'] || 'voterr-8a7b6c5d-4e3f-2g1h-9i8j-7k6l5m4n3o2p'
 
   def new
     begin
-      @pin = generate_plex_pin
-      @auth_url = plex_auth_url(@pin['code'])
-      session[:plex_pin_id] = @pin['id']
+      pin = generate_plex_pin
+      session[:plex_pin_id] = pin['id']
+      @auth_url = construct_auth_url(pin['code'])
     rescue => e
-      Rails.logger.error("Error in PlexAuthController#new: #{e.message}")
+      Rails.logger.error("Error initiating Plex auth: #{e.message}")
       redirect_to root_path, alert: "Unable to initiate Plex authentication. Please try again later."
     end
   end
@@ -21,22 +21,16 @@ class PlexAuthController < ApplicationController
 
     if auth_token
       user_data = fetch_plex_user_data(auth_token)
-      server_id = fetch_plex_server_id(auth_token)
-
-      if user_data && server_id
+      if user_data
         user = User.find_or_initialize_by(email: user_data[:email])
         user.update!(
           plex_token: auth_token,
-          plex_client_id: VOTERR_CLIENT_ID,
-          plex_server_id: server_id,
           name: user_data[:username]
         )
-
         session[:user_id] = user.id
-        FetchAndStoreMoviesJob.perform_later(user)
         redirect_to root_path, notice: 'Successfully authenticated with Plex!'
       else
-        redirect_to root_path, alert: 'Failed to fetch user data or server information from Plex.'
+        redirect_to root_path, alert: 'Failed to fetch user data from Plex.'
       end
     else
       redirect_to root_path, alert: 'Failed to authenticate with Plex. Please try again.'
@@ -45,152 +39,70 @@ class PlexAuthController < ApplicationController
 
   private
 
-  def plex_connection
-    Faraday.new(url: PLEX_BASE_URL) do |faraday|
-      faraday.request :url_encoded
-      faraday.adapter Faraday.default_adapter
-    end
-  end
-
   def plex_headers
     {
       'Accept' => 'application/json',
       'X-Plex-Product' => PLEX_PRODUCT,
       'X-Plex-Version' => PLEX_VERSION,
-      'X-Plex-Client-Identifier' => VOTERR_CLIENT_ID,
-      'X-Plex-Platform' => 'Web',
-      'X-Plex-Platform-Version' => PLEX_VERSION,
-      'X-Plex-Device' => 'Browser',
-      'X-Plex-Device-Name' => 'Voterr Web App'
+      'X-Plex-Client-Identifier' => VOTERR_CLIENT_ID
     }
   end
 
   def generate_plex_pin
-    max_retries = 3
-    retries = 0
-
-    loop do
-      response = plex_request(:post, '/api/v2/pins', nil, strong: 'true')
-      
-      case response.status
-      when 200, 201
-        data = JSON.parse(response.body)
-        return {
-          'id' => data['id'],
-          'code' => data['code']
-        }
-      when 429
-        retries += 1
-        if retries < max_retries
-          wait_time = 2 ** retries  # Exponential backoff
-          Rails.logger.warn("Plex API rate limit exceeded. Waiting #{wait_time} seconds before retry #{retries}/#{max_retries}.")
-          sleep(wait_time)
-        else
-          Rails.logger.error("Max retries reached for Plex pin generation.")
-          raise "Failed to generate Plex pin: Rate limit exceeded after #{max_retries} retries."
-        end
-      else
-        Rails.logger.error("Failed to generate Plex pin. Response: #{response.body}")
-        raise "Failed to generate Plex pin. Status: #{response.status}"
-      end
+    response = plex_request(:post, '/api/v2/pins', params: { strong: true })
+    if response.status == 200 || response.status == 201
+      JSON.parse(response.body)
+    else
+      raise "Failed to generate Plex PIN. Status: #{response.status}"
     end
-  rescue JSON::ParserError => e
-    Rails.logger.error("Error parsing JSON in generate_plex_pin: #{e.message}")
-    raise "Error generating Plex pin: Invalid JSON response"
-  rescue => e
-    Rails.logger.error("Error in generate_plex_pin: #{e.message}")
-    raise "Error generating Plex pin: #{e.message}"
   end
 
-  def plex_auth_url(pin_code)
-    base_url = "https://app.plex.tv/auth#"
+  def construct_auth_url(pin_code)
     params = {
       clientID: VOTERR_CLIENT_ID,
       code: pin_code,
       context: {
         device: {
-          product: PLEX_PRODUCT,
-          version: PLEX_VERSION,
-          platform: 'Web',
-          platformVersion: PLEX_VERSION,
-          device: 'Browser',
-          deviceName: "Voterr Web App",
-          model: "Voterr"
+          product: PLEX_PRODUCT
         }
       },
-      'X-Plex-Product': PLEX_PRODUCT,
-      'X-Plex-Version': PLEX_VERSION,
-      'X-Plex-Client-Identifier': VOTERR_CLIENT_ID,
-      'X-Plex-Platform': 'Web',
-      'X-Plex-Platform-Version': PLEX_VERSION,
-      'X-Plex-Device': 'Browser',
-      'X-Plex-Device-Name': 'Voterr Web App',
       forwardUrl: callback_plex_auth_url
     }
     
-    "#{base_url}?#{params.to_query}"
+    "https://app.plex.tv/auth#?#{params.to_query}"
   end
 
   def check_pin_status(pin_id)
     response = plex_request(:get, "/api/v2/pins/#{pin_id}")
     if response.status == 200
       data = JSON.parse(response.body)
-      auth_token = data['authToken']
-      auth_token if auth_token.present?
-    else
-      Rails.logger.error("Failed to check pin status. Response: #{response.body}")
-      nil
+      data['authToken']
     end
-  rescue JSON::ParserError => e
-    Rails.logger.error("Error parsing JSON in check_pin_status: #{e.message}")
-    nil
   end
 
   def fetch_plex_user_data(auth_token)
-    response = plex_request(:get, '/api/v2/user', auth_token)
+    response = plex_request(:get, '/api/v2/user', auth_token: auth_token)
     if response.status == 200
       data = JSON.parse(response.body)
       {
         email: data['email'],
         username: data['username']
       }
-    else
-      Rails.logger.error("Failed to fetch user data. Response: #{response.body}")
-      nil
     end
-  rescue JSON::ParserError => e
-    Rails.logger.error("Error parsing JSON in fetch_plex_user_data: #{e.message}")
-    nil
   end
 
-  def fetch_plex_server_id(auth_token)
-    response = plex_request(:get, '/api/v2/resources', auth_token)
-    if response.status == 200
-      servers = JSON.parse(response.body)
-      server = servers.find { |s| s['provides'].include?('server') }
-      server&.dig('clientIdentifier')
-    else
-      Rails.logger.error("Failed to fetch server ID. Response: #{response.body}")
-      nil
-    end
-  rescue JSON::ParserError => e
-    Rails.logger.error("Error parsing JSON in fetch_plex_server_id: #{e.message}")
-    nil
-  end
-
-  def plex_request(method, endpoint, auth_token = nil, params = {})
-    response = plex_connection.send(method, endpoint) do |req|
+  def plex_request(method, endpoint, auth_token: nil, params: {})
+    url = "#{PLEX_BASE_URL}#{endpoint}"
+    response = Faraday.send(method, url) do |req|
       req.headers.merge!(plex_headers)
       req.headers['X-Plex-Token'] = auth_token if auth_token
-      req.headers['Accept'] = 'application/json'
-      req.headers['Content-Type'] = 'application/json'
       req.params.merge!(params)
     end
-    
-    Rails.logger.info("Plex API Request: #{method.upcase} #{endpoint}")
+
+    Rails.logger.info("Plex API Request: #{method.upcase} #{url}")
     Rails.logger.info("Plex API Response Status: #{response.status}")
     Rails.logger.debug("Plex API Response Body: #{response.body}")
-    
+
     response
   end
 end
