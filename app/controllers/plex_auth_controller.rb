@@ -4,12 +4,12 @@ class PlexAuthController < ApplicationController
   PLEX_BASE_URL = 'https://plex.tv'.freeze
   PLEX_PRODUCT = 'Voterr'.freeze
   PLEX_VERSION = 'Plex OAuth'.freeze
-  VOTERR_CLIENT_ID = ENV['VOTERR_CLIENT_ID'] || 'voterr-8a7b6c5d-4e3f-2g1h-9i8j-7k6l5m4n3o2p'
+  VOTERR_CLIENT_ID = 'voterr-8a7b6c5d-4e3f-2g1h-9i8j-7k6l5m4n3o2p'
 
   def new
     @plex_product = "Voterr"
     @plex_version = "1.0"
-    @client_id = "voterr-8a7b6c5d-4e3f-2g1h-9i8j-7k6l5m4n3o2p"
+    @client_id = VOTERR_CLIENT_ID
     @browser_name = browser.name
     @browser_version = browser.version
     @device = browser.platform.name
