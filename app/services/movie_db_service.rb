@@ -4,7 +4,7 @@ require 'net/http'
 class MovieDbService
   BASE_URL = "https://api.themoviedb.org/3"
   IMAGE_BASE_URL = "https://image.tmdb.org/t/p/"
-  API_KEY = Rails.application.credentials.tmdb[:access_token]
+  API_KEY = ENV['TMDB_ACCESS_TOKEN']
 
   def self.search_movie(query, year = nil, page = 1)
     url = URI("#{BASE_URL}/search/movie")
