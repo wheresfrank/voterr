@@ -2,7 +2,7 @@
   <div class="columns movie">
     <div class="poster column is-one-third">
       <div class="poster-container">
-        <%= image_tag(proxy_image_url(url: movie.poster_url)) %>
+        <%= image_tag(poster_path(movie)) %>
       </div>
     </div>
     <div class="column is-flex is-flex-direction-column">

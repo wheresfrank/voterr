@@ -17,6 +17,7 @@ class FetchAndStoreMoviesJob < ApplicationJob
       libraries.each do |library|
         fetch_movies_from_library(user, library)
       end
+
     rescue NoAvailableServersError => e
       Rails.logger.error("No available movie libraries found for user #{user.id}: #{e.message}")
       # Handle the error (e.g., update a status in the database)
@@ -163,9 +164,9 @@ class FetchAndStoreMoviesJob < ApplicationJob
 
   def create_or_update_movie(user, movie, library)
     user_movie = user.movies.find_or_initialize_by(plex_id: movie['ratingKey'])
+
     user_movie.update(
       title: movie['title'],
-      poster_url: "#{library[:uri]}#{movie['thumb']}?X-Plex-Token=#{library[:access_token]}",
       genres: movie['Genre']&.map { |g| g['tag'] } || [],
       year: movie['year'],
       duration: movie['duration'],

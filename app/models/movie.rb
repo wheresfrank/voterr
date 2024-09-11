@@ -4,4 +4,5 @@ class Movie < ApplicationRecord
   has_many :votes, dependent: :destroy
 
   scope :unwatched, -> { where(unwatched: true) }
+  scope :without_poster, -> { where(poster_url: [nil, '']) }
 end
