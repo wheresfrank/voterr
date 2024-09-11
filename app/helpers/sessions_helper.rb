@@ -37,6 +37,10 @@ module SessionsHelper
     end
   end
 
+  def poster_path(movie)
+    MovieDbService.get_poster_url(movie.title, movie.year)
+  end
+
   def ripe_icon
     '      
     <!--?xml version="1.0" encoding="UTF-8"?-->

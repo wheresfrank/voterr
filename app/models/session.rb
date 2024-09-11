@@ -14,7 +14,10 @@ class Session < ApplicationRecord
   scope :recent_winners, -> { where.not(winner_id: nil).order(created_at: :desc).limit(10) }
   scope :in_progress, -> { where(winner_id: nil).order(created_at: :desc) }
 
-  broadcasts
+  broadcasts_to ->(session) { session },
+                target: ->(session) { "voters-session-#{session.id}" },
+                partial: "sessions/voters",
+                locals: ->(session) { { session: session } }
 
   def all_participants_voted_for_same_movie?
     total_voters = voters.count
