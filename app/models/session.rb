@@ -17,7 +17,7 @@ class Session < ApplicationRecord
   broadcasts_to ->(session) { session },
                 target: ->(session) { "voters-session-#{session.id}" },
                 partial: "sessions/voters",
-                locals: ->(session) { { session: session } }
+                locals: { session: :session }
 
   def all_participants_voted_for_same_movie?
     total_voters = voters.count
