@@ -18,14 +18,18 @@
       <% end %>
       <hr>
     </div>
-    <div class="column is two-thirds">
+    <div class="column is-two-thirds">
       <h2 class="subtitle">Recent Winners</h2>
       <% if @sessions.recent_winners.any? %>
         <div class="winner-container grid">
           <% @sessions.recent_winners.each do |session| %>
             <div class="index-poster-container has-text-centered cell">
               <p class="mb-2"><%= session.session_name %></p>
-              <%= image_tag(poster_path(session.winner)) %>
+              <% if poster_path(session.winner).present? %>
+                <%= image_tag(poster_path(session.winner)) %>
+              <% else %>
+                <%= render 'sessions/poster_placeholder' %>
+              <% end %>
             </div>
           <% end %>
         </div>

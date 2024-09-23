@@ -31,12 +31,11 @@ class MovieDbService
   end
 
   def self.get_poster_url(query, year = nil, size = "w200")
-    movie = self.search_movie(query, year = nil, page = 1)
+    movie = self.search_movie(query, year, page = 1)
     return unless movie
 
     poster_path = movie['poster_path']
     return nil if poster_path.nil? || poster_path.empty?
     "#{IMAGE_BASE_URL}#{size}#{poster_path}"
   end
-  
 end

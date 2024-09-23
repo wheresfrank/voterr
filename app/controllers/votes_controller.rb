@@ -26,7 +26,6 @@ class VotesController < ApplicationController
       @session.update(winner: @movie) if @session.winner.nil?
       render turbo_stream: turbo_stream.replace("session_#{@session.id}", partial: "sessions/vote", locals: { movie: @session.winner, session: @session })
     else
-
       @next_movie = @session.movies.where.not(id: @voter.votes.select(:movie_id)).sample
       if @next_movie
         render turbo_stream: turbo_stream.replace("movie_#{@movie.plex_id}", partial: "sessions/movie", locals: { movie: @next_movie, session: @session })
@@ -41,12 +40,8 @@ class VotesController < ApplicationController
       end
     end
 
-    Turbo::StreamsChannel.broadcast_update_to(
-      @session, 
-      target: "voters-session-#{@session.id}",
-      partial: "sessions/voters", 
-      locals: { session: @session }
-    )
+    # Enqueue the job to broadcast the update
+    BroadcastUpdateJob.perform_later(@session.id)
   end
 
   private

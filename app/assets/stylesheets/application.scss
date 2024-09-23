@@ -50,3 +50,28 @@
 .phone-mockup {
     width: unset !important;
 }
+
+.poster-placeholder {
+    width: 200px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    color: #999;
+    font-size: 16px;
+}
+
+.poster-placeholder-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.poster-placeholder-content i {
+    font-size: 50px;
+    margin-bottom: 10px;
+}
