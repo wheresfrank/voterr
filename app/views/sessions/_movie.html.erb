@@ -2,7 +2,11 @@
   <div class="columns movie">
     <div class="poster column is-one-third">
       <div class="poster-container">
-        <%= image_tag(poster_path(movie)) %>
+        <% if poster_path(movie).present? %>
+          <%= image_tag(poster_path(movie)) %>
+        <% else %>
+          <%= render 'sessions/poster_placeholder' %>
+        <% end %>
       </div>
     </div>
     <div class="column is-flex is-flex-direction-column">
