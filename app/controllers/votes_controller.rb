@@ -40,12 +40,8 @@ class VotesController < ApplicationController
       end
     end
 
-    Turbo::StreamsChannel.broadcast_update_to(
-      @session, 
-      target: "voters-session-#{@session.id}",
-      partial: "sessions/voters", 
-      locals: { session: @session }
-    )
+    # Enqueue the job to broadcast the update
+    BroadcastUpdateJob.perform_later(@session.id)
   end
 
   private
