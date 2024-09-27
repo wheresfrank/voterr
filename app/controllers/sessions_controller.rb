@@ -9,9 +9,9 @@ class SessionsController < ApplicationController
     @session = current_user.sessions.new(session_params)
     @movies = current_user.movies
 
-    # Filter by genres if selected
-    if params[:session][:genres].present?
-      @movies = @movies.where("genres && ARRAY[?]::varchar[]", params[:session][:genres])
+    # Filter by genres only if genres are selected
+    if params[:session][:genres].present? && params[:session][:genres].reject(&:blank?).any?
+      @movies = @movies.where("genres && ARRAY[?]::varchar[]", params[:session][:genres].reject(&:blank?))
     end
 
     # Only show unwatched based on session.only_watched
@@ -26,7 +26,8 @@ class SessionsController < ApplicationController
 
       redirect_to @session, notice: 'Session created successfully!'
     else
-      render :new, alert: 'Failed to create session.'
+      @available_genres = current_user.movies.pluck(:genres).flatten.uniq.sort
+      render :new, status: :unprocessable_entity
     end
   end
 
