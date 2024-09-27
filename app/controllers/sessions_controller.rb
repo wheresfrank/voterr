@@ -11,7 +11,8 @@ class SessionsController < ApplicationController
 
     # Filter by genres only if genres are selected
     if params[:session][:genres].present? && params[:session][:genres].reject(&:blank?).any?
-      @movies = @movies.where("genres && ARRAY[?]::varchar[]", params[:session][:genres].reject(&:blank?))
+      @session.selected_genres = params[:session][:genres].reject(&:blank?)
+      @movies = @movies.where("genres && ARRAY[?]::varchar[]", @session.selected_genres)
     end
 
     # Only show unwatched based on session.only_watched

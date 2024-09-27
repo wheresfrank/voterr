@@ -55,13 +55,20 @@ class VotesController < ApplicationController
   end
 
   def remaining_movies
-    @session.user.movies.where.not(id: @session.movies.pluck(:id))
+    movies = @session.user.movies.where.not(id: @session.movies.pluck(:id))
+    
+    # Apply genre filter if genres were selected
+    if @session.selected_genres.present?
+      movies = movies.where("genres && ARRAY[?]::varchar[]", @session.selected_genres)
+    end
+
+    # Apply unwatched filter if applicable
+    movies = movies.unwatched if @session.only_unwatched
+
+    movies
   end
 
   def add_new_movies_to_session(movies)
-    # Only show unwatched based on session.only_watched
-    movies = movies.unwatched if @session.only_unwatched
-
     # Add 5 new random movies
     new_movies = movies.sample(5)
     @session.movies << new_movies
