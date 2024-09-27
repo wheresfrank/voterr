@@ -29,4 +29,6 @@ class Session < ApplicationRecord
   def generate_session_token
     self.session_token ||= SecureRandom.hex(10)
   end
+
+  attribute :genres, :string, array: true, default: []
 end
