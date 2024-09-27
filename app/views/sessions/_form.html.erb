@@ -4,6 +4,12 @@
     <%= f.text_field :session_name, class: "input", placeholder: "Scary movie night with Chucky" %>
   </div>
   <div class="field">
+    <%= f.label :genres, "Select Genres", class: "label" %>
+    <div class="select is-multiple">
+      <%= f.select :genres, @available_genres.map { |genre| [genre, genre] }, {}, { multiple: true, size: 5 } %>
+    </div>
+  </div>
+  <div class="field">
     <label class="checkbox">
       <%= f.check_box :only_unwatched %> Only include unwatched movies
     </label>

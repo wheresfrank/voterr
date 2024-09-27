@@ -7,9 +7,16 @@ class SessionsController < ApplicationController
 
   def create
     @session = current_user.sessions.new(session_params)
+    @movies = current_user.movies
+
+    # Filter by genres if selected
+    if params[:session][:genres].present?
+      @movies = @movies.where("genres && ARRAY[?]::varchar[]", params[:session][:genres])
+    end
+
     # Only show unwatched based on session.only_watched
-    @movies = @session.only_unwatched ? current_user.movies.unwatched : current_user.movies
-    
+    @movies = @movies.unwatched if @session.only_unwatched
+
     if @session.save
       # Create a voter for the main user
       @session.voters.create!(name: current_user.name, user: @session.user, session_owner: true)
@@ -26,6 +33,7 @@ class SessionsController < ApplicationController
   def index
     @session = Session.new
     @sessions = current_user.sessions
+    @available_genres = current_user.movies.pluck(:genres).flatten.uniq.sort
   end
 
   def show
@@ -91,7 +99,7 @@ class SessionsController < ApplicationController
   private
 
   def session_params
-    params.require(:session).permit(:session_name, :only_unwatched)
+    params.require(:session).permit(:session_name, :only_unwatched, genres: [])
   end
 
   def require_login
