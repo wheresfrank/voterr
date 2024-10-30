@@ -50,6 +50,11 @@ class FetchAndStoreMoviesJob < ApplicationJob
       servers = resources.select { |r| r['provides'] == 'server' }
       Rails.logger.info("Found #{servers.length} servers")
 
+      if servers.any?
+        first_server = servers.first
+        user.update(plex_server_id: first_server['clientIdentifier'])
+      end
+
       libraries = []
       servers.each do |server|
         server_libraries = fetch_server_libraries(user, server)
