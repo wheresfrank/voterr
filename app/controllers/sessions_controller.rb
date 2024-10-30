@@ -41,9 +41,9 @@ class SessionsController < ApplicationController
   def show
     @user = current_user
     @session = Session.find(params[:id])
-
-    # Fetch a movie from the session's movies, ensuring it's not yet voted on by the user
-    @movie = @session.movies.where.not(id: @session.votes.where(user_id: @user.id).select(:movie_id)).sample
+    @movie = Movie.unwatched_by_user(@user.id)
+                  .where.not(id: @session.votes.where(user_id: @user.id).select(:movie_id))
+                  .sample
   end
 
   def destroy

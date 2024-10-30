@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_27_010310) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_27_015619) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,11 +28,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_27_010310) do
     t.decimal "rating"
     t.string "rating_image"
     t.string "genres", default: [], array: true
-    t.bigint "user_id", null: false
     t.integer "year"
     t.integer "duration"
-    t.boolean "unwatched", default: false
-    t.index ["user_id"], name: "index_movies_on_user_id"
+    t.integer "user_ids", default: [], array: true
+    t.integer "watched_by_user_ids", default: [], array: true
+    t.index ["user_ids"], name: "index_movies_on_user_ids", using: :gin
+    t.index ["watched_by_user_ids"], name: "index_movies_on_watched_by_user_ids", using: :gin
   end
 
   create_table "movies_sessions", id: false, force: :cascade do |t|
@@ -91,7 +92,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_27_010310) do
     t.index ["voter_id"], name: "index_votes_on_voter_id"
   end
 
-  add_foreign_key "movies", "users"
   add_foreign_key "sessions", "users"
   add_foreign_key "voters", "sessions"
   add_foreign_key "voters", "users"

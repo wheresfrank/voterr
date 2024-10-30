@@ -24,6 +24,10 @@ class Session < ApplicationRecord
          .exists?
   end
 
+  def next_unvoted_movie(voter)
+    movies.where.not(id: votes.where(voter: voter).select(:movie_id)).sample
+  end
+
   private
 
   def generate_session_token
