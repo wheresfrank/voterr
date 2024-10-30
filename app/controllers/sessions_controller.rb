@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
     end
 
     # Only show unwatched based on session.only_watched
-    @movies = @movies.unwatched if @session.only_unwatched
+    @movies = @movies.unwatched_by_user(current_user.id) if @session.only_unwatched
 
     if @session.save
       # Create a voter for the main user
