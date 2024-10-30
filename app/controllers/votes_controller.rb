@@ -4,7 +4,11 @@ class VotesController < ApplicationController
     movie_id = params[:movie_id]
 
     @session = Session.find_by(session_token: session_token)
-    @movie = @session.movies.find(movie_id)
+    @movie = Movie.find(movie_id)
+
+    unless @session.movies.include?(@movie)
+      @session.movies << @movie
+    end
 
     # Find the voter by either the current user's ID or the guest's name
     @voter = if current_user
@@ -16,7 +20,7 @@ class VotesController < ApplicationController
     # Create the vote, associating it with the correct session, movie, and voter
     @vote = @session.votes.create!(
       movie: @movie,
-      voter_id: @voter.id,  # Use voter_id here for the association
+      voter_id: @voter.id,
       positive: params[:positive],
       guest_name: @voter.name,
       user: @session.user
@@ -26,23 +30,23 @@ class VotesController < ApplicationController
       @session.update(winner: @movie) if @session.winner.nil?
       render turbo_stream: turbo_stream.replace("session_#{@session.id}", partial: "sessions/vote", locals: { movie: @session.winner, session: @session })
     else
-      @next_movie = @session.movies.where.not(id: @voter.votes.select(:movie_id)).sample
+      @next_movie = @session.next_unvoted_movie(@voter)
       if @next_movie
         render turbo_stream: turbo_stream.replace("movie_#{@movie.plex_id}", partial: "sessions/movie", locals: { movie: @next_movie, session: @session })
       else
         if remaining_movies.any?
           add_new_movies_to_session(remaining_movies)
-          @next_movie = @session.movies.where.not(id: @voter.votes.select(:movie_id)).sample
+          @next_movie = @session.next_unvoted_movie(@voter)
           render turbo_stream: turbo_stream.replace("movie_#{@movie.plex_id}", partial: "sessions/movie", locals: { movie: @next_movie, session: @session })
         else
-          render turbo_stream: turbo_stream.replace("movie_#{@movie.plex_id}", partial: "sessions/no_more_movies")
+          render turbo_stream: turbo_stream.replace("movie_#{@movie.plex_id}", html: content_tag(:div, class: "notification is-info has-text-centered") do
+            "You've voted on all available movies! Waiting for other participants..."
+          end)
         end
       end
     end
-
-    # Enqueue the job to broadcast the update
-    BroadcastUpdateJob.perform_later(@session.id)
   end
+
 
   private
 
@@ -63,7 +67,7 @@ class VotesController < ApplicationController
     end
 
     # Apply unwatched filter if applicable
-    movies = movies.unwatched if @session.only_unwatched
+    movies = movies.unwatched_by_user(@session.user.id) if @session.only_unwatched
 
     movies
   end

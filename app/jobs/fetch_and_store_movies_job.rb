@@ -50,6 +50,11 @@ class FetchAndStoreMoviesJob < ApplicationJob
       servers = resources.select { |r| r['provides'] == 'server' }
       Rails.logger.info("Found #{servers.length} servers")
 
+      if servers.any?
+        first_server = servers.first
+        user.update(plex_server_id: first_server['clientIdentifier'])
+      end
+
       libraries = []
       servers.each do |server|
         server_libraries = fetch_server_libraries(user, server)
@@ -149,8 +154,8 @@ class FetchAndStoreMoviesJob < ApplicationJob
         movies = JSON.parse(response.body)['MediaContainer']['Metadata']
         
         Rails.logger.info("Found #{movies.length} movies in library #{library[:title]}")
-        movies.each do |movie|
-          create_or_update_movie(user, movie, library)
+        movies.each do |movie_data|
+          create_or_update_movie(user, movie_data, library)
         end
       else
         Rails.logger.error("Failed to fetch movies for library #{library[:title]}: #{response.body}")
@@ -162,21 +167,30 @@ class FetchAndStoreMoviesJob < ApplicationJob
     end
   end
 
-  def create_or_update_movie(user, movie, library)
-    user_movie = user.movies.find_or_initialize_by(plex_id: movie['ratingKey'])
-
-    user_movie.update(
-      title: movie['title'],
-      genres: movie['Genre']&.map { |g| g['tag'] } || [],
-      year: movie['year'],
-      duration: movie['duration'],
-      tagline: movie['tagline'],
-      summary: movie['summary'],
-      content_rating: movie['contentRating'],
-      audience_rating: movie['audienceRating'],
-      rating: movie['rating'],
-      unwatched: movie['viewCount'].to_i == 0
+  def create_or_update_movie(user, movie_data, library)
+    movie = Movie.find_or_initialize_by(plex_id: movie_data['ratingKey'])
+    
+    movie.assign_attributes(
+      title: movie_data['title'],
+      genres: movie_data['Genre']&.map { |g| g['tag'] } || [],
+      year: movie_data['year'],
+      duration: movie_data['duration'],
+      tagline: movie_data['tagline'],
+      summary: movie_data['summary'],
+      content_rating: movie_data['contentRating'],
+      audience_rating: movie_data['audienceRating'],
+      rating: movie_data['rating']
     )
-    Rails.logger.info("Created or updated movie: #{movie['title']}")
+
+    movie.user_ids |= [user.id] # Add user.id if not already present
+
+    if movie_data['viewCount'].to_i > 0
+      movie.watched_by_user_ids |= [user.id]
+    else
+      movie.watched_by_user_ids -= [user.id]
+    end
+
+    movie.save
+    Rails.logger.info("Created or updated movie: #{movie_data['title']}")
   end
 end
