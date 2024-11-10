@@ -26,6 +26,9 @@ class VotesController < ApplicationController
       user: @session.user
     )
 
+    # Broadcast updates to all participants using the job
+    BroadcastUpdateJob.perform_later(@session.id)
+
     if @session.all_participants_voted_for_same_movie?
       @session.update(winner: @movie) if @session.winner.nil?
       render turbo_stream: turbo_stream.replace("session_#{@session.id}", partial: "sessions/vote", locals: { movie: @session.winner, session: @session })
