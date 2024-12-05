@@ -1,11 +1,11 @@
 source "https://rubygems.org"
 
-ruby "3.1.1"
+ruby "3.3.0"
 
 gem "ffi", "< 1.17.0"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.1.4"
+gem "rails", "~> 8.0.0"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
