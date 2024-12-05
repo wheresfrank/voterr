@@ -20,42 +20,20 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
-  <<: *default
-  database: voterr_development
+  primary:
+    <<: *default
+    database: voterr_development
+  cable_development:
+    <<: *default
+    database: voterr_cable_development
 
-  # The specified database role being used to connect to PostgreSQL.
-  # To create additional roles in PostgreSQL see `$ createuser --help`.
-  # When left blank, PostgreSQL will use the default role. This is
-  # the same name as the operating system user running Rails.
-  #username: voterr
-
-  # The password associated with the PostgreSQL role (username).
-  #password:
-
-  # Connect on a TCP socket. Omitted by default since the client uses a
-  # domain socket that doesn't need configuration. Windows does not have
-  # domain sockets, so uncomment these lines.
-  #host: localhost
-
-  # The TCP port the server listens on. Defaults to 5432.
-  # If your server runs on a different port number, change accordingly.
-  #port: 5432
-
-  # Schema search path. The server defaults to $user,public
-  #schema_search_path: myapp,sharedapp,public
-
-  # Minimum log levels, in increasing order:
-  #   debug5, debug4, debug3, debug2, debug1,
-  #   log, notice, warning, error, fatal, and panic
-  # Defaults to warning.
-  #min_messages: notice
-
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
 test:
-  <<: *default
-  database: voterr_test
+  primary:
+    <<: *default
+    database: voterr_test
+  cable_test:
+    <<: *default
+    database: voterr_cable_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -78,7 +56,13 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  database: voterr_production
-  username: voterr
-  password: <%= ENV["VOTERR_DATABASE_PASSWORD"] %>
+  primary:
+    <<: *default
+    database: voterr_production
+    username: voterr
+    password: <%= ENV["VOTERR_DATABASE_PASSWORD"] %>
+  cable:
+    <<: *default
+    database: voterr_cable_production
+    username: voterr
+    password: <%= ENV["VOTERR_DATABASE_PASSWORD"] %>
