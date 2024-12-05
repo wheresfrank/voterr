@@ -23,17 +23,17 @@ development:
   primary:
     <<: *default
     database: voterr_development
-  cable_development:
+  queue:
     <<: *default
-    database: voterr_cable_development
+    database: voterr_queue_development
 
 test:
   primary:
     <<: *default
     database: voterr_test
-  cable_test:
+  queue:
     <<: *default
-    database: voterr_cable_test
+    database: voterr_queue_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -59,10 +59,12 @@ production:
   primary:
     <<: *default
     database: voterr_production
-    username: voterr
-    password: <%= ENV["VOTERR_DATABASE_PASSWORD"] %>
-  cable:
+    username: <%= ENV['DATABASE_USERNAME'] %>
+    password: <%= ENV['DATABASE_PASSWORD'] %>
+    host: <%= ENV['DATABASE_HOST'] %>
+  queue:
     <<: *default
-    database: voterr_cable_production
-    username: voterr
-    password: <%= ENV["VOTERR_DATABASE_PASSWORD"] %>
+    database: voterr_queue_production
+    username: <%= ENV['DATABASE_USERNAME'] %>
+    password: <%= ENV['DATABASE_PASSWORD'] %>
+    host: <%= ENV['DATABASE_HOST'] %>
