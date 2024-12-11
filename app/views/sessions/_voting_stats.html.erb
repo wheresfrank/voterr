@@ -9,7 +9,7 @@
     <% end %>
     <p class="subtitle"><%= user.movies.count %> Movies in Library</p>
     <%= turbo_frame_tag "voters-session-#{session.id}" do %>
-        <%= render partial: 'sessions/voters', locals: { session: session } %>
+        <%= render partial: 'voters', locals: { session: session } %>
     <% end %>
     <% if current_user %>
         <hr>
