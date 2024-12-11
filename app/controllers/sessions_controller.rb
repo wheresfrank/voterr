@@ -19,13 +19,12 @@ class SessionsController < ApplicationController
     @movies = @movies.unwatched_by_user(current_user.id) if @session.only_unwatched
 
     if @session.save
-      # Create a voter for the main user
       @session.voters.create!(name: current_user.name, user: @session.user, session_owner: true)
 
       selected_movies = @movies.sample(5)
       @session.movies << selected_movies
-
-      redirect_to @session, allow_other_host: true, notice: 'Session created successfully!'
+      
+      redirect_to session_path(@session), notice: 'Session created successfully!'
     else
       @available_genres = current_user.movies.pluck(:genres).flatten.uniq.sort
       render :new, status: :unprocessable_entity
