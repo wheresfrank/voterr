@@ -168,29 +168,50 @@ class FetchAndStoreMoviesJob < ApplicationJob
   end
 
   def create_or_update_movie(user, movie_data, library)
-    movie = Movie.find_or_initialize_by(plex_id: movie_data['ratingKey'])
-    
-    movie.assign_attributes(
-      title: movie_data['title'],
-      genres: movie_data['Genre']&.map { |g| g['tag'] } || [],
-      year: movie_data['year'],
-      duration: movie_data['duration'],
-      tagline: movie_data['tagline'],
-      summary: movie_data['summary'],
-      content_rating: movie_data['contentRating'],
-      audience_rating: movie_data['audienceRating'],
-      rating: movie_data['rating']
-    )
+    # Use find_or_create_by! with a transaction to prevent race conditions
+    Movie.transaction do
+      movie = Movie.find_or_create_by!(plex_id: movie_data['ratingKey']) do |m|
+        m.title = movie_data['title']
+        m.genres = movie_data['Genre']&.map { |g| g['tag'] } || []
+        m.year = movie_data['year']
+        m.duration = movie_data['duration']
+        m.tagline = movie_data['tagline']
+        m.summary = movie_data['summary']
+        m.content_rating = movie_data['contentRating']
+        m.audience_rating = movie_data['audienceRating']
+        m.rating = movie_data['rating']
+      end
 
-    movie.user_ids |= [user.id] # Add user.id if not already present
+      # Update existing movie if attributes have changed
+      if movie.persisted?
+        movie.update!(
+          title: movie_data['title'],
+          genres: movie_data['Genre']&.map { |g| g['tag'] } || [],
+          year: movie_data['year'],
+          duration: movie_data['duration'],
+          tagline: movie_data['tagline'],
+          summary: movie_data['summary'],
+          content_rating: movie_data['contentRating'],
+          audience_rating: movie_data['audienceRating'],
+          rating: movie_data['rating']
+        )
+      end
 
-    if movie_data['viewCount'].to_i > 0
-      movie.watched_by_user_ids |= [user.id]
-    else
-      movie.watched_by_user_ids -= [user.id]
+      # Handle user associations
+      movie.user_ids |= [user.id] # Add user.id if not already present
+
+      # Update watched status
+      if movie_data['viewCount'].to_i > 0
+        movie.watched_by_user_ids |= [user.id]
+      else
+        movie.watched_by_user_ids -= [user.id]
+      end
+
+      movie.save!
+      Rails.logger.info("Created or updated movie: #{movie_data['title']} (Plex ID: #{movie_data['ratingKey']})")
     end
-
-    movie.save
-    Rails.logger.info("Created or updated movie: #{movie_data['title']}")
+  rescue ActiveRecord::RecordNotUnique => e
+    Rails.logger.error("Duplicate movie record attempted: #{e.message}")
+    retry
   end
 end
