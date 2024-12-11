@@ -8,7 +8,7 @@ class UpdateSolidQueueSchema < ActiveRecord::Migration[8.0]
     
     # Update ready_executions indexes
     if table_exists?(:solid_queue_ready_executions)
-      remove_index :solid_queue_ready_executions, name: "index_solid_queue_ready_executions_for_polling" if index_exists?(:solid_queue_ready_executions, name: "index_solid_queue_ready_executions_for_polling")
+      remove_index :solid_queue_ready_executions, name: "index_solid_queue_ready_executions_for_polling" if index_exists?(:solid_queue_ready_executions, :queue_name, name: "index_solid_queue_ready_executions_for_polling")
       add_index :solid_queue_ready_executions, [:priority, :job_id], name: "index_solid_queue_poll_all" unless index_exists?(:solid_queue_ready_executions, [:priority, :job_id], name: "index_solid_queue_poll_all")
       add_index :solid_queue_ready_executions, [:queue_name, :priority, :job_id], name: "index_solid_queue_poll_by_queue" unless index_exists?(:solid_queue_ready_executions, [:queue_name, :priority, :job_id], name: "index_solid_queue_poll_by_queue")
     end
