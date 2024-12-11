@@ -82,6 +82,7 @@ Rails.application.configure do
   # Enable DNS rebinding protection and other `Host` header attacks.
   config.hosts = [
     "voterr.tv",     # Allow requests from voterr.tv
+    "voterr-5fj6.onrender.com",
     /.*\.voterr\.tv/ # Allow requests from subdomains like `www.voterr.tv`
   ]
   #
