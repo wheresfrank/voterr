@@ -69,7 +69,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_05_021408) do
     t.bigint "job_id", null: false
     t.string "queue_name", null: false
     t.integer "priority", default: 0, null: false
-    t.string "concurrency_key", default: "default", null: false
+    t.string "concurrency_key", null: false
     t.datetime "expires_at", null: false
     t.datetime "created_at", null: false
     t.index ["concurrency_key", "priority", "job_id"], name: "index_solid_queue_blocked_executions_for_release"
@@ -82,6 +82,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_05_021408) do
     t.bigint "process_id"
     t.datetime "created_at", null: false
     t.index ["job_id"], name: "index_solid_queue_claimed_executions_on_job_id", unique: true
+    t.index ["process_id", "job_id"], name: "index_solid_queue_claimed_executions_on_process_id_and_job_id"
   end
 
   create_table "solid_queue_failed_executions", force: :cascade do |t|
@@ -133,8 +134,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_05_021408) do
     t.bigint "job_id", null: false
     t.string "queue_name", null: false
     t.integer "priority", default: 0, null: false
-    t.string "concurrency_key", default: "default", null: false
-    t.datetime "expires_at"
     t.datetime "created_at", null: false
     t.index ["job_id"], name: "index_solid_queue_ready_executions_on_job_id", unique: true
     t.index ["priority", "job_id"], name: "index_solid_queue_poll_all"
@@ -170,11 +169,21 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_05_021408) do
     t.bigint "job_id", null: false
     t.string "queue_name", null: false
     t.integer "priority", default: 0, null: false
-    t.string "concurrency_key", default: "default", null: false
     t.datetime "scheduled_at", null: false
     t.datetime "created_at", null: false
     t.index ["job_id"], name: "index_solid_queue_scheduled_executions_on_job_id", unique: true
-    t.index ["scheduled_at", "priority", "job_id"], name: "index_solid_queue_scheduled_executions_for_release"
+    t.index ["scheduled_at", "priority", "job_id"], name: "index_solid_queue_dispatch_all"
+  end
+
+  create_table "solid_queue_semaphores", force: :cascade do |t|
+    t.string "key", null: false
+    t.integer "value", default: 1, null: false
+    t.datetime "expires_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["expires_at"], name: "index_solid_queue_semaphores_on_expires_at"
+    t.index ["key", "value"], name: "index_solid_queue_semaphores_on_key_and_value"
+    t.index ["key"], name: "index_solid_queue_semaphores_on_key", unique: true
   end
 
   create_table "users", force: :cascade do |t|
