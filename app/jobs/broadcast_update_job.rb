@@ -9,7 +9,7 @@ class BroadcastUpdateJob < ApplicationJob
       session,
       target: "voters-session-#{session.id}",
       partial: "sessions/voters",
-      locals: { session: session }
+      locals: { session: session, current_user: session.user }
     )
 
     # Broadcast session panel update
@@ -17,7 +17,11 @@ class BroadcastUpdateJob < ApplicationJob
       session,
       target: "session_panel_#{session.id}",
       partial: "sessions/voting_stats",
-      locals: { session: session, user: session.user }
+      locals: { 
+        session: session, 
+        user: session.user,
+        current_user: session.user 
+      }
     )
   end
 end

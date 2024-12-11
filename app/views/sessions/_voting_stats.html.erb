@@ -1,7 +1,7 @@
 <%= turbo_frame_tag "session_panel_#{session.id}" do %>
     <% if current_user %>
         <div data-controller="clipboard" data-clipboard-success-content-value="Copied!">
-            <input type="hidden" value='<%= join_session_url(token: @session.session_token) %>' data-clipboard-target="source" />
+            <input type="hidden" value='<%= join_session_url(token: session.session_token) %>' data-clipboard-target="source" />
             <button type="button", class="button is-info is-fullwidth" data-action="clipboard#copy" data-clipboard-target="button">Copy Invite Link</button>
         </div>
         <p class="has-text-centered is-size-7">Share this link with everyone choosing a movie</p>
@@ -9,7 +9,7 @@
     <% end %>
     <p class="subtitle"><%= user.movies.count %> Movies in Library</p>
     <%= turbo_frame_tag "voters-session-#{session.id}" do %>
-        <%= render partial: 'voters', locals: { session: session } %>
+        <%= render partial: 'sessions/voters', locals: { session: session } %>
     <% end %>
     <% if current_user %>
         <hr>
