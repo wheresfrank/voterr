@@ -83,7 +83,7 @@ Rails.application.configure do
   config.hosts = [
     "voterr.tv",     # Allow requests from voterr.tv
     /.*\.voterr\.tv/ # Allow requests from subdomains like `www.voterr.tv`
-  # ]
+  ]
   #
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
