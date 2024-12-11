@@ -27,14 +27,12 @@ test:
 
 production:
   <<: *default
-  database: voterr_production
-  username: voterr
-  password: <%= ENV["VOTERR_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
 
 queue:
   production:
     <<: *default
-    url: <%= ENV['DATABASE_URL'].sub(/\/[^\/]+$/, '/voterr_queue_production') if ENV['DATABASE_URL'].present? %>
+    url: <%= ENV['QUEUE_DATABASE_URL'] %>
   development:
     <<: *default
     database: voterr_queue_development
