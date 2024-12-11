@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
       selected_movies = @movies.sample(5)
       @session.movies << selected_movies
 
-      redirect_to session_url(@session), allow_other_host: true, notice: 'Session created successfully!'
+      redirect_to @session, allow_other_host: true, notice: 'Session created successfully!'
     else
       @available_genres = current_user.movies.pluck(:genres).flatten.uniq.sort
       render :new, status: :unprocessable_entity
