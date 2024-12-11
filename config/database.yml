@@ -28,13 +28,11 @@ test:
 production:
   <<: *default
   url: <%= ENV['DATABASE_URL'] %>
-  database: 'voterr_production' %>
 
 queue:
   production:
     <<: *default
     url: <%= ENV['QUEUE_DATABASE_URL'] %>
-    database: 'voterr_queue_production' %>
   development:
     <<: *default
     database: voterr_queue_development
