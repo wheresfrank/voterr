@@ -65,6 +65,20 @@
     font-size: 16px;
 }
 
+.winnter-poster-placeholder {
+    width: 150px;
+    height: 225px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    color: #999;
+    font-size: 16px;
+}
+
 .poster-placeholder-content {
     display: flex;
     flex-direction: column;
