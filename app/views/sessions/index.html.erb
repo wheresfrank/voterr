@@ -28,7 +28,7 @@
               <% if poster_path(session.winner).present? %>
                 <%= image_tag(poster_path(session.winner)) %>
               <% else %>
-                <%= render 'sessions/poster_placeholder' %>
+                <%= render 'sessions/winner_poster_placeholder' %>
               <% end %>
             </div>
           <% end %>
