@@ -6,6 +6,8 @@ class PlexAuthController < ApplicationController
   PLEX_VERSION = 'Plex OAuth'.freeze
   VOTERR_CLIENT_ID = 'voterr-8a7b6c5d-4e3f-2g1h-9i8j-7k6l5m4n3o2p'
 
+  layout "landing", only: [:new]
+
   def new
     @plex_product = "Voterr"
     @plex_version = "1.0"

@@ -1,13 +1,15 @@
+<% host_controls = local_assigns.fetch(:host_controls, current_user.present?) %>
 <% session.voters.each do |voter| %>
-<div class="mb-2 is-flex is-justify-content-space-between">
-    <div>
-    <p class="has-text-weight-bold"><%= voter.name %></p>
-    <p>Votes: <%= voter.votes.count %></p>
+<div class="app-voter">
+    <div class="app-voter__identity"><span class="app-avatar"><%= voter.name.first.upcase %></span><div>
+    <strong><%= voter.name %><%= " · host" if voter.session_owner %></strong>
+    <p><%= session.lobby? ? "Ready in the lobby" : "#{pluralize(voter.votes.count, "vote")} cast" %></p>
     </div>
-    <% if current_user && !voter.session_owner %>
+    </div>
+    <% if host_controls && session.lobby? && !voter.session_owner %>
         <%= button_to '', session_voter_path(session_id: session.id, id: voter.id), 
                         method: :delete, 
-                        class: 'delete',
+                        class: 'app-remove-voter',
                         data: { turbo_confirm: "Are you sure you want to remove #{voter.name}?" } %>
     <% end %>
 </div>

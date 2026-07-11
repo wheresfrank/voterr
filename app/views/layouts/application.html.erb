@@ -13,6 +13,9 @@
   
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   <%= javascript_importmap_tags %>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   
   <%= favicon_link_tag asset_path('favicon.png') %>
   
@@ -56,8 +59,12 @@
 
     gtag('config', 'G-4R9KKJEZ70');
   </script>
-  <body>
+  <body class="app-body">
     <%= render "layouts/navbar" %>
+    <% flash.each do |name, message| %>
+      <% next if message.blank? %>
+      <div class="app-flash app-flash--<%= name == "notice" ? "success" : "error" %>" role="status"><%= message %></div>
+    <% end %>
     <%= yield %>
   </body>
 </html>

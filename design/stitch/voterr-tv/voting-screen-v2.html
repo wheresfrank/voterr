@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Voterr - The Digital Premiere</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-surface": "#ffffff",
+                        "background": "#0e0e0e",
+                        "on-secondary-container": "#e8fbff",
+                        "secondary-fixed": "#26e6ff",
+                        "on-secondary": "#004d57",
+                        "on-primary-fixed": "#392700",
+                        "secondary": "#00e3fd",
+                        "error-container": "#b92902",
+                        "on-primary-container": "#533a00",
+                        "on-tertiary": "#480013",
+                        "primary-fixed-dim": "#ecaa00",
+                        "primary-dim": "#ecaa00",
+                        "surface-container": "#1a1919",
+                        "on-primary": "#5f4200",
+                        "on-tertiary-fixed": "#39000e",
+                        "inverse-primary": "#7d5800",
+                        "tertiary": "#ff6e84",
+                        "surface-container-highest": "#262626",
+                        "surface-dim": "#0e0e0e",
+                        "outline": "#767575",
+                        "on-error": "#450900",
+                        "tertiary-dim": "#e51152",
+                        "inverse-on-surface": "#565555",
+                        "secondary-fixed-dim": "#00d7f0",
+                        "surface-container-high": "#201f1f",
+                        "on-secondary-fixed-variant": "#005964",
+                        "on-tertiary-fixed-variant": "#780026",
+                        "outline-variant": "#484847",
+                        "surface-variant": "#262626",
+                        "error-dim": "#d53d18",
+                        "on-surface-variant": "#adaaaa",
+                        "surface": "#0e0e0e",
+                        "on-error-container": "#ffd2c8",
+                        "tertiary-fixed-dim": "#ff788c",
+                        "on-primary-fixed-variant": "#5f4200",
+                        "tertiary-container": "#fb2a60",
+                        "on-secondary-fixed": "#003a42",
+                        "on-tertiary-container": "#000000",
+                        "surface-container-low": "#131313",
+                        "secondary-container": "#006875",
+                        "tertiary-fixed": "#ff909e",
+                        "surface-container-lowest": "#000000",
+                        "inverse-surface": "#fcf9f8",
+                        "primary-fixed": "#feb700",
+                        "primary-container": "#feb700",
+                        "surface-bright": "#2c2c2c",
+                        "on-background": "#ffffff",
+                        "surface-tint": "#ffc965",
+                        "error": "#ff7351",
+                        "primary": "#ffc965",
+                        "secondary-dim": "#00d4ec"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-cinema-gradient {
+            background: linear-gradient(to bottom, rgba(14, 14, 14, 0.4) 0%, rgba(14, 14, 14, 1) 100%);
+        }
+        .bg-primary-glow {
+            background: linear-gradient(135deg, #ffc965 0%, #feb700 100%);
+        }
+        .glass-shell {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .poster-break {
+            transform: translateY(-40px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary selection:text-on-primary-fixed">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 no-border bg-gradient-to-b from-[#0e0e0e] to-transparent">
+<div class="flex justify-between items-center px-8 py-4 w-full max-w-7xl mx-auto">
+<div class="text-2xl font-bold tracking-tighter text-[#FFB800] uppercase font-['Space_Grotesk']">
+                Voterr
+            </div>
+<nav class="hidden md:flex items-center gap-8 font-['Space_Grotesk'] tracking-tight">
+<a class="text-[#ffffff]/60 hover:text-[#ffffff] transition-colors" href="#">Discover</a>
+<a class="text-[#ffffff] border-b-2 border-[#FFB800] pb-1" href="#">Sessions</a>
+<a class="text-[#ffffff]/60 hover:text-[#ffffff] transition-colors" href="#">History</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-[#ffffff]/10 rounded-full transition-all active:scale-95 duration-200">
+<span class="material-symbols-outlined text-[#FFB800]">notifications</span>
+</button>
+<button class="p-2 hover:bg-[#ffffff]/10 rounded-full transition-all active:scale-95 duration-200">
+<span class="material-symbols-outlined text-[#FFB800]">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- SideNavBar (Desktop Only) -->
+<aside class="hidden lg:flex flex-col py-20 h-screen w-72 fixed left-0 top-0 z-40 bg-[#131313] shadow-[20px_0_40px_rgba(0,0,0,0.4)] font-['Manrope'] font-medium">
+<div class="px-8 mb-10">
+<div class="flex items-center gap-4 p-4 rounded-xl bg-surface-container-high mb-6">
+<div class="w-12 h-16 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Cyberpunk movie poster vertical preview" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbCWL6eM2ZkbQU9kIeC76IPlVqVBpPJCBBr1wbZLQMpzKzXJek7JPmRXOU9FBYTBZWeO65dkofqvI7G_0wLnoeunRcDHqFxxQThk9PqgBDp_zFkUCG5BKya1Y2RLQdCo66uFJkzhfiFVfTWFrjDltRpbG-4Wb_QbG4ljevyJA3TbmQmIeG0EM-NZw-ien8wWS3C66dGPjV3wtJPFC1r8AOYrxsTFQS1C1aAnIS18kMktpZwRIT2LTuS7cSMrrgo-iPffNVowD2RQ"/>
+</div>
+<div>
+<h3 class="text-primary font-black text-sm uppercase">Active Vote</h3>
+<p class="text-on-surface-variant text-xs">Room: Cinema-Alpha</p>
+</div>
+</div>
+</div>
+<nav class="flex flex-col flex-grow">
+<a class="bg-[#201f1f] text-[#FFB800] rounded-r-full border-l-4 border-[#FFB800] py-3 px-6 flex items-center gap-4 hover:translate-x-1 duration-300" href="#">
+<span class="material-symbols-outlined">sensors</span>
+                Live Session
+            </a>
+<a class="text-[#ffffff]/40 py-3 px-6 hover:bg-[#201f1f]/50 flex items-center gap-4 transition-all hover:text-[#ffffff] hover:translate-x-1 duration-300" href="#">
+<span class="material-symbols-outlined">group</span>
+                Participants
+            </a>
+<a class="text-[#ffffff]/40 py-3 px-6 hover:bg-[#201f1f]/50 flex items-center gap-4 transition-all hover:text-[#ffffff] hover:translate-x-1 duration-300" href="#">
+<span class="material-symbols-outlined">format_list_bulleted</span>
+                Queue
+            </a>
+<a class="text-[#ffffff]/40 py-3 px-6 hover:bg-[#201f1f]/50 flex items-center gap-4 transition-all hover:text-[#ffffff] hover:translate-x-1 duration-300" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+</nav>
+<div class="px-6 mt-auto">
+<button class="w-full py-4 rounded-full bg-tertiary-container text-on-tertiary-container font-bold text-sm tracking-widest uppercase active:scale-95 transition-all">
+                End Session
+            </button>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="lg:pl-72 min-h-screen relative">
+<!-- Full Bleed Background Hero -->
+<div class="absolute inset-0 w-full h-[716px] z-0">
+<img class="w-full h-full object-cover opacity-40" data-alt="Atmospheric orange and black cinematic abstract background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAobROPodqcceEEgUsaX0YgNMv3-0ZgNQDT2RlDm-3pJzJatY2IGg7DRQe4-5c5NYIKzJ7zeqhNWufqq5sSbrkVpw3RE7sUdtCJbof46yIKTLBk8nxzcGFl5Xh1WXK2us86o5ir1It5z7O8C_OaT9hvLdZdm3RvU_ESGOfgbhGVoV91sdwsxj-OON3Sg2EWU06-qLds0tNLRVr-ioGyZsK5ktxQp_bYPncP_dMrxQ3uAPFyau4IM6xvOZfosaCl-sP1JPiqZzUUmg"/>
+<div class="absolute inset-0 bg-cinema-gradient"></div>
+</div>
+<!-- Content Shell -->
+<div class="relative z-10 pt-32 px-6 lg:px-12 pb-24 max-w-6xl mx-auto">
+<!-- Asymmetric Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+<!-- Main Movie Spotlight -->
+<div class="lg:col-span-8">
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-3">
+<span class="px-3 py-1 bg-secondary/10 border border-secondary/20 text-secondary rounded-full text-xs font-bold tracking-widest uppercase">Now Premiering</span>
+<span class="text-on-surface-variant text-sm">• Session ends in 04:12</span>
+</div>
+<h1 class="font-headline text-5xl md:text-7xl font-bold tracking-tighter text-on-surface leading-none">
+                            NEON <br/> DYS<span class="text-primary">TOPIA</span>
+</h1>
+<p class="font-body text-lg text-on-surface-variant max-w-xl leading-relaxed">
+                            In a city consumed by light, silence is the ultimate crime. Follow the last architect as they attempt to unbuild the sky.
+                        </p>
+<!-- Metadata Pills -->
+<div class="flex flex-wrap gap-4 mt-2">
+<div class="flex items-center gap-2 px-4 py-2 bg-surface-container-high rounded-full border border-white/5">
+<span class="material-symbols-outlined text-sm text-primary">schedule</span>
+<span class="text-sm font-medium">142 MIN</span>
+</div>
+<div class="flex items-center gap-2 px-4 py-2 bg-surface-container-high rounded-full border border-white/5">
+<span class="material-symbols-outlined text-sm text-primary">grade</span>
+<span class="text-sm font-medium">8.9 RATING</span>
+</div>
+<div class="flex items-center gap-2 px-4 py-2 bg-surface-container-high rounded-full border border-white/5">
+<span class="material-symbols-outlined text-sm text-primary">theater_comedy</span>
+<span class="text-sm font-medium">SCI-FI / NOIR</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Poster & Vote Status -->
+<div class="lg:col-span-4 self-center">
+<div class="relative group">
+<div class="absolute -inset-1 bg-primary/20 blur-2xl rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<div class="relative rounded-3xl overflow-hidden shadow-2xl border border-white/10 aspect-[2/3]">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Highly detailed futuristic neon movie poster" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB71fXbZdKVXNvDKjzclT-Qlfx5gGlNXvkNhx2qF9hKSsWhDhuyRH3d3xwcPhy8d8bBmxUGQeiiSSdM-drpMA3ibAedAaxVxI1vN9T-ituzc932WZ_RiF96ayE6UscKIrqp-fFU7W62AY0ENgA9eq5bB5AJ1R6MyyUdJknAyN2pPDwWmV0Fz1DK35UPmmE2-mHlZf7ExHUeFk0SGRvx_HU83TDBXdIJnN6xODVIEIYkql0t7KDNncMUVPN_F7KKoIlR_vVY3808Gg"/>
+<div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black to-transparent">
+<div class="flex justify-between items-end">
+<div class="flex flex-col">
+<span class="text-[10px] font-bold text-primary tracking-widest uppercase mb-1">Live Progress</span>
+<span class="text-3xl font-headline font-bold">84%</span>
+</div>
+<div class="flex -space-x-3">
+<img class="w-8 h-8 rounded-full border-2 border-background" data-alt="User avatar small circle" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7KycjvOL1EK_X7VPTSYbSYK62-dMPu7z72QMJ1H6uCTxrelV9f4m-Mei7g38XSbdj4iiABAzMcVSgYGEfAX-yOpClY0iyDUZ4jOeGCBbU-b171GgDrBWruzwz9K6mG3UbvAw5ma_FGkBTyYjY9lVnsk8mhrJCLNP4R0eY2mq5Jm-RN1CLAawxV-en0M5I7QzdRJDjrrkGg78pImPUIbUh7yu2E0tsPTUBLN31rYkxj6OWyLPjloTVIoCHVV3hVLDxMXa6JogqpA"/>
+<img class="w-8 h-8 rounded-full border-2 border-background" data-alt="User avatar small circle" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqdcnAWqB72TgzupT7tjvbvjv72TVZ4UtJ3HaGWKheO-iFPLkU60GDE5lQVMxV7l06rLGArZtUfFkgR5iHM6B5K4TRrm_8As9McG1kVmSpQG6yC5UDlpkVxQ07JRYDP2g9skR7YPwm7mHwGBseyFnppTkPV6S1JPqP3yIC9d5WwAgt8uZ5vP_xGapaZrsO855SMv2Gdri2SSwzYHv5p3HTYtUksOHAlyB2YXHRBimbSRvCa7PZAOHyM1tr0I8c8VxS_0aKxu25Sg"/>
+<div class="w-8 h-8 rounded-full border-2 border-background bg-surface-container-highest flex items-center justify-center text-[10px] font-bold">+12</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Voting Interaction Section -->
+<section class="mt-20">
+<div class="bg-surface-container-low rounded-[2rem] p-8 md:p-12 relative overflow-hidden border border-white/5">
+<!-- Voting Header -->
+<div class="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
+<div class="text-center md:text-left">
+<h2 class="font-headline text-3xl font-bold mb-2">Should we screen this?</h2>
+<p class="text-on-surface-variant">The majority vote will determine the next theatre premiere.</p>
+</div>
+<div class="flex gap-4">
+<button class="bg-primary-glow text-on-primary-fixed px-10 py-4 rounded-full font-bold text-sm tracking-widest uppercase flex items-center gap-3 shadow-[0_20px_40px_rgba(254,183,0,0.2)] hover:shadow-[0_20px_40px_rgba(254,183,0,0.4)] transition-all active:scale-95">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">thumb_up</span>
+                                Vote Yes
+                            </button>
+<button class="bg-surface-container-highest text-on-surface px-8 py-4 rounded-full font-bold text-sm tracking-widest uppercase flex items-center gap-3 border border-white/10 hover:bg-surface-bright transition-all active:scale-95">
+<span class="material-symbols-outlined">thumb_down</span>
+                                No
+                            </button>
+</div>
+</div>
+<!-- Kinetic Progress Bar -->
+<div class="space-y-6">
+<div class="flex justify-between items-end px-2">
+<div class="flex flex-col">
+<span class="text-primary font-bold text-xs tracking-widest uppercase">In Favor</span>
+<span class="text-4xl font-headline font-bold">1,482 <span class="text-lg font-body font-medium text-on-surface-variant">VOTES</span></span>
+</div>
+<div class="text-right flex flex-col">
+<span class="text-on-surface-variant font-bold text-xs tracking-widest uppercase">Against</span>
+<span class="text-2xl font-headline font-bold text-on-surface-variant">294</span>
+</div>
+</div>
+<div class="h-4 w-full bg-surface-variant rounded-full overflow-hidden flex shadow-inner">
+<div class="h-full bg-gradient-to-r from-secondary to-secondary-dim shadow-[0_0_20px_rgba(0,227,253,0.3)] rounded-full transition-all duration-1000" style="width: 84%"></div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
+<div class="p-4 bg-surface-container-high rounded-2xl flex flex-col gap-1">
+<span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">Hype Level</span>
+<span class="text-xl font-headline font-bold text-secondary">CRITICAL</span>
+</div>
+<div class="p-4 bg-surface-container-high rounded-2xl flex flex-col gap-1">
+<span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">Estimated Date</span>
+<span class="text-xl font-headline font-bold">DEC 24</span>
+</div>
+<div class="p-4 bg-surface-container-high rounded-2xl flex flex-col gap-1">
+<span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">Venue</span>
+<span class="text-xl font-headline font-bold">IMAX</span>
+</div>
+<div class="p-4 bg-surface-container-high rounded-2xl flex flex-col gap-1">
+<span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">Remaining</span>
+<span class="text-xl font-headline font-bold">3h 45m</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Cast Bento Grid (Asymmetric) -->
+<section class="mt-24">
+<div class="flex justify-between items-end mb-10">
+<h2 class="font-headline text-4xl font-bold tracking-tight">Lead Cast</h2>
+<button class="text-primary font-bold text-sm flex items-center gap-2 hover:underline">
+                        View Full Details <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 h-[400px]">
+<div class="relative col-span-2 row-span-2 rounded-[2rem] overflow-hidden group">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Portrait of lead actor in dramatic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9VIkWv-EDjiQT6i0P4yWjHshxjbwHwupkRvhwg2biA_iydi3POLFxSAtHyNF3B8o2lQEPLs7Z3Cu9PQtuCCN1MtcPkDtsWxGxTHob62BS5YdA_V5cXXJQ91wm4u1rWYrQEA-ZHI4djeFRUeEi0kyIPjF8AbSM9ofOobJOfznYQxn5ZzEjVZeHvBCqXC_0sdpwbcvMIlXH8GTwzw625o4oJFXmoewbw3UEyWVkVJXTtBGIvr7bACMVeb6HDmkRZ1jrfKsg2eXQIQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-8">
+<p class="text-primary font-bold text-xs tracking-widest uppercase mb-1">Starring</p>
+<h3 class="text-3xl font-headline font-bold">Kaelen Vance</h3>
+<p class="text-on-surface-variant">as The Architect</p>
+</div>
+</div>
+<div class="relative rounded-[2rem] overflow-hidden group">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Portrait of supporting actress" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSi9Ye7EjmekHkr92uvXoeH9hqbon7xSQy5UAgbgWAxHS7v4a5oN2vZBBUMTv7LNuhk7u2iY4t6bOWTqgrTsFtmAkNP3EC4QPniLoegnW9Z9SCtCODZuiC0x9FI_917d0QTrYtKEl-1ZmMqTUhu8KTU-rYXskUBb4theDQBa9H1N5Zi60gXagAo2SFvgZKkq71ex_RV3AKH_lasLgOPmxGMByKKb9GG5he9kfkLzijt3R_3JlqhCpBK0WtCyx9vQNl8D9yLEfC_Q"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-6">
+<h4 class="text-lg font-bold">Sasha Gray</h4>
+</div>
+</div>
+<div class="relative rounded-[2rem] overflow-hidden group">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Portrait of lead antagonist" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5LouMJiu1YuPe-iVA1XUoOVjfHBW-krCBqVlADF1CL2ynppzu1IQkVLjm_jMofffnIVAtfk15C8zDAVQ2n7hQy9Hz0IcxY2yBoyKcaM3ONrYbfTDQ-H-SITtB1zwXCgY6xUHnVSW2ULL6TL2MQyurYhLOGrb4xv0Xj6lTzxtmsJPg66KFDFXlXJJnf5BXsXyXDBVDFhmNkHjIMkCKhNi_sQyaW7_RdY0HT6sk-x9yXCKHBkhUqjadpHSUxoo8wG7me_Vsle_2tA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-6">
+<h4 class="text-lg font-bold">Marcus Thorne</h4>
+</div>
+</div>
+<div class="relative col-span-2 rounded-[2rem] bg-surface-container overflow-hidden group border border-white/5 flex items-center justify-center p-8">
+<div class="text-center">
+<span class="material-symbols-outlined text-4xl text-primary mb-4">movie_filter</span>
+<h4 class="text-xl font-headline font-bold">Director's Commentary</h4>
+<p class="text-on-surface-variant text-sm mt-2">Exclusive behind-the-scenes voting available for Premium members.</p>
+<button class="mt-6 text-xs font-bold tracking-widest uppercase border-b-2 border-primary pb-1">Unlock Access</button>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer -->
+<footer class="bg-[#0e0e0e] w-full py-12 border-t border-[#ffffff]/5">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 max-w-7xl mx-auto font-['Manrope'] text-sm tracking-wide">
+<div class="font-['Space_Grotesk'] font-bold text-[#FFB800] text-xl mb-6 md:mb-0">
+                    Voterr.
+                </div>
+<div class="text-[#ffffff]/40 mb-6 md:mb-0">
+                    © 2024 Voterr. The Digital Premiere.
+                </div>
+<div class="flex gap-8">
+<a class="text-[#ffffff]/40 hover:text-[#FFB800] transition-colors" href="#">Privacy</a>
+<a class="text-[#ffffff]/40 hover:text-[#FFB800] transition-colors" href="#">Terms</a>
+<a class="text-[#ffffff]/40 hover:text-[#FFB800] transition-colors" href="#">Contact</a>
+</div>
+</div>
+</footer>
+</main>
+<!-- Mobile Bottom NavBar (Hidden on Desktop) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface/80 glass-shell z-50 flex justify-around items-center py-4 px-6 border-t border-white/5">
+<button class="flex flex-col items-center gap-1 text-[#ffffff]/60">
+<span class="material-symbols-outlined">sensors</span>
+<span class="text-[10px] font-bold uppercase">Live</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-[#FFB800]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">how_to_vote</span>
+<span class="text-[10px] font-bold uppercase">Vote</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-[#ffffff]/60">
+<span class="material-symbols-outlined">group</span>
+<span class="text-[10px] font-bold uppercase">Cast</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-[#ffffff]/60">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="text-[10px] font-bold uppercase">Profile</span>
+</button>
+</nav>
+</body></html>

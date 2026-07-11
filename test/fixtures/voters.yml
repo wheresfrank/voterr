@@ -4,8 +4,10 @@ one:
   name: MyString
   user: one
   session: one
+  session_owner: true
 
 two:
   name: MyString
   user: two
   session: two
+  session_owner: true

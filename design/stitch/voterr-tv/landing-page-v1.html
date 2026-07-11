@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Voterr - The Digital Premiere</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-surface": "#ffffff",
+                        "background": "#0e0e0e",
+                        "on-secondary-container": "#e8fbff",
+                        "secondary-fixed": "#26e6ff",
+                        "on-secondary": "#004d57",
+                        "on-primary-fixed": "#392700",
+                        "secondary": "#00e3fd",
+                        "error-container": "#b92902",
+                        "on-primary-container": "#533a00",
+                        "on-tertiary": "#480013",
+                        "primary-fixed-dim": "#ecaa00",
+                        "primary-dim": "#ecaa00",
+                        "surface-container": "#1a1919",
+                        "on-primary": "#5f4200",
+                        "on-tertiary-fixed": "#39000e",
+                        "inverse-primary": "#7d5800",
+                        "tertiary": "#ff6e84",
+                        "surface-container-highest": "#262626",
+                        "surface-dim": "#0e0e0e",
+                        "outline": "#767575",
+                        "on-error": "#450900",
+                        "tertiary-dim": "#e51152",
+                        "inverse-on-surface": "#565555",
+                        "secondary-fixed-dim": "#00d7f0",
+                        "surface-container-high": "#201f1f",
+                        "on-secondary-fixed-variant": "#005964",
+                        "on-tertiary-fixed-variant": "#780026",
+                        "outline-variant": "#484847",
+                        "surface-variant": "#262626",
+                        "error-dim": "#d53d18",
+                        "on-surface-variant": "#adaaaa",
+                        "surface": "#0e0e0e",
+                        "on-error-container": "#ffd2c8",
+                        "tertiary-fixed-dim": "#ff788c",
+                        "on-primary-fixed-variant": "#5f4200",
+                        "tertiary-container": "#fb2a60",
+                        "on-secondary-fixed": "#003a42",
+                        "on-tertiary-container": "#000000",
+                        "surface-container-low": "#131313",
+                        "secondary-container": "#006875",
+                        "tertiary-fixed": "#ff909e",
+                        "surface-container-lowest": "#000000",
+                        "inverse-surface": "#fcf9f8",
+                        "primary-fixed": "#feb700",
+                        "primary-container": "#feb700",
+                        "surface-bright": "#2c2c2c",
+                        "on-background": "#ffffff",
+                        "surface-tint": "#ffc965",
+                        "error": "#ff7351",
+                        "primary": "#ffc965",
+                        "secondary-dim": "#00d4ec"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 50%, rgba(255, 184, 0, 0.1) 0%, rgba(14, 14, 14, 1) 70%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 no-border bg-gradient-to-b from-[#0e0e0e] to-transparent shadow-none">
+<div class="flex justify-between items-center px-8 py-4 w-full max-w-7xl mx-auto font-['Space_Grotesk'] tracking-tight">
+<div class="text-2xl font-bold tracking-tighter text-[#FFB800] uppercase">Voterr</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-[#ffffff] border-b-2 border-[#FFB800] pb-1" href="#">Discover</a>
+<a class="text-[#ffffff]/60 hover:text-[#ffffff] transition-colors" href="#">Sessions</a>
+<a class="text-[#ffffff]/60 hover:text-[#ffffff] transition-colors" href="#">History</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-[#ffffff]/10 rounded-full transition-all active:scale-95 duration-200">
+<span class="material-symbols-outlined text-[#FFB800]">notifications</span>
+</button>
+<button class="p-2 hover:bg-[#ffffff]/10 rounded-full transition-all active:scale-95 duration-200">
+<span class="material-symbols-outlined text-[#FFB800]">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden hero-gradient">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover opacity-20 grayscale" data-alt="Cinematic theater interior with red seats and screen blur" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrVPxcylTBaoCm29hOPy7puR825vVCwjGTw_k_2_UeVH805XUgY3p22stY3VP1brkP0qM9f34WhPgCMri3gjAd0RZQlAWeZds6p89AOmD02mGR7JizGQsSGNUSllnKjCj3ZbHICVih7101RFfqjeMHz2ZvKLucopNcDMO5MPKiK1kxZMcnnf5Z5YFDcH9tch3f8g-dn3OE2ea4uY4c9uHlf3wLsh9qp0lvOKfUqTbUbml-aHGzfHcW5LEYBB-982kvaAaJObCSKQ"/>
+</div>
+<div class="relative z-10 max-w-7xl mx-auto px-8 text-center">
+<h1 class="font-headline text-6xl md:text-8xl font-bold tracking-tighter mb-6 leading-none">
+                    Movie Night <br/>
+<span class="text-primary italic">Made Easy</span>
+</h1>
+<p class="max-w-2xl mx-auto text-on-surface-variant text-lg md:text-xl mb-10 font-light">
+                    Synchronize your Plex library, invite your crew, and let the collective choice lead your next cinematic adventure. No more endless scrolling.
+                </p>
+<div class="flex flex-col md:flex-row gap-4 justify-center">
+<button class="px-10 py-4 bg-gradient-to-br from-primary to-primary-container text-on-primary-fixed font-bold rounded-full shadow-[0_20px_40px_rgba(255,184,0,0.2)] hover:scale-105 transition-transform active:scale-95">
+                        Start a Session
+                    </button>
+<button class="px-10 py-4 border border-outline-variant hover:border-primary text-on-surface font-bold rounded-full transition-all">
+                        Learn More
+                    </button>
+</div>
+</div>
+<!-- Floating Movie Posters (Asymmetric Bento Grid Element) -->
+<div class="absolute -bottom-24 left-1/2 -translate-x-1/2 w-full max-w-6xl hidden lg:grid grid-cols-5 gap-6 px-8 pointer-events-none opacity-50">
+<div class="aspect-[2/3] bg-surface-container-high rounded-xl rotate-[-6deg] overflow-hidden translate-y-12">
+<img class="w-full h-full object-cover" data-alt="Cyberpunk style movie poster silhouette" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3QvuC8NG7ZyE3PeBYdJn1bhU5tGvuCJPWbi3mecFT5cNGNpGLwXHoBJSfA4MxxdIqqhvHNkd4FR3wvJK3H-1ZycH6xGvmWLETS6BSNwpu788vKAnpq9IbL5eXpaTOor5AclS1DsQnzN4CGWZEqk_NUAbgotxtVTYi-zNTn3kg56p67bjk-pvKzz7Ihk1vS9Zwb13AQ4JJFG8xok6vAiWvQVOQpqsIoxBxTW-u7m3cgRvcei77cQZWWUogxY8sAn2JZ9e5wy6V0Q"/>
+</div>
+<div class="aspect-[2/3] bg-surface-container-high rounded-xl rotate-[3deg] overflow-hidden -translate-y-4">
+<img class="w-full h-full object-cover" data-alt="Classic vintage movie camera close up" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVFucBOS5acEO78uXfTAu7dCW1QOewhhUOUtfEl67hWLrDp_IY8hiC9eJZJLR93E_oHITTgQvaIZaJckwX0Jf7gdn8fEpKRXXeVIZVADNS0pB6XUHNZNcFs2yMtWhE66pAsuTUYyGI0y-CvAfzQUEZpYyEGRVnAeBFMa1RJ7gxsJ7_o7_R6IokQY_HyLWvMjcitlpb2c53FqOuKKeSEwnV6DQl1_IKKxhCfHg05Syh39dGaBEwQXSugI-OkcWZoxFMfB0y15CijA"/>
+</div>
+<div class="aspect-[2/3] bg-surface-container-high rounded-xl rotate-[-2deg] overflow-hidden translate-y-8">
+<img class="w-full h-full object-cover" data-alt="Dramatic film noir lighting portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCImfyuQnHebbFxs4XFmtRmYDmAFaDwZWhzi4yG788Q30OO155RC2_1Kaw7uCppDtWksXQEIZAJWytdkWPefsCSos6p77E5RrTimTpZFMVEnUBsXNcPitUplGmjBujMBRl5FYpsvo9qOp0GdPpjpGMK0VcX4YiIiD2eisq_fzdbZPrEHDJEUM_rCtzSZRvTgN2R_mwoypswAbi72ZmF-rGTc-tqAo1QtWRreHx7tQaC5XIH8v05dVXUCLViuqT-DINOYLYrKL2Lqw"/>
+</div>
+<div class="aspect-[2/3] bg-surface-container-high rounded-xl rotate-[5deg] overflow-hidden -translate-y-8">
+<img class="w-full h-full object-cover" data-alt="Abstract colorful neon light patterns" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzgB0AWJzTKlpsVy5aycBGDwkT_t42RbjpcsPzl7ilbhKDyV5oznJTiD77OhltYl7ouMA9korY_KgAN8AdDwPsYnZvDuEXrQjR-bK3rHa16J5wenoC3BbwXPZrQhzo4TtcJNxv7jNfsV2ZHJtK4ALdSV9L3unq_SHVX6iQQt7ccZU2stegZh_MgMefBMpsX9bC2Qzbntq1yXebk3Jp2OrxexG6JKEv3EOPQD0EMVq8owe7ztCxOQel2uoiZOiPtdSIBSOo5JsbtQ"/>
+</div>
+<div class="aspect-[2/3] bg-surface-container-high rounded-xl rotate-[-4deg] overflow-hidden translate-y-10">
+<img class="w-full h-full object-cover" data-alt="Modern sci-fi futuristic architecture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFA6y8tJMt_uSDSCxPrH1WdWUYnVjtjGgsW5mBugZeoIjiiRR3VepdyyZwZpB7cnBPxFaLBhRUtg357g_qSpgqkdSl7eNkoU0TOag7eNikNBAJ-wKMC8PO-5zxdSHnzvmSIUDz9C1esi57M66Y_2TWQNbR2u0gz9W6wArPcuRYqq7GYGdjMIuu08MCgkcd-YFSErsuzr8wjaK6-y6n7o4uEqFWfnbB9CwgMWHcp9_d4S4g2ODfBOgLlNGweNCQviBYYYpgdk-m7w"/>
+</div>
+</div>
+</section>
+<!-- Features Section -->
+<section class="py-32 bg-surface">
+<div class="max-w-7xl mx-auto px-8">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Feature 1 -->
+<div class="group p-8 bg-surface-container-low rounded-xl hover:bg-surface-container-high transition-all duration-300">
+<div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">cable</span>
+</div>
+<h3 class="font-headline text-2xl font-bold mb-4">Connect Plex</h3>
+<p class="text-on-surface-variant leading-relaxed">
+                            Seamlessly integrate your existing Plex media server. Voterr automatically pulls your library meta-data for a rich voting experience.
+                        </p>
+</div>
+<!-- Feature 2 -->
+<div class="group p-8 bg-surface-container-low rounded-xl hover:bg-surface-container-high transition-all duration-300">
+<div class="w-16 h-16 rounded-2xl bg-secondary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-secondary text-3xl" style="font-variation-settings: 'FILL' 1;">how_to_vote</span>
+</div>
+<h3 class="font-headline text-2xl font-bold mb-4">Real-time Vote</h3>
+<p class="text-on-surface-variant leading-relaxed">
+                            Launch live sessions where everyone gets a say. Real-time progress bars and ranking ensure the winning film is a crowd favorite.
+                        </p>
+</div>
+<!-- Feature 3 -->
+<div class="group p-8 bg-surface-container-low rounded-xl hover:bg-surface-container-high transition-all duration-300">
+<div class="w-16 h-16 rounded-2xl bg-tertiary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-tertiary text-3xl" style="font-variation-settings: 'FILL' 1;">movie</span>
+</div>
+<h3 class="font-headline text-2xl font-bold mb-4">Pure Enjoyment</h3>
+<p class="text-on-surface-variant leading-relaxed">
+                            Once the vote is in, sit back and enjoy. Voterr can even trigger the movie to play directly on your shared screen.
+                        </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Highlight Section (Bento Grid Style) -->
+<section class="py-24 bg-surface-container-low overflow-hidden">
+<div class="max-w-7xl mx-auto px-8">
+<div class="grid grid-cols-12 gap-6">
+<!-- Large Card -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-high rounded-xl p-12 relative overflow-hidden flex flex-col justify-between min-h-[400px]">
+<div class="relative z-10">
+<span class="text-secondary font-bold tracking-widest text-xs uppercase mb-4 block">Active Session</span>
+<h2 class="font-headline text-4xl font-bold max-w-md mb-6 leading-tight">The Collective Choice in Real-Time.</h2>
+<p class="text-on-surface-variant max-w-sm mb-8">
+                                Watch as the votes roll in. Our dynamic ranking system updates live, creating suspense before the big reveal.
+                            </p>
+</div>
+<!-- Mini Voting Mockup -->
+<div class="lg:absolute right-0 bottom-0 w-full lg:w-1/2 p-8 lg:p-0 lg:translate-y-8 lg:translate-x-8">
+<div class="bg-surface-container-highest p-6 rounded-tl-3xl shadow-2xl border-l border-t border-outline-variant/20">
+<div class="space-y-4">
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold uppercase tracking-wider text-on-surface-variant">
+<span>Interstellar</span>
+<span>82%</span>
+</div>
+<div class="h-2 w-full bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-secondary to-secondary-dim w-[82%] shadow-[0_0_10px_rgba(0,227,253,0.3)]"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold uppercase tracking-wider text-on-surface-variant">
+<span>Inception</span>
+<span>45%</span>
+</div>
+<div class="h-2 w-full bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-surface-container-low w-[45%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Small Card 1 -->
+<div class="col-span-12 md:col-span-6 lg:col-span-4 bg-primary text-on-primary-fixed rounded-xl p-8 flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-4xl mb-6">groups</span>
+<h3 class="font-headline text-3xl font-bold leading-tight mb-4">Unlimited Participants</h3>
+</div>
+<p class="font-medium opacity-80">
+                            From intimate movie nights to digital watch parties with hundreds of voters.
+                        </p>
+</div>
+<!-- Small Card 2 -->
+<div class="col-span-12 md:col-span-6 lg:col-span-4 bg-surface-container-highest rounded-xl p-8 border border-outline-variant/10">
+<div class="flex items-center gap-4 mb-6">
+<div class="flex -space-x-3">
+<img alt="" class="w-10 h-10 rounded-full border-2 border-surface-container-highest" data-alt="User avatar 1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5uIN8jD2O0PB6wbZaWrzHbXqHC1XgMA1za5zre6WCOGYqO3tpoSqtBaxQdT4XfQPBdGo2Ta5eVN2lFIxkCGq-ZYk_wV-4zb8ckmO4FGedp-BSPDz5X17RIBetBQH0lwK7wsSU5kI1I8sAzdDN9HNZCm8xjnOlmKgDGBeuMtGUfZ4B-FFtCRH1Vvu4XpA8i5Oxgf_J96pu9rh7GOzNnXbwG5V5iqnS3NUJ-h8GkNCB7cjxOtMUEcXsStgmBEsdDJ65vImGpkzjcA"/>
+<img alt="" class="w-10 h-10 rounded-full border-2 border-surface-container-highest" data-alt="User avatar 2" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKsIMubBa6x183cMA-VRDWpkVRL7eL2TJ2rB4m6KEG5SM5D04XbmBkRxcMXqoNqRg6Q82ClQGUGV61eiK4SEBafK-VdJKLyNGyMmN-0As-HZQd6yuBFEZsPad4jBQAc-SMX5T6bCtVis_azgZKUv3j0xGN4FcNwEVz5gJ7XthvjEWbX9sxvXtiEi0QH6i6DMx8XhsXBohQsH1wJaQX4tTvrR6DCcAVI08XtyQeZ1Yy9gqFwVTrcHRSa1fc3PeqrlKQ_TmJjagOcg"/>
+<img alt="" class="w-10 h-10 rounded-full border-2 border-surface-container-highest" data-alt="User avatar 3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiL7Jjg-9WjAM-MD6MMjg4zA0DYE9Eh1w3vzTuXONFGNMnL04pFCPVnrDLErhnfI_NYVyhpQoAnbZiiWJ7pq548WbNzojiI7I1h45REvwqZh2AK64bsCOVlKlvFL18vQjCD2fCVBYGqp6nQpplM5WixUHtlWjHHvhS18dPF9BtOsTb1bfnYRi2BX3qXP-m8VUIpxyflSmJ6Z1nww4QSfaS1DR7zkstEdse3hz6wCbMebRy8sDJXQEHeD_E6u3obXFNEIubS0LGdQ"/>
+</div>
+<span class="text-sm font-bold text-primary">+12 Active</span>
+</div>
+<h3 class="font-headline text-2xl font-bold mb-2">Private Rooms</h3>
+<p class="text-on-surface-variant text-sm">Create password-protected voting lounges for your inner circle.</p>
+</div>
+<!-- Wide Card -->
+<div class="col-span-12 lg:col-span-8 bg-surface rounded-xl p-12 border border-outline-variant/10 flex items-center justify-between">
+<div class="max-w-md">
+<h3 class="font-headline text-3xl font-bold mb-4">Theater Quality Interface</h3>
+<p class="text-on-surface-variant">Our dark-mode UI is optimized for low-light environments, making it the perfect companion for home theaters.</p>
+</div>
+<div class="hidden sm:block">
+<span class="material-symbols-outlined text-primary text-6xl opacity-20">tv_gen</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-32 relative overflow-hidden">
+<div class="max-w-4xl mx-auto px-8 text-center relative z-10">
+<h2 class="font-headline text-5xl md:text-6xl font-bold mb-8 leading-tight">Ready to Transform Your Movie Nights?</h2>
+<p class="text-on-surface-variant text-lg mb-12 max-w-2xl mx-auto">
+                    Join thousands of cinephiles who have ended the "what should we watch" debate forever. Get started with Voterr today.
+                </p>
+<button class="px-12 py-5 bg-primary text-on-primary-fixed font-black text-lg rounded-full shadow-2xl hover:bg-primary-fixed transition-colors active:scale-95 duration-200">
+                    Get Voterr Free
+                </button>
+</div>
+<!-- Abstract background glow -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 blur-[120px] rounded-full"></div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 border-t border-[#ffffff]/5 bg-[#0e0e0e]">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 max-w-7xl mx-auto font-['Manrope'] text-sm tracking-wide">
+<div class="flex flex-col md:flex-row items-center gap-8 mb-8 md:mb-0">
+<div class="font-['Space_Grotesk'] font-bold text-[#FFB800] text-xl uppercase">Voterr</div>
+<div class="text-[#ffffff]/40">© 2024 Voterr. The Digital Premiere.</div>
+</div>
+<div class="flex gap-8">
+<a class="text-[#ffffff]/40 hover:text-[#FFB800] transition-colors opacity-80 hover:opacity-100" href="#">Privacy</a>
+<a class="text-[#ffffff]/40 hover:text-[#FFB800] transition-colors opacity-80 hover:opacity-100" href="#">Terms</a>
+<a class="text-[#ffffff]/40 hover:text-[#FFB800] transition-colors opacity-80 hover:opacity-100" href="#">Contact</a>
+</div>
+</div>
+</footer>
+</body></html>

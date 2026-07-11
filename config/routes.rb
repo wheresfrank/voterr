@@ -9,6 +9,10 @@ Rails.application.routes.draw do
 
   # Sessions and Voting Routes
   resources :sessions, only: [:index, :new, :create, :show, :destroy] do
+    member do
+      patch :start_voting
+      patch :select_winner
+    end
     resources :votes, only: [:create]
     resources :voters, only: [:destroy]
   end

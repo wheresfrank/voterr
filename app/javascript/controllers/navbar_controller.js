@@ -7,7 +7,8 @@ export default class extends Controller {
   }
 
   toggleMenu() {
-    this.burgerTarget.classList.toggle("is-active")
-    this.menuTarget.classList.toggle("is-active")
+    const isOpen = this.menuTarget.classList.toggle("is-active")
+    this.burgerTarget.classList.toggle("is-active", isOpen)
+    this.burgerTarget.setAttribute("aria-expanded", isOpen.toString())
   }
 }

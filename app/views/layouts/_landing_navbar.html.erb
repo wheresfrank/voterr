@@ -1,0 +1,16 @@
+<header class="landing-navbar">
+  <div class="landing-navbar-inner container is-max-widescreen">
+    <%= link_to root_path, class: "landing-wordmark" do %>
+      Voterr
+    <% end %>
+    <nav class="landing-navbar-links" aria-label="Primary">
+      <%= link_to "Discover", "#how-it-works", class: "landing-navbar-link landing-navbar-link--active landing-link-desktop" %>
+      <%= link_to "Sessions", "#session-spotlight", class: "landing-navbar-link landing-link-desktop" %>
+      <%= link_to "About", about_path, class: "landing-navbar-link" %>
+    </nav>
+    <div class="landing-navbar-decoys landing-link-desktop" aria-hidden="true">
+      <span class="material-symbols-outlined landing-navbar-ms">notifications</span>
+      <span class="material-symbols-outlined landing-navbar-ms">account_circle</span>
+    </div>
+  </div>
+</header>

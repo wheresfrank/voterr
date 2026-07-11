@@ -14,6 +14,31 @@ class Session < ApplicationRecord
   scope :recent_winners, -> { where.not(winner_id: nil).order(created_at: :desc).limit(10) }
   scope :in_progress, -> { where(winner_id: nil).order(created_at: :desc) }
 
+  def lobby?
+    voting_started_at.nil? && winner.nil?
+  end
+
+  def voting?
+    voting_started_at.present? && winner.nil?
+  end
+
+  def closed?
+    winner.present? || voting_closed_at.present?
+  end
+
+  def positive_vote_counts
+    votes.where(positive: true).group(:movie_id).count
+  end
+
+  def top_movies_by_positive_votes(limit: 3)
+    movies
+      .joins(:votes)
+      .where(votes: { session_id: id, positive: true })
+      .group("movies.id")
+      .order(Arel.sql("COUNT(votes.id) DESC"), :title)
+      .limit(limit)
+  end
+
   def all_participants_voted_for_same_movie?
     total_voters = voters.count
     return false if total_voters < 2

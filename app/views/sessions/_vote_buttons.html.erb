@@ -1,12 +1,12 @@
 <%= turbo_frame_tag "session_#{session.id}" do %>
-    <div class="buttons">
+    <div class="app-vote-actions">
         <%= form_with url: session_votes_path(session, movie_id: movie.id, positive: true), method: :post, local: true do |f| %>
             <%= hidden_field_tag :session_token, session.session_token %>
-            <%= f.submit "I'd watch this", class: "button is-primary" %>
+            <%= f.submit "I'd watch this", class: "app-button app-button--primary" %>
         <% end %>
         <%= form_with url: session_votes_path(session, movie_id: movie.id, positive: false), method: :post, local: true do |f| %>
             <%= hidden_field_tag :session_token, session.session_token %>
-            <%= f.submit "Not interested", class: "button is-danger" %>
+            <%= f.submit "Pass", class: "app-button app-button--secondary" %>
         <% end %>
     </div>
 <% end %>

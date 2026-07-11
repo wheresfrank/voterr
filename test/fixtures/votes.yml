@@ -2,10 +2,14 @@
 
 one:
   user: one
+  voter: one
   movie: one
   session: one
+  positive: true
 
 two:
   user: two
+  voter: two
   movie: two
   session: two
+  positive: false

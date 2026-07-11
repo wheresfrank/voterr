@@ -1,0 +1,75 @@
+{
+  "project": {
+    "title": "Voterr.tv",
+    "id": "759253910942200904",
+    "name": "projects/759253910942200904"
+  },
+  "fetchedAt": "2025-03-21",
+  "note": "Screenshot lh3 URLs from Stitch return thumbnails unless you append =s0 (or =s2560) for full size.",
+  "screens": [
+    {
+      "title": "Winner Found!",
+      "id": "11ea140c5eb74da6b7e4eb6617b13f07",
+      "name": "projects/759253910942200904/screens/11ea140c5eb74da6b7e4eb6617b13f07",
+      "deviceType": "DESKTOP",
+      "width": "2560",
+      "height": "2280",
+      "files": {
+        "screenshot": "winner-found.png",
+        "html": "winner-found.html"
+      },
+      "sourceUrls": {
+        "screenshot": "https://lh3.googleusercontent.com/aida/ADBb0uh9plUAJCVEm68WpCDd1L8YHOZ64yiDxsLJun2vYak1SVu7IBJtfBtXNm1X_vKkw45B9_E51iMgs2qALK7gU8gLvAOUKlmkXvOkgKHhnv-vHAo_9aNBCa4OFtOxtoLWrL3pxAj5omBJiUYxDEjNVdcLbv8T_4w2scclAYzViwaXQxKo2rdC2oRQfeML6de2kYuUj1wBqULQIgfajMhnfQgFHaROXmQt8z7MiksC204DkZ5xFDUD3ZzOpw",
+        "htmlCode": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ6Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpZCiVodG1sX2VlYWZkNjZlMDk5YTQwMzRhNzRjNjI2ODdjYzU3MmM5EgsSBxDMooTO_goYAZIBIgoKcHJvamVjdF9pZBIUQhI3NTkyNTM5MTA5NDIyMDA5MDQ&filename=&opi=89354086"
+      }
+    },
+    {
+      "title": "Voting Screen V2",
+      "id": "2bfbb9adff204626b4aabf106e0f547b",
+      "name": "projects/759253910942200904/screens/2bfbb9adff204626b4aabf106e0f547b",
+      "deviceType": "DESKTOP",
+      "width": "2560",
+      "height": "3700",
+      "files": {
+        "screenshot": "voting-screen-v2.png",
+        "html": "voting-screen-v2.html"
+      },
+      "sourceUrls": {
+        "screenshot": "https://lh3.googleusercontent.com/aida/ADBb0ugC9VW5P1QSr76Im1okqpSEPgqkYQ2Kke1mXR7Sdd11tacFPzwmnHaxE_EnBlgGwu1eldSoqBWII8vKMbIySTiZyIKzlBlp65X34ln68ahoEsu8uH0pbict4stLnNsr0OdGywooXq_3HaY3VRxSw4z3ZqHjJNDoDG5-UOE-Yy1Mc9KpWi8cLtDLM8mIHaYMJ8zCBry543wzOx-V5tZrMtHZD_tt24g1wEP9TXAKCJnRMB1jFlnCZpnXCg",
+        "htmlCode": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ6Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpZCiVodG1sXzIxZDlkM2Y4MjExZjQyOTBiMDI0NTJjODcwMjNjMWE4EgsSBxDMooTO_goYAZIBIgoKcHJvamVjdF9pZBIUQhI3NTkyNTM5MTA5NDIyMDA5MDQ&filename=&opi=89354086"
+      }
+    },
+    {
+      "title": "Session Management Dashboard",
+      "id": "6819c3ac1bf04f82a38b8d9c161db148",
+      "name": "projects/759253910942200904/screens/6819c3ac1bf04f82a38b8d9c161db148",
+      "deviceType": "DESKTOP",
+      "width": "2560",
+      "height": "3180",
+      "files": {
+        "screenshot": "session-management-dashboard.png",
+        "html": "session-management-dashboard.html"
+      },
+      "sourceUrls": {
+        "screenshot": "https://lh3.googleusercontent.com/aida/ADBb0ujy410PHcgeQbyWmWSFX944g99Jh4ITEUylpZ-36OR9T8cTKS5phEzOL3X_sOd60apXYOQvF0Al9LuzSymTfuy_ExATbOc7kGewvokLcWHCoucip4iqgePOybjXzHvVh0CJfQnrKPe3L646PEEauq8XKdSvU1_oIcrld_l8MeuIEii-7Rm2jtA5clXtcm_Vd5fm29IW_LKJtizeyMvEYGdv9ptDRYOoaePgW4BiLofz5HH2jGuwBgEw",
+        "htmlCode": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ6Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpZCiVodG1sXzdlY2Q3NmQ1M2RjZDRlMmZhZDczZjcwZDhhZDFkMzgyEgsSBxDMooTO_goYAZIBIgoKcHJvamVjdF9pZBIUQhI3NTkyNTM5MTA5NDIyMDA5MDQ&filename=&opi=89354086"
+      }
+    },
+    {
+      "title": "Landing Page V1",
+      "id": "2ff08737ada6458f81e1129405c44fc9",
+      "name": "projects/759253910942200904/screens/2ff08737ada6458f81e1129405c44fc9",
+      "deviceType": "DESKTOP",
+      "width": "2560",
+      "height": "6230",
+      "files": {
+        "screenshot": "landing-page-v1.png",
+        "html": "landing-page-v1.html"
+      },
+      "sourceUrls": {
+        "screenshot": "https://lh3.googleusercontent.com/aida/ADBb0ugK4cTttBSCKmoEI6D3XR-1CvbhN__Bulbs5AWUwKT8cPDWGP4TtpWma5J-qdieKAnC6B-RnQDrD_7wPXkhgEF2qyEwKkdgg8awMnIz3uQ9JyylvrYCU_ZzKeEa8buLwDK7jX-aSHmg_qH6qcfOd-e_YHCyADntrpEtAM4Wgimpo99XErCQO0_AI3E-adUHzRyazZYDYbvJaATyboipCfOFAVOfpswdLLWIMsbGrNl2t2iGzjPU42NcaA",
+        "htmlCode": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ6Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpZCiVodG1sXzM4MGQyNDc3M2EyYzQ0MTViM2UyMzA2NDJjOTgwYjg5EgsSBxDMooTO_goYAZIBIgoKcHJvamVjdF9pZBIUQhI3NTkyNTM5MTA5NDIyMDA5MDQ&filename=&opi=89354086"
+      }
+    }
+  ]
+}

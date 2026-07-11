@@ -1,20 +1,47 @@
 <%= turbo_frame_tag "session_panel_#{session.id}" do %>
-    <% if current_user %>
-        <div data-controller="clipboard" data-clipboard-success-content-value="Copied!">
+    <% host_controls = local_assigns.fetch(:host_controls, current_user.present?) %>
+    <% vote_counts = session.positive_vote_counts %>
+    <% finalists = session.top_movies_by_positive_votes %>
+    <section class="app-session-panel">
+    <% if host_controls %>
+        <div class="app-invite" data-controller="clipboard" data-clipboard-success-content-value="Copied!">
+            <p class="app-card__kicker">Invite the crew</p><h2>Share this room</h2><p>Friends only need a name to join in.</p>
             <input type="hidden" value='<%= join_session_url(token: session.session_token) %>' data-clipboard-target="source" />
-            <button type="button", class="button is-info is-fullwidth" data-action="clipboard#copy" data-clipboard-target="button">Copy Invite Link</button>
+            <button type="button", class="app-button app-button--primary app-button--wide" data-action="clipboard#copy" data-clipboard-target="button">Copy invite link</button>
         </div>
-        <p class="has-text-centered is-size-7">Share this link with everyone choosing a movie</p>
-        <hr class="movie-divider">
     <% end %>
-    <p class="subtitle"><%= user.movies.count %> Movies in Library</p>
+    <div class="app-panel-stat"><strong><%= session.movies.count %></strong><span>movies currently in the voting pool</span></div>
+    <% if session.selected_genres.present? || session.only_unwatched? %>
+      <div class="app-filter-list">
+        <% session.selected_genres.each do |genre| %><span><%= genre %></span><% end %>
+        <% if session.only_unwatched? %><span>Unwatched</span><% end %>
+      </div>
+    <% end %>
+
+    <% if finalists.any? %>
+      <div class="app-finalists">
+        <div class="app-section-title"><h2>Top movies</h2><span>Positive votes</span></div>
+        <% finalists.each_with_index do |movie, index| %>
+          <div class="app-finalist">
+            <span class="app-finalist__rank"><%= index + 1 %></span>
+            <div><strong><%= movie.title %></strong><small><%= pluralize(vote_counts[movie.id] || 0, "yes vote") %></small></div>
+            <% if host_controls %>
+              <%= button_to "Choose", select_winner_session_path(session, movie_id: movie.id), method: :patch, class: "app-finalist__choose", data: { turbo_confirm: "Choose #{movie.title} and close voting?" } %>
+            <% end %>
+          </div>
+        <% end %>
+        <% if host_controls %><p class="app-finalists__hint">Choosing a movie immediately closes voting for everyone.</p><% end %>
+      </div>
+    <% end %>
+
+    <div class="app-section-title"><h2>In the room</h2><span><%= pluralize(session.voters.count, "person") %></span></div>
     <%= turbo_frame_tag "voters-session-#{session.id}" do %>
         <%= render partial: 'sessions/voters', locals: { session: session } %>
     <% end %>
-    <% if current_user %>
-        <hr>
-        <div class="buttons">
+    <% if host_controls %>
+        <div class="app-admin-actions">
             <%= render "sessions/admin_buttons", session: session %>
         </div>
     <% end %>
+    </section>
 <% end %>

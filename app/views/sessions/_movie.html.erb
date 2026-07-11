@@ -1,7 +1,7 @@
 <%= turbo_frame_tag "movie_#{movie.plex_id}" do %>
-  <div class="columns movie">
-    <div class="poster column is-one-third">
-      <div class="poster-container">
+  <article class="app-movie-card <%= 'app-movie-card--winner' if session.winner.present? %>">
+    <div class="app-movie-card__poster">
+      <div class="app-poster">
         <% if poster_path(movie).present? %>
           <%= image_tag(poster_path(movie)) %>
         <% else %>
@@ -9,28 +9,26 @@
         <% end %>
       </div>
     </div>
-    <div class="column is-flex is-flex-direction-column">
-      <div class="content-wrapper">
-        <h1 class="title mb-2"><%= movie.title %></h1>
-        <p class="mb-2"><%= movie[:year] %>&emsp;<%= duration(movie) %>&emsp;<%= movie.content_rating || 'Unknown Rating' %></p>
-        <p class="mb-2"><%= genres(movie) %></p>
-        <div class="ratings-container is-flex flex-direction-row">
-          <div class="rating-icon"><%= rating_icon(movie) %></div>
-          <div class="pl-2 mr-4"><%= rating_percent(movie.rating) %></div>
-          <div class="rating-icon"><%= audience_rating_icon(movie) %></div>
-          <div class="pl-2"><%= rating_percent(movie.audience_rating) %></div>
+    <div class="app-movie-card__content">
+      <div>
+        <p class="app-movie-card__label"><%= session.winner.present? ? "Tonight's pick" : "Your next pick" %></p>
+        <h2><%= movie.title %></h2>
+        <p class="app-movie-card__meta"><%= movie[:year] %><span>•</span><%= duration(movie) %><span>•</span><%= movie.content_rating || 'Not rated' %></p>
+        <p class="app-movie-card__genres"><%= genres(movie) %></p>
+        <div class="app-ratings">
+          <div><span class="rating-icon"><%= rating_icon(movie) %></span><strong><%= rating_percent(movie.rating) %></strong><small>Critics</small></div>
+          <div><span class="rating-icon"><%= audience_rating_icon(movie) %></span><strong><%= rating_percent(movie.audience_rating) %></strong><small>Audience</small></div>
         </div>
-        <hr class="movie-divider">
-        <p class="has-text-weight-bold pb-3"><%= movie.tagline %></p>
-        <p class="mb-5"><%= truncate(movie.summary, length: 400, omission: '...') %></p>
+        <% if movie.tagline.present? %><p class="app-movie-card__tagline">“<%= movie.tagline %>”</p><% end %>
+        <p class="app-movie-card__summary"><%= truncate(movie.summary, length: 400, omission: '...') %></p>
       </div>
-      <div class="mt-auto mb-2">
+      <div class="app-movie-card__actions">
         <% if session.winner.present? %>
-            <%= link_to "Open in Plex", "https://app.plex.tv/desktop/#!/server/#{session.user.plex_server_id}/details?key=/library/metadata/#{session.winner.plex_id}", target: "_blank", class: "button is-warning" if current_user %>
+            <%= link_to "Open in Plex ↗", "https://app.plex.tv/desktop/#!/server/#{session.user.plex_server_id}/details?key=/library/metadata/#{session.winner.plex_id}", target: "_blank", class: "app-button app-button--primary app-button--wide" if current_user %>
         <% else %>
           <%= render 'sessions/vote_buttons', session: session, movie: movie %>
         <% end %>
       </div>
     </div>
-  </div>
+  </article>
 <% end %>

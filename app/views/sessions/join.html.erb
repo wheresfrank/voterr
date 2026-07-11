@@ -1,19 +1,18 @@
-<div class="hero is-medium is-dark">
-  <div class="hero-body">
-    <div class="container has-text-centered">
-      <%= image_tag("voterr_logo_white.svg", class: "landing-logo") %>
-      <h2 class="subtitle mb-5">Enter your name below to help <%= @session.user.name %> choose a movie. </h1>
+<main class="app-join-page">
+    <div class="app-join-card">
+      <%= link_to "Voterr", root_path, class: "app-wordmark" %>
+      <p class="app-eyebrow">You’re invited</p>
+      <h1>Movie night is<br>about to begin.</h1>
+      <p>Enter your name to help <strong><%= @session.user.name %></strong> choose what to watch.</p>
       <%= form_with url: guest_vote_path, method: :post, local: true, data: { turbo: false } do |f| %>
         <%= hidden_field_tag :token, params[:token] %>
-        <div class="field">
-          <%= text_field_tag :guest_name, nil, class: "input mt-4" , placeholder: "Your name" %>
+        <div class="app-field">
+          <%= text_field_tag :guest_name, nil, class: "app-input" , placeholder: "Your name" %>
         </div>
-        <div class="field">
-          <%= f.submit "Join Session", class: "button is-warning" %>
+        <div>
+          <%= f.submit "Join the room", class: "app-button app-button--primary app-button--wide" %>
         </div>
       <% end %>
-      <p class="mt-5">After joining you'll be shown available movies to vote on.</p>
-      <p>Get the popcorn ready.</p>
+      <p class="app-join-card__footnote">No Plex account needed. Just bring your opinions.</p>
     </div>
-  </div>
-</div>
+</main>

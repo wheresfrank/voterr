@@ -39,10 +39,40 @@ class SessionsController < ApplicationController
 
   def show
     @user = current_user
-    @session = Session.find(params[:id])
-    @movie = Movie.unwatched_by_user(@user.id)
-                  .where.not(id: @session.votes.where(user_id: @user.id).select(:movie_id))
-                  .sample
+    @session = current_user.sessions.find(params[:id])
+    voter = @session.voters.find_by(user: current_user)
+    @movie = @session.next_unvoted_movie(voter) if @session.voting? && voter
+  end
+
+  def start_voting
+    @session = current_user.sessions.find(params[:id])
+
+    if @session.closed?
+      redirect_to session_path(@session), alert: "This session has already ended."
+    elsif @session.voters.count < 2
+      redirect_to session_path(@session), alert: "Invite at least one guest before starting the vote."
+    elsif @session.voting?
+      redirect_to session_path(@session), notice: "Voting is already in progress."
+    else
+      @session.update!(voting_started_at: Time.current)
+      broadcast_session_update(@session)
+      redirect_to session_path(@session), notice: "Voting started. The guest list is now locked."
+    end
+  end
+
+  def select_winner
+    @session = current_user.sessions.find(params[:id])
+    finalist = @session.top_movies_by_positive_votes.find_by(id: params[:movie_id])
+
+    if !@session.voting?
+      redirect_to session_path(@session), alert: "Voting is not currently open."
+    elsif finalist.nil?
+      redirect_to session_path(@session), alert: "Choose one of the current top three movies."
+    else
+      @session.update!(winner: finalist, voting_closed_at: Time.current)
+      broadcast_session_update(@session)
+      redirect_to session_path(@session), notice: "#{finalist.title} won. Voting is closed."
+    end
   end
 
   def destroy
@@ -53,41 +83,62 @@ class SessionsController < ApplicationController
 
   def show_guest
     @session = Session.find_by(session_token: params[:token])
-    @guest_name = session[:guest_name]
+    return redirect_to(root_path, alert: "Session not found.") unless @session
 
-    # Fetch a movie from the session's movies, ensuring it's not yet voted on by the guest
-    @movie = @session.movies.where.not(id: @session.votes.where(guest_name: @guest_name).select(:movie_id)).sample
+    @guest_name = session[:guest_name]
+    voter = @session.voters.find_by(name: @guest_name)
+    return redirect_to(join_session_path(token: params[:token]), alert: "Join the session before voting.") unless voter
+
+    @movie = @session.next_unvoted_movie(voter) if @session.voting?
   end
 
   def join
     @session = Session.find_by(session_token: params[:token])
     if @session.nil?
       redirect_to root_path, alert: "Session not found."
+    elsif @session.voting? || @session.closed?
+      redirect_to root_path, alert: "This room is no longer accepting new guests."
     end
   end
 
   def guest_vote
     @session = Session.find_by(session_token: params[:token])
-    guest_name = params[:guest_name]
+    guest_name = params[:guest_name].to_s.strip
+
+    if @session.nil?
+      return redirect_to root_path, alert: "Session not found."
+    elsif !@session.lobby?
+      return redirect_to root_path, alert: "The guest list is locked because voting has started."
+    end
 
     if guest_name.blank?
       flash.now[:alert] = "Name can't be blank."
       render :join
     else
-      session[:guest_name] = guest_name
-      
-      # Create voter and ensure it exists
-      voter = @session.voters.find_by(name: guest_name)
-      voter ||= @session.voters.create(name: guest_name, user: @session.user, session_owner: false)
+      existing_voter = @session.voters.where("LOWER(name) = ?", guest_name.downcase).first
+      if existing_voter
+        flash.now[:alert] = "That name is already in the room. Please use another name."
+        return render :join, status: :unprocessable_entity
+      end
+
+      voter = @session.voters.create(name: guest_name, user: @session.user, session_owner: false)
       
       if voter.persisted?
-        @movie = @session.movies.where.not(id: voter.votes.select(:movie_id)).sample
+        session[:guest_name] = guest_name
 
         Turbo::StreamsChannel.broadcast_update_to(
           @session, 
           target: "voters-session-#{@session.id}",
           partial: "sessions/voters", 
-          locals: { session: @session }
+          locals: { session: @session, host_controls: false }
+        )
+
+        Turbo::StreamsChannel.broadcast_update_to(
+          @session,
+          :host,
+          target: "voters-session-#{@session.id}",
+          partial: "sessions/voters",
+          locals: { session: @session, host_controls: true }
         )
 
         respond_to do |format|
@@ -107,6 +158,15 @@ class SessionsController < ApplicationController
   end
   
   private
+
+  def broadcast_session_update(session)
+    Turbo::StreamsChannel.broadcast_update_to(
+      session,
+      target: "session_#{session.id}",
+      partial: "sessions/vote",
+      locals: { session: session }
+    )
+  end
 
   def session_params
     params.require(:session).permit(:session_name, :only_unwatched, genres: [])

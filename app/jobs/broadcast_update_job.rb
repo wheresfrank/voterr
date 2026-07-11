@@ -9,18 +9,28 @@ class BroadcastUpdateJob < ApplicationJob
       session,
       target: "voters-session-#{session.id}",
       partial: "sessions/voters",
-      locals: { session: session, current_user: session.user }
+      locals: { session: session, host_controls: false }
     )
 
-    # Broadcast session panel update
     Turbo::StreamsChannel.broadcast_update_to(
       session,
+      :host,
+      target: "voters-session-#{session.id}",
+      partial: "sessions/voters",
+      locals: { session: session, host_controls: true }
+    )
+
+    # Host-only ranking controls are broadcast on a private stream that guests
+    # never subscribe to.
+    Turbo::StreamsChannel.broadcast_update_to(
+      session,
+      :host,
       target: "session_panel_#{session.id}",
       partial: "sessions/voting_stats",
       locals: { 
         session: session, 
         user: session.user,
-        current_user: session.user 
+        host_controls: true
       }
     )
   end

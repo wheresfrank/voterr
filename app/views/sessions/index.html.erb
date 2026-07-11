@@ -1,41 +1,47 @@
-<section class="section">
-  <div class="columns">
-    <div class="column is-one-third">
-      <h2 class="subtitle">Start a Voting Session</h2>
+<main class="app-page app-dashboard">
+  <section class="app-page__heading">
+    <p class="app-eyebrow">Movie night headquarters</p>
+    <h1>Pick the perfect movie,<br><span>together.</span></h1>
+    <p>Start a room, share the link, and let the group find the one movie everyone wants to watch.</p>
+  </section>
+  <div class="app-dashboard__grid">
+    <section class="app-card app-card--create">
+      <p class="app-card__kicker">New session</p>
+      <h2>What are we watching?</h2>
       <%= render "form", session: @session %>
       <% if @sessions.in_progress.any? %>
-        <div class="container mt-5">
-          <hr>
-          <h2 class="subtitle">Sessions in progress</h2>
-          <ul>
+        <div class="app-active-sessions">
+          <div class="app-section-title"><h2>In progress</h2><span><%= @sessions.in_progress.count %> live</span></div>
+          <ul class="app-session-list">
             <% @sessions.in_progress.each do |session| %>
-              <li>
-                <%= link_to session.session_name, session_path(session) %>: <%= pluralize(session.votes.count, "vote")%>
+              <li class="app-session-list__item">
+                <%= link_to session_path(session), class: "app-session-list__link" do %>
+                  <span class="app-live-dot"></span><span><strong><%= session.session_name %></strong><small><%= pluralize(session.voters.count, "voter") %> · <%= pluralize(session.votes.count, "vote") %></small></span><span aria-hidden="true">→</span>
+                <% end %>
               </li>
             <% end %>
           </ul>
         </div>
       <% end %>
-      <hr>
-    </div>
-    <div class="column is-two-thirds">
-      <h2 class="subtitle">Recent Winners</h2>
+    </section>
+    <section class="app-card app-card--winners">
+      <div class="app-section-title"><div><p class="app-card__kicker">The hall of fame</p><h2>Recent winners</h2></div></div>
       <% if @sessions.recent_winners.any? %>
-        <div class="winner-container grid">
+        <div class="app-poster-grid">
           <% @sessions.recent_winners.each do |session| %>
-            <div class="index-poster-container has-text-centered cell">
-              <p class="mb-2"><%= session.session_name %></p>
+            <div class="app-winner-card">
               <% if poster_path(session.winner).present? %>
-                <%= image_tag(poster_path(session.winner)) %>
+                <%= image_tag(poster_path(session.winner), alt: session.winner.title) %>
               <% else %>
                 <%= render 'sessions/winner_poster_placeholder' %>
               <% end %>
+              <div class="app-winner-card__caption"><strong><%= session.winner.title %></strong><span><%= session.session_name %></span></div>
             </div>
           <% end %>
         </div>
       <% else %>
-        <p>You don't have any winners yet</p>
+        <div class="app-empty-state"><span>✦</span><h3>Your winners will live here</h3><p>Start a session and make the first great choice.</p></div>
       <% end %>
-    </div>
+    </section>
   </div>
-</section>
+</main>

@@ -1,26 +1,33 @@
-<%= turbo_frame_tag "session_#{@session.id}" do %>
-    <section class="section">
-    <% if @session.winner.present? %>
-        <h2 class="title">We have a Winner!</h2>
-        <%= render "sessions/movie", movie: @session.winner, session: @session %>
+<%= turbo_frame_tag "session_#{session.id}" do %>
+    <main class="app-page app-vote-page">
+    <% if session.winner.present? %>
+        <section class="app-winner-reveal">
+          <div class="app-winner-reveal__heading"><p class="app-eyebrow">The votes are in</p><h1>We have a winner</h1><p>Time to press play and enjoy the show.</p></div>
+          <%= render "sessions/movie", movie: session.winner, session: session %>
+        </section>
+    <% elsif session.lobby? %>
+        <%= render "sessions/lobby", session: session %>
     <% else %>
-        <div class="columns is-multiline">
-            <div class="column is-two-thirds">
+        <section class="app-vote-header">
+          <div><p class="app-eyebrow">Live voting · roster locked</p><h1><%= session.session_name %></h1></div>
+          <p>Vote freely. The host will make the final pick from the group’s top three.</p>
+        </section>
+        <div class="app-vote-layout">
+            <div>
                 <% if @movie %>
                     <%= turbo_frame_tag "movie_#{@movie.plex_id}" do %>
-                        <%= render "sessions/movie", movie: @movie, session: @session %>
+                        <%= render "sessions/movie", movie: @movie, session: session %>
                     <% end %>
                 <% else %>
-                    <h2 class="subtitle">Error loading movies</h2>
-                    <p>Movies may still be loading in the background. Try deleting session and creating a new session.</p>
+                    <div class="app-empty-state"><span>⋯</span><h2>Getting movies ready</h2><p>Movies may still be loading. Refresh in a moment.</p></div>
                 <% end %>
             </div>
-            <div class="column">
-                <%= turbo_frame_tag "session_panel_#{@session.id}" do %>
-                    <%= render "sessions/voting_stats", session: @session, user: @session.user %>
+            <aside>
+                <%= turbo_frame_tag "session_panel_#{session.id}" do %>
+                    <%= render "sessions/voting_stats", session: session, user: session.user %>
                 <% end %>
-            </div>
+            </aside>
         </div>
     <% end %>
-    </section>
+    </main>
 <% end %>

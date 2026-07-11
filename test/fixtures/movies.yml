@@ -2,10 +2,8 @@
 
 one:
   title: MyString
-  plex_id: MyString
-  session: one
+  plex_id: movie-one
 
 two:
   title: MyString
-  plex_id: MyString
-  session: two
+  plex_id: movie-two

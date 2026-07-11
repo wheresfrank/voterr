@@ -2,12 +2,14 @@
 
 one:
   user: one
-  session_token: MyString
+  session_token: session-one
+  session_name: First session
   winner: one
-  winner_type: Winner
+  winner_type: Movie
 
 two:
   user: two
-  session_token: MyString
+  session_token: session-two
+  session_name: Second session
   winner: two
-  winner_type: Winner
+  winner_type: Movie

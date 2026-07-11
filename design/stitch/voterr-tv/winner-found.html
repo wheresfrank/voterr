@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Winner Found | Voterr.tv</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "error": "#ff7351",
+              "surface-container-highest": "#262626",
+              "tertiary": "#ff6e84",
+              "on-secondary-fixed": "#003a42",
+              "on-secondary-container": "#e8fbff",
+              "secondary-dim": "#00d4ec",
+              "on-tertiary-fixed": "#39000e",
+              "secondary-container": "#006875",
+              "primary-fixed-dim": "#ecaa00",
+              "on-tertiary": "#480013",
+              "surface-container-lowest": "#000000",
+              "on-background": "#ffffff",
+              "secondary-fixed": "#26e6ff",
+              "surface-dim": "#0e0e0e",
+              "inverse-primary": "#7d5800",
+              "surface-container-low": "#131313",
+              "tertiary-fixed-dim": "#ff788c",
+              "surface": "#0e0e0e",
+              "on-primary-container": "#533a00",
+              "on-tertiary-fixed-variant": "#780026",
+              "on-primary-fixed": "#392700",
+              "surface-container-high": "#201f1f",
+              "error-container": "#b92902",
+              "on-error-container": "#ffd2c8",
+              "tertiary-dim": "#e51152",
+              "tertiary-fixed": "#ff909e",
+              "on-secondary": "#004d57",
+              "on-surface-variant": "#adaaaa",
+              "background": "#0e0e0e",
+              "surface-variant": "#262626",
+              "on-error": "#450900",
+              "on-secondary-fixed-variant": "#005964",
+              "on-primary": "#5f4200",
+              "primary-dim": "#ecaa00",
+              "tertiary-container": "#fb2a60",
+              "surface-bright": "#2c2c2c",
+              "primary-fixed": "#feb700",
+              "on-surface": "#ffffff",
+              "on-primary-fixed-variant": "#5f4200",
+              "error-dim": "#d53d18",
+              "outline": "#767575",
+              "surface-tint": "#ffc965",
+              "secondary-fixed-dim": "#00d7f0",
+              "primary": "#ffc965",
+              "outline-variant": "#484847",
+              "inverse-on-surface": "#565555",
+              "secondary": "#00e3fd",
+              "on-tertiary-container": "#000000",
+              "inverse-surface": "#fcf9f8",
+              "primary-container": "#feb700",
+              "surface-container": "#1a1919"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .cinematic-glow {
+            box-shadow: 0 0 80px -20px rgba(254, 183, 0, 0.3);
+        }
+        .particle-bg {
+            background-image: radial-gradient(circle at 2px 2px, rgba(255,184,0,0.15) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#0e0e0e]/60 backdrop-blur-xl">
+<div class="flex items-center justify-between px-6 py-4 w-full">
+<div class="flex items-center gap-2">
+<span class="text-2xl font-bold tracking-tighter text-[#ffffff] font-headline">Voterr.tv</span>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-white/70 hover:text-white font-label text-sm uppercase tracking-widest transition-opacity hover:opacity-80" href="#">Home</a>
+<a class="text-white/70 hover:text-white font-label text-sm uppercase tracking-widest transition-opacity hover:opacity-80" href="#">History</a>
+<a class="text-white/70 hover:text-white font-label text-sm uppercase tracking-widest transition-opacity hover:opacity-80" href="#">Friends</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="text-white/70 hover:text-white transition-transform scale-95 active:scale-90">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+</button>
+<button class="text-white/70 hover:text-white transition-transform scale-95 active:scale-90">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant/30">
+<img alt="User profile avatar" data-alt="User profile circular avatar photo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMWjCXbccT2o3lewyeZAHVzmohVrGAxEJcR8zxTXiboJsRVbQxLWVkXC7u5Er1ItlYfOHBXIaErBmfMyn7KSNkj0Ck70_vaqwOCJKH-e-666w9Tb22zo1wQ1ZFF9yJYOG1nAskXdZ2a-fWqBXpfMsth4UkArEDRAqBwLiYuEWqJPQLoqDElz3fvO7zzmt283R7-SdUmoQv4sTJnfPwIl1ePES46UAbC6zozJWu-_g0JBFptaQTvewe7zsP0MUw0YxkwDLcAZQxDA"/>
+</div>
+</div>
+</div>
+</header>
+<main class="min-h-screen pt-24 pb-20 relative overflow-hidden flex flex-col items-center justify-center particle-bg">
+<!-- Ambient Background Gradients -->
+<div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/10 blur-[120px] rounded-full pointer-events-none"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/10 blur-[100px] rounded-full pointer-events-none"></div>
+<div class="relative z-10 w-full max-w-5xl px-6 flex flex-col items-center">
+<!-- Hero Heading -->
+<div class="text-center mb-10 space-y-4">
+<span class="inline-flex items-center px-4 py-1.5 rounded-full bg-primary-container text-on-primary-container font-headline font-bold text-xs tracking-[0.2em] uppercase">
+                    UNANIMOUS DECISION
+                </span>
+<h1 class="text-5xl md:text-7xl font-headline font-bold tracking-tighter text-on-surface">
+                    Winner Found!
+                </h1>
+</div>
+<!-- Cinematic Movie Presentation -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full">
+<!-- Left: Stats (Bento Style) -->
+<div class="hidden lg:flex lg:col-span-3 flex-col gap-4">
+<div class="p-6 rounded-xl bg-surface-container-low border border-outline-variant/10">
+<p class="text-on-surface-variant font-label text-xs uppercase tracking-widest mb-1">Total Impact</p>
+<p class="text-3xl font-headline font-bold text-primary">12/12</p>
+<p class="text-sm text-on-surface/60 font-body">Votes In Favor</p>
+</div>
+<div class="p-6 rounded-xl bg-surface-container-low border border-outline-variant/10">
+<p class="text-on-surface-variant font-label text-xs uppercase tracking-widest mb-1">Compatibility</p>
+<div class="flex items-center gap-2 mb-1">
+<p class="text-3xl font-headline font-bold text-secondary">100%</p>
+<span class="material-symbols-outlined text-secondary" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<p class="text-sm text-on-surface/60 font-body">Match Rate</p>
+</div>
+</div>
+<!-- Center: Poster -->
+<div class="lg:col-span-6 flex justify-center">
+<div class="relative group">
+<!-- Poster Shine/Glow -->
+<div class="absolute -inset-4 bg-gradient-to-tr from-primary/30 to-secondary/30 blur-2xl opacity-50 group-hover:opacity-80 transition-opacity"></div>
+<div class="relative w-64 md:w-80 aspect-[2/3] rounded-xl overflow-hidden shadow-2xl cinematic-glow ring-1 ring-white/10">
+<img alt="Interstellar Poster" class="w-full h-full object-cover" data-alt="Cinematic Interstellar movie poster in space" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOH8qsG2JGLKBk8_beAsshRWgjDN3Gnrj_jBOD6YFRZmNnbia5x__ieT1jPTjsa_RK0-dQn5P40h4g1NmLgy7BLiSenfOHb-CzQ4Ca9EsAHY2Dw_MgfS7IsY6DlFFa9VTEFRTznny6okHsLeH0osor20V3GaajVpzEKHG_xCCDU0Tx6PNJ8Merdk4dTQZ4IRuElMBITqUpu3RnPzGAuGfaE24_jshInOPiiP8dZhJuaJxfBAEtIMO_Feno3ZsIGiiXfXqX846uiA"/>
+<!-- Bottom Overlay for Title -->
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent opacity-80"></div>
+</div>
+</div>
+</div>
+<!-- Right: Movie Details -->
+<div class="lg:col-span-3 flex flex-col gap-6 text-center lg:text-left">
+<div>
+<h2 class="text-4xl font-headline font-bold text-on-surface mb-2">Interstellar</h2>
+<div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 text-on-surface-variant font-label text-sm">
+<span>2014</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span>2h 49m</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-sm" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+                                8.6
+                            </span>
+</div>
+</div>
+<p class="text-on-surface-variant font-body text-sm leading-relaxed max-w-xs mx-auto lg:mx-0">
+                        A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.
+                    </p>
+<!-- Mobile Stats -->
+<div class="flex lg:hidden justify-center gap-4">
+<div class="px-4 py-2 rounded-lg bg-surface-container-low border border-outline-variant/10 text-center">
+<p class="text-xl font-headline font-bold text-primary">12/12</p>
+<p class="text-[10px] text-on-surface/60 font-label uppercase">Votes</p>
+</div>
+<div class="px-4 py-2 rounded-lg bg-surface-container-low border border-outline-variant/10 text-center">
+<p class="text-xl font-headline font-bold text-secondary">100%</p>
+<p class="text-[10px] text-on-surface/60 font-label uppercase">Match</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="mt-12 flex flex-col items-center gap-6 w-full max-w-md">
+<button class="w-full py-4 px-8 rounded-full bg-gradient-to-r from-primary to-primary-container text-on-primary-fixed font-headline font-bold text-lg flex items-center justify-center gap-3 transition-all hover:scale-[1.02] active:scale-95 shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined" data-icon="play_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+                    Open in Plex
+                </button>
+<div class="flex flex-wrap justify-center gap-4">
+<button class="flex items-center gap-2 px-6 py-3 rounded-full bg-surface-container-highest border border-outline-variant/30 text-on-surface hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="share">share</span>
+<span class="font-label text-sm">Share Result</span>
+</button>
+<button class="flex items-center gap-2 px-6 py-3 rounded-full bg-surface-container-highest border border-outline-variant/30 text-on-surface hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="dashboard">dashboard</span>
+<span class="font-label text-sm">Back to Dashboard</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-[#131313] w-full py-12 px-8 mt-auto">
+<div class="flex flex-col md:flex-row items-center justify-between gap-6 max-w-7xl mx-auto">
+<div class="text-white/40 font-label text-sm uppercase tracking-widest text-center md:text-left">
+                © 2024 Voterr.tv Cinematic Kinetic Experience
+            </div>
+<div class="flex gap-8">
+<a class="text-white/40 hover:text-white/80 font-label text-sm uppercase tracking-widest transition-colors hover:text-[#FFB800]" href="#">Privacy Policy</a>
+<a class="text-white/40 hover:text-white/80 font-label text-sm uppercase tracking-widest transition-colors hover:text-[#FFB800]" href="#">Terms of Service</a>
+<a class="text-white/40 hover:text-white/80 font-label text-sm uppercase tracking-widest transition-colors hover:text-[#FFB800]" href="#">Help Center</a>
+</div>
+</div>
+</footer>
+</body></html>

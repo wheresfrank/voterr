@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Voterr - Start a New Premiere</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "error-container": "#b92902",
+              "on-error": "#450900",
+              "on-secondary-container": "#e8fbff",
+              "secondary-fixed": "#26e6ff",
+              "surface-container-lowest": "#000000",
+              "on-tertiary-fixed": "#39000e",
+              "tertiary-fixed": "#ff909e",
+              "on-secondary": "#004d57",
+              "surface-container-highest": "#262626",
+              "secondary": "#00e3fd",
+              "surface-bright": "#2c2c2c",
+              "surface": "#0e0e0e",
+              "on-primary-fixed-variant": "#5f4200",
+              "primary-fixed-dim": "#ecaa00",
+              "error-dim": "#d53d18",
+              "surface-container": "#1a1919",
+              "on-primary": "#5f4200",
+              "on-secondary-fixed": "#003a42",
+              "surface-variant": "#262626",
+              "on-primary-container": "#533a00",
+              "surface-container-high": "#201f1f",
+              "on-surface-variant": "#adaaaa",
+              "on-primary-fixed": "#392700",
+              "on-background": "#ffffff",
+              "tertiary-container": "#fb2a60",
+              "surface-tint": "#ffc965",
+              "surface-dim": "#0e0e0e",
+              "primary-container": "#feb700",
+              "on-surface": "#ffffff",
+              "primary-fixed": "#feb700",
+              "inverse-primary": "#7d5800",
+              "primary-dim": "#ecaa00",
+              "on-secondary-fixed-variant": "#005964",
+              "background": "#0e0e0e",
+              "inverse-on-surface": "#565555",
+              "inverse-surface": "#fcf9f8",
+              "outline-variant": "#484847",
+              "secondary-container": "#006875",
+              "on-tertiary-container": "#000000",
+              "secondary-dim": "#00d4ec",
+              "primary": "#ffc965",
+              "tertiary-fixed-dim": "#ff788c",
+              "on-tertiary-fixed-variant": "#780026",
+              "secondary-fixed-dim": "#00d7f0",
+              "surface-container-low": "#131313",
+              "tertiary": "#ff6e84",
+              "tertiary-dim": "#e51152",
+              "on-tertiary": "#480013",
+              "on-error-container": "#ffd2c8",
+              "error": "#ff7351",
+              "outline": "#767575"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0e0e0e; }
+        ::-webkit-scrollbar-thumb { background: #262626; border-radius: 10px; }
+        .glass-panel { backdrop-filter: blur(20px); }
+        .asymmetric-poster { transform: translateY(-24px); }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary/30">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full flex justify-between items-center px-8 h-20 bg-[#0e0e0e]/60 backdrop-blur-xl docked full-width z-50 shadow-[0_20px_40px_rgba(0,0,0,0.4)]">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-bold tracking-tighter text-[#FFB800] uppercase font-['Space_Grotesk']">Voterr</span>
+<nav class="hidden md:flex gap-6 font-['Space_Grotesk'] tracking-tight">
+<a class="text-white/60 hover:text-white transition-colors" href="#">Movies</a>
+<a class="text-[#FFB800] font-bold border-b-2 border-[#FFB800] pb-1" href="#">Premiere</a>
+<a class="text-white/60 hover:text-white transition-colors" href="#">Community</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group hidden sm:block">
+<input class="bg-surface-container-highest border-none rounded-full px-6 py-2 text-sm w-64 focus:ring-2 focus:ring-primary/50 transition-all outline-none" placeholder="Search premieres..." type="text"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-white/40">search</span>
+</div>
+<button class="material-symbols-outlined text-[#FFB800] hover:bg-white/5 p-2 rounded-full transition-all">notifications</button>
+<button class="material-symbols-outlined text-[#FFB800] hover:bg-white/5 p-2 rounded-full transition-all">settings</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-primary/20">
+<img class="w-full h-full object-cover" data-alt="User profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZ_CAKOKxSjwxgB6eR47SpeYtbXtPNYbfVmpj805IF4Uu9h6I_LOK6xduCWq8IyoNeIbYbFeYrufA9TsD4JffImR0D5_gP4nzjmXe3pn2PvTWYJzpTXyQfE2JIbGbhl574TkEGDpiWm8_JqeeqdJlklOjhhm1bUZFqaPiqgBJa4QpOKnfvfqNmycm1lOLyZHPHZkWq0Jjm5y4kGlyQgy-nA1nukyGgLOxtqeRAqWBWg6i3cmON7w9hFUI2Es72q0aUU6ANCKLjPA"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full flex flex-col pt-24 pb-8 bg-[#0e0e0e] docked left-0 h-screen w-64 bg-gradient-to-r from-[#131313] to-transparent z-40 hidden lg:flex">
+<div class="px-8 mb-10">
+<h2 class="text-[#FFB800] font-black font-['Space_Grotesk'] text-lg uppercase tracking-wider">Admin Dashboard</h2>
+<p class="text-white/40 text-xs font-['Space_Grotesk']">Voterr Premiere</p>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="text-white/40 hover:text-white/80 pl-8 py-4 flex items-center gap-4 transition-all hover:bg-white/5 hover:translate-x-1 font-['Space_Grotesk'] font-medium text-sm" href="#">
+<span class="material-symbols-outlined">sensors</span> Live Session
+            </a>
+<a class="text-white/40 hover:text-white/80 pl-8 py-4 flex items-center gap-4 transition-all hover:bg-white/5 hover:translate-x-1 font-['Space_Grotesk'] font-medium text-sm" href="#">
+<span class="material-symbols-outlined">group</span> Participants
+            </a>
+<a class="text-white/40 hover:text-white/80 pl-8 py-4 flex items-center gap-4 transition-all hover:bg-white/5 hover:translate-x-1 font-['Space_Grotesk'] font-medium text-sm" href="#">
+<span class="material-symbols-outlined">format_list_bulleted</span> Queue
+            </a>
+<a class="text-[#FFB800] bg-white/5 rounded-r-full border-l-4 border-[#FFB800] pl-6 py-4 flex items-center gap-4 font-['Space_Grotesk'] font-medium text-sm" href="#">
+<span class="material-symbols-outlined">settings</span> Settings
+            </a>
+</nav>
+<div class="px-6 mt-auto">
+<button class="w-full bg-gradient-to-br from-primary to-primary-container text-on-primary-container font-bold py-4 rounded-xl flex items-center justify-center gap-2 hover:shadow-[0_0_20px_rgba(255,201,101,0.3)] transition-all scale-95 active:scale-90">
+<span class="material-symbols-outlined">add_circle</span>
+                Start New Session
+            </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="lg:ml-64 pt-28 px-6 lg:px-12 pb-24">
+<!-- Header Section -->
+<section class="mb-16">
+<h1 class="font-headline text-5xl md:text-6xl font-extrabold tracking-tighter mb-4 text-white">Start a New Premiere</h1>
+<p class="text-on-surface-variant max-w-2xl text-lg font-light leading-relaxed">
+                Host a cinematic experience. Invite friends, select genres, and let the democratic process decide tonight's feature film.
+            </p>
+</section>
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-8 items-start">
+<!-- Session Creation Form -->
+<div class="xl:col-span-2 space-y-8">
+<div class="bg-surface-container-low p-8 lg:p-10 rounded-[1.5rem] relative overflow-hidden">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[100px] -mr-32 -mt-32"></div>
+<form class="space-y-10 relative z-10">
+<!-- Session Name -->
+<div class="group">
+<label class="block text-xs uppercase tracking-widest text-primary font-bold mb-4 ml-1">Session Name</label>
+<input class="w-full bg-surface-container-highest border-none border-b-2 border-transparent focus:border-primary rounded-xl px-6 py-5 text-xl font-headline placeholder:text-white/20 transition-all outline-none" placeholder="Enter a name for your premiere..." type="text"/>
+</div>
+<!-- Preferred Genres -->
+<div>
+<label class="block text-xs uppercase tracking-widest text-primary font-bold mb-4 ml-1">Preferred Genres</label>
+<div class="flex flex-wrap gap-3">
+<button class="px-6 py-3 rounded-full bg-surface-container-highest text-sm font-medium hover:bg-primary hover:text-on-primary-container transition-all" type="button">Horror</button>
+<button class="px-6 py-3 rounded-full bg-primary text-on-primary-container text-sm font-bold shadow-lg shadow-primary/20 transition-all" type="button">Sci-Fi</button>
+<button class="px-6 py-3 rounded-full bg-surface-container-highest text-sm font-medium hover:bg-primary hover:text-on-primary-container transition-all" type="button">Action</button>
+<button class="px-6 py-3 rounded-full bg-surface-container-highest text-sm font-medium hover:bg-primary hover:text-on-primary-container transition-all" type="button">Documentary</button>
+<button class="px-6 py-3 rounded-full bg-surface-container-highest text-sm font-medium hover:bg-primary hover:text-on-primary-container transition-all" type="button">Noir</button>
+<button class="px-6 py-3 rounded-full bg-surface-container-highest flex items-center gap-2 px-4 transition-all" type="button">
+<span class="material-symbols-outlined text-sm">add</span> Add More
+                                </button>
+</div>
+</div>
+<!-- Toggle -->
+<div class="flex items-center justify-between p-6 bg-surface-container-highest/50 rounded-2xl">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-secondary">visibility_off</span>
+<div>
+<p class="font-bold">Filter Unwatched Only</p>
+<p class="text-xs text-on-surface-variant">Only suggest movies no participant has seen before.</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-14 h-8 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-secondary"></div>
+</label>
+</div>
+<!-- Primary CTA -->
+<button class="w-full py-6 rounded-full bg-gradient-to-r from-primary to-primary-container text-on-primary-container font-headline text-xl font-black uppercase tracking-widest shadow-[0_10px_30px_rgba(255,184,0,0.2)] hover:shadow-[0_15px_40px_rgba(255,184,0,0.4)] transition-all hover:scale-[1.01] active:scale-[0.98]" type="submit">
+                            Create Session
+                        </button>
+</form>
+</div>
+<!-- Live Now Section -->
+<section>
+<div class="flex items-center justify-between mb-8">
+<h3 class="font-headline text-2xl font-bold flex items-center gap-3">
+<span class="w-3 h-3 bg-tertiary rounded-full animate-pulse"></span>
+                            Live Now
+                        </h3>
+<a class="text-secondary text-sm font-bold uppercase tracking-widest hover:underline" href="#">View All</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<!-- Live Item 1 -->
+<div class="bg-surface-container-high p-6 rounded-2xl flex items-center justify-between hover:bg-surface-container-highest transition-all group border border-transparent hover:border-white/5">
+<div class="flex gap-4 items-center">
+<div class="w-16 h-16 rounded-xl bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="Abstract cinematic glow background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKljZCUoOeogQ7ueFepDE0Ebbfmfsr1e0hZ9cxgePBbAyQ33bb973a8YMcZQY4wTYnZJgOWR-04CqHdq3UWMftlnrg9KXwYy-XwMo8X_4JQ7lRnTmCP_quuzyVQUb0Ig6jWMV6uRVpuAHt0zUixevSLDCzdrNfv1DHy_eGQMiHA1u225c7csKMFm0jVkTAFKqhOxBPS_ys1MTxSKEUmLQcDy0vbGyqKAsqj-Wj4ANJTBQsIGGOrsE2J7ZLZwmAE7_VinLggELbUA"/>
+</div>
+<div>
+<h4 class="font-bold text-lg leading-tight">Friday Night Frights</h4>
+<p class="text-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">group</span> 12 Active
+                                    </p>
+</div>
+</div>
+<button class="bg-white/5 hover:bg-primary hover:text-on-primary-container px-6 py-2 rounded-full text-sm font-black transition-all">JOIN</button>
+</div>
+<!-- Live Item 2 -->
+<div class="bg-surface-container-high p-6 rounded-2xl flex items-center justify-between hover:bg-surface-container-highest transition-all group border border-transparent hover:border-white/5">
+<div class="flex gap-4 items-center">
+<div class="w-16 h-16 rounded-xl bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="Sci-fi nebula background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4Nj0dFv-xnmlbjUwf4DmtlNum29k2PvzPWjUXGRGDHyCssr-Hfq6zwDUTvAr8X8T3wuBYGPIpXJ596ZBuluasWeNb7gx3MW29q3LJWphDMmLXEjoYN0NBQOqX6q4aRlNBs9UFLojEHQaCdVM6oCec6HJ_yTc3o53iZEnLGvyS80iPcyQ3B4ABU_YCTV3yWIFjjyZx8Tt6ICl_8h83UDScBdjXDQOMh0sAjNP8lyBS3jYLFs6IDT_Ml0H0gaRItlxDkLfY_X14ow"/>
+</div>
+<div>
+<h4 class="font-bold text-lg leading-tight">Sci-Fi Sunday</h4>
+<p class="text-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">group</span> 8 Active
+                                    </p>
+</div>
+</div>
+<button class="bg-white/5 hover:bg-primary hover:text-on-primary-container px-6 py-2 rounded-full text-sm font-black transition-all">JOIN</button>
+</div>
+</div>
+</section>
+</div>
+<!-- Hall of Fame Section -->
+<aside class="space-y-8">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<h3 class="font-headline text-2xl font-bold">The Hall of Fame</h3>
+</div>
+<div class="space-y-12">
+<!-- Winner 1 -->
+<div class="relative group">
+<div class="aspect-[2/3] w-full bg-surface-container-high rounded-[1.5rem] overflow-hidden shadow-2xl relative z-10">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Dark horror movie poster aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhjKd_lGmeLWr23EY559ChKWa5oTHWpC47tANlKAUg4DSASng4rdwSvSsa8A9zFve6ANwoWQ2Jemc_boYllg8XuPzhLVv6H1tuNOaleKidpPXO-dwGAp1Rij3Sig39Bqa5NVI8jAW1Bg9JozTlrt36gYIXgyjbqAx3F6EYFh1gjR-vYjnWj2HIMgefxc91Z-qRgtAiFGfCx8shui7jlfqfZvSzvnT7e-fOH1e1A_gC-kkg1QSTRCa4km1GUw9qfl9xWpkP5iW60Q"/>
+<div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black via-black/60 to-transparent">
+<span class="bg-primary text-on-primary-container text-[10px] font-black px-2 py-1 rounded uppercase tracking-tighter mb-2 inline-block">Session Winner</span>
+<h4 class="font-headline text-xl font-bold leading-tight">The Exorcist</h4>
+<p class="text-xs text-white/60 mt-1 uppercase tracking-widest font-label">Won: Oct 31, 2024</p>
+</div>
+</div>
+<div class="absolute inset-0 bg-primary/20 blur-[60px] opacity-0 group-hover:opacity-40 transition-opacity"></div>
+<div class="mt-4 px-2">
+<p class="text-xs text-on-surface-variant font-bold uppercase tracking-widest">Host: Marcus</p>
+<p class="text-[10px] text-on-surface-variant/60 uppercase">Midnight Screams Premiere</p>
+</div>
+</div>
+<!-- Winner 2 -->
+<div class="relative group">
+<div class="aspect-[2/3] w-full bg-surface-container-high rounded-[1.5rem] overflow-hidden shadow-2xl relative z-10">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Industrial tech movie poster aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9yB3HgA4Z4_0tgBA7D6ZlA6n-FF75T2VShGGtBnIS1wChJPwJqySGtmXE3i5lBM2Mocdsbwe1uYyWvfHF5L7YKmoUHhD8Mdpk0bRbY3w3TEpFwtuh7MJfZsQ4GH0nmK-S4yRmHDl6bGYJBFOpaMRR3GuQ0wtISRvfm0UqmmSyNDhR3hH0_vO0etTf0dbkg6N8ZYICW0YmGgZZVl6lSW-1uLEGI6-KpPnnP8RfEmDcdIL3k4v4yIl8y2viA3YJ3LVW1VzP0sub2w"/>
+<div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black via-black/60 to-transparent">
+<span class="bg-secondary text-on-secondary-container text-[10px] font-black px-2 py-1 rounded uppercase tracking-tighter mb-2 inline-block">Unanimous Vote</span>
+<h4 class="font-headline text-xl font-bold leading-tight">Iron Man</h4>
+<p class="text-xs text-white/60 mt-1 uppercase tracking-widest font-label">Won: Nov 12, 2024</p>
+</div>
+</div>
+<div class="absolute inset-0 bg-secondary/20 blur-[60px] opacity-0 group-hover:opacity-40 transition-opacity"></div>
+<div class="mt-4 px-2">
+<p class="text-xs text-on-surface-variant font-bold uppercase tracking-widest">Host: Sarah J.</p>
+<p class="text-[10px] text-on-surface-variant/60 uppercase">Blockbuster Marathon</p>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- Footer -->
+<footer class="flex justify-between items-center px-12 py-12 ml-0 lg:ml-64 bg-[#0e0e0e] border-t border-white/5 font-['Manrope'] text-xs uppercase tracking-widest">
+<div class="text-white/30">
+            © 2024 Voterr Cinematic. All Rights Reserved.
+        </div>
+<div class="flex gap-8">
+<a class="text-white/30 hover:text-[#FFB800] transition-colors" href="#">Privacy Policy</a>
+<a class="text-white/30 hover:text-[#FFB800] transition-colors" href="#">Terms of Service</a>
+<a class="text-white/30 hover:text-[#FFB800] transition-colors" href="#">Support</a>
+</div>
+</footer>
+<!-- Mobile BottomNavBar -->
+<nav class="md:hidden fixed bottom-0 w-full bg-[#131313] h-16 flex items-center justify-around z-50 px-4 border-t border-white/5">
+<button class="flex flex-col items-center gap-1 text-white/40">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[10px]">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">movie</span>
+<span class="text-[10px]">Premiere</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-white/40">
+<span class="material-symbols-outlined">explore</span>
+<span class="text-[10px]">Explore</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-white/40">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px]">Profile</span>
+</button>
+</nav>
+</body></html>

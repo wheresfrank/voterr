@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_05_021408) do
+ActiveRecord::Schema[8.0].define(version: 2026_07_11_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -51,6 +51,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_05_021408) do
     t.string "session_name"
     t.boolean "only_unwatched", default: false
     t.text "selected_genres", default: [], array: true
+    t.datetime "voting_started_at"
+    t.datetime "voting_closed_at"
     t.index ["user_id"], name: "index_sessions_on_user_id"
     t.index ["winner_type", "winner_id"], name: "index_sessions_on_winner"
   end

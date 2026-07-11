@@ -1,18 +1,23 @@
 <%= form_with model: @session, url: sessions_path, local: true do |f| %>
-  <div class="new-session-form field">
-    <%= f.label :session_name, "Session Name", class: "label" %>
-    <%= f.text_field :session_name, class: "input", placeholder: "Scary movie night with Chucky" %>
+  <div class="app-field">
+    <%= f.label :session_name, "Give your session a name" %>
+    <%= f.text_field :session_name, class: "app-input", placeholder: "Friday night with friends" %>
   </div>
-  <div class="field">
-    <%= f.label :genres, "Select Genres", class: "label" %>
-    <div class="select is-multiple">
-      <%= f.select :genres, @available_genres.map { |genre| [genre, genre] }, {}, { multiple: true, size: 5 } %>
+  <div class="app-field">
+    <%= f.label :genres, "Set the mood (optional)" %>
+    <%= hidden_field_tag "session[genres][]", "" %>
+    <div class="app-chip-grid" role="group" aria-label="Movie genres">
+      <% @available_genres.each do |genre| %>
+        <% genre_id = "session_genre_#{genre.parameterize}" %>
+        <%= check_box_tag "session[genres][]", genre, false, id: genre_id, class: "app-chip__input" %>
+        <%= label_tag genre_id, genre, class: "app-chip" %>
+      <% end %>
     </div>
   </div>
-  <div class="field">
-    <label class="checkbox">
+  <div class="app-checkbox">
+    <label>
       <%= f.check_box :only_unwatched %> Only include unwatched movies
     </label>
   </div>
-  <%= f.submit "Create Session", class: "button is-primary" %>
+  <%= f.submit "Create session", class: "app-button app-button--primary app-button--wide" %>
 <% end %>

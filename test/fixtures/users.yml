@@ -1,11 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  email: MyString
+  email: one@example.com
   plex_token: MyString
   plex_client_id: MyString
+  name: One
 
 two:
-  email: MyString
+  email: two@example.com
   plex_token: MyString
   plex_client_id: MyString
+  name: Two
