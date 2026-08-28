@@ -38,8 +38,8 @@ Public pages: [`/`](https://www.voterr.tv/), [`/about`](https://www.voterr.tv/ab
 
 ## Tech Stack
 
-- Ruby 3.1.1
-- Rails 7.1.4
+- Ruby 3.3.12
+- Rails 8.0.5
 - PostgreSQL 16
 - Stimulus.js
 - Bulma CSS Framework
@@ -49,8 +49,8 @@ Public pages: [`/`](https://www.voterr.tv/), [`/about`](https://www.voterr.tv/ab
 
 ### Prerequisites
 
-- Ruby 3.1.1
-- Rails 7.1.4
+- Ruby 3.3.12
+- Rails 8.0.5
 - PostgreSQL 16
 - Plex account and server
 

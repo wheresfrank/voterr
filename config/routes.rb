@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   end
 
   # Sessions and Voting Routes
-  resources :sessions, only: [:index, :new, :create, :show, :destroy] do
+  resources :sessions, only: [:index, :create, :show, :destroy] do
     member do
       patch :start_voting
       patch :select_winner
@@ -38,9 +38,6 @@ Rails.application.routes.draw do
 
   # Guest Session Viewing Route (not nested under resources :sessions)
   get "guest/:token", to: "sessions#show_guest", as: :show_guest_session
-
-  # Image Proxy
-  get "/proxy_image", to: "images#proxy"
 
   # Health Check Route
   get "up", to: "rails/health#show", as: :rails_health_check

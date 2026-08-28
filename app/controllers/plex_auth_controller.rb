@@ -1,6 +1,10 @@
 class PlexAuthController < ApplicationController
   require "browser"
 
+  # Each successful callback triggers an outbound library import job, so the
+  # unauthenticated endpoint is rate limited per IP.
+  rate_limit to: 5, within: 1.minute, only: :callback
+
   PLEX_BASE_URL = 'https://plex.tv'.freeze
   PLEX_PRODUCT = 'Voterr'.freeze
   PLEX_VERSION = 'Plex OAuth'.freeze

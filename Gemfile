@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "3.3.0"
+ruby "3.3.12"
 
 gem "ffi", "< 1.17.0"
 
@@ -14,7 +14,8 @@ gem "sprockets-rails"
 gem "pg", "~> 1.1"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", ">= 5.0"
+# >= 7.2.1: security floor (PROXY protocol parser fixes, CVE-2026-47736/47737)
+gem "puma", ">= 7.2.1"
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
@@ -37,19 +38,25 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
-gem 'faraday'
-
-gem 'nokogiri'
-
 gem 'sassc'
-
-gem 'open-uri'
 
 gem 'browser'
 
 gem 'solid_queue'
 
 gem "solid_cable"
+
+# --- Security floors (see SECURITY_AUDIT.md, dependency CVEs) ---------------
+# Keep these in sync with Gemfile.lock; bump via `bundle update <gem>` when
+# new advisories land and run `bundle exec bundler-audit` in CI.
+gem "rack", ">= 3.1.21"                # multipart DoS set, info disclosure
+gem "rack-session", ">= 2.1.2"         # session restored after deletion
+gem "nokogiri", ">= 1.19.4"            # libxslt/libxml2 patch set, ReDoS
+gem "websocket-driver", ">= 0.8.2"     # DoS via malformed Host header
+gem "faraday", ">= 2.14.3"             # SSRF via protocol-relative URL, ReDoS
+gem "concurrent-ruby", ">= 1.3.7"      # AtomicReference#update livelock
+gem "rails-html-sanitizer", ">= 1.7.1" # sanitizer XSS bypass
+# -----------------------------------------------------------------------------
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"

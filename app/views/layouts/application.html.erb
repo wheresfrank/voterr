@@ -49,7 +49,10 @@
     <%= render "layouts/navbar" %>
     <% flash.each do |name, message| %>
       <% next if message.blank? %>
-      <div class="app-flash app-flash--<%= name == "notice" ? "success" : "error" %>" role="status"><%= message %></div>
+      <div class="app-flash app-flash--<%= name == "notice" ? "success" : "error" %>" role="status" data-controller="flash">
+        <span><%= message %></span>
+        <button type="button" class="app-flash__close" data-action="flash#dismiss" aria-label="Dismiss notification">&times;</button>
+      </div>
     <% end %>
     <%= yield %>
   </body>

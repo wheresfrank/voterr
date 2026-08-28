@@ -1,9 +1,9 @@
 class SessionsController < ApplicationController
   before_action :require_login, except: [:join, :show_guest, :guest_vote]
 
-  def new
-    @session = Session.new
-  end
+  # Unauthenticated lobby joins are limited per IP to prevent voter spam
+  # (Rails 7.2+/8 built-in rate limiting; uses Rails.cache).
+  rate_limit to: 10, within: 1.minute, only: :guest_vote
 
   def create
     @session = current_user.sessions.new(session_params)
@@ -23,11 +23,14 @@ class SessionsController < ApplicationController
 
       selected_movies = @movies.sample(5)
       @session.movies << selected_movies
-      
+
       redirect_to session_path(@session), notice: 'Session created successfully!'
     else
+      # Re-render the dashboard so validation errors show inline on the
+      # main page's create form (not the legacy /sessions/new page).
       @available_genres = current_user.movies.pluck(:genres).flatten.uniq.sort
-      render :new, status: :unprocessable_entity
+      @sessions = current_user.sessions
+      render :index, status: :unprocessable_entity
     end
   end
 
@@ -76,7 +79,9 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    @session = Session.find(params[:id])
+    # Scope to the current user's sessions: any signed-in user must not be
+    # able to delete sessions they do not own.
+    @session = current_user.sessions.find(params[:id])
     @session.destroy
     redirect_to sessions_path, notice: "Session was successfully deleted."
   end

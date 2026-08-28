@@ -46,8 +46,11 @@ Rails.application.configure do
   # Don't log any deprecations.
   config.active_support.report_deprecations = false
 
-  # Replace the default in-process memory cache store with a durable alternative.
-  # config.cache_store = :mem_cache_store
+  # Cache store: required by the built-in `rate_limit` controller macro.
+  # In-process per worker; with WEB_CONCURRENCY=4 limits are enforced per
+  # worker process (i.e. effectively 4x the configured value). Swap for a
+  # shared store (memcached/redis/solid_cache) if exactness matters.
+  config.cache_store = :memory_store, { size: 64.megabytes }
 
   # Replace the default in-process and non-durable queuing backend for Active Job.
   config.active_job.queue_adapter = :solid_queue
@@ -80,10 +83,13 @@ Rails.application.configure do
   config.active_record.attributes_for_inspect = [ :id ]
 
   # Enable DNS rebinding protection and other `Host` header attacks.
+  # The subdomain regex MUST be anchored (/\A...\z/) — an unanchored pattern
+  # like /.*\.voterr\.tv/ also matches attacker hosts such as
+  # `sub.voterr.tv.attacker.com`.
   config.hosts = [
-    "voterr.tv",     # Allow requests from voterr.tv
+    "voterr.tv",              # Allow requests from voterr.tv
     "voterr-5fj6.onrender.com",
-    /.*\.voterr\.tv/ # Allow requests from subdomains like `www.voterr.tv`
+    /\A[\w-]+\.voterr\.tv\z/  # Allow subdomains like `www.voterr.tv`
   ]
   #
   # Skip DNS rebinding protection for the default health check endpoint.
