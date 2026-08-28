@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   end
 
   # Sessions and Voting Routes
-  resources :sessions, only: [:index, :new, :create, :show, :destroy] do
+  resources :sessions, only: [:index, :create, :show, :destroy] do
     member do
       patch :start_voting
       patch :select_winner
