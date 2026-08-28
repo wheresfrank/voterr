@@ -42,8 +42,9 @@ module SeoHelper
   def json_ld_tag(data)
     json = data.is_a?(String) ? data : data.to_json
     # json_escape unicode-escapes <, >, and & so a value cannot break out of
-    # the script tag, without turning quotes into &quot; for crawlers.
-    tag.script(json_escape(json), type: "application/ld+json")
+    # the script tag. Mark html_safe afterwards so ERB does not turn quotes
+    # into &quot; (crawlers need real JSON).
+    tag.script(json_escape(json).html_safe, type: "application/ld+json")
   end
 
   def web_application_json_ld
