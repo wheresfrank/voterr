@@ -3,7 +3,30 @@ class BroadcastUpdateJob < ApplicationJob
 
   def perform(session_id)
     session = Session.find(session_id)
-    
+
+    # Lobby state: refresh the roster card (guest count + list) and the
+    # host's start controls so they stay in sync after a voter is removed.
+    Turbo::StreamsChannel.broadcast_update_to(
+      session,
+      target: "lobby_roster_#{session.id}",
+      partial: "sessions/lobby_roster",
+      locals: { session: session, host_controls: false }
+    )
+
+    Turbo::StreamsChannel.broadcast_update_to(
+      session, :host,
+      target: "lobby_roster_#{session.id}",
+      partial: "sessions/lobby_roster",
+      locals: { session: session, host_controls: true }
+    )
+
+    Turbo::StreamsChannel.broadcast_update_to(
+      session, :host,
+      target: "lobby_controls_#{session.id}",
+      partial: "sessions/lobby_controls",
+      locals: { session: session, host_controls: true }
+    )
+
     # Broadcast voters panel update
     Turbo::StreamsChannel.broadcast_update_to(
       session,

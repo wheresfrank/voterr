@@ -1,0 +1,26 @@
+<aside class="app-card app-lobby__controls">
+  <% if host_controls %>
+    <div data-controller="clipboard" data-clipboard-success-content-value="Copied!">
+      <p class="app-card__kicker">Invite the crew</p>
+      <h2>Share this room</h2>
+      <p>Anyone with this link can join until you start voting.</p>
+      <input type="hidden" value="<%= join_session_url(token: session.session_token) %>" data-clipboard-target="source">
+      <button type="button" class="app-button app-button--secondary app-button--wide" data-action="clipboard#copy" data-clipboard-target="button">Copy invite link</button>
+    </div>
+
+    <div class="app-lobby__start">
+      <% if session.voters.count < 2 %>
+        <p>Waiting for at least one guest to join.</p>
+        <button class="app-button app-button--primary app-button--wide" disabled>Start voting</button>
+      <% else %>
+        <p>Everyone here? Starting now locks the roster.</p>
+        <%= button_to "Lock roster & start voting", start_voting_session_path(session), method: :patch, class: "app-button app-button--primary app-button--wide" %>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="app-card__kicker">You’re in</p>
+    <h2>Waiting for the host</h2>
+    <p>The movie cards will appear here as soon as the host locks the guest list and starts voting.</p>
+    <div class="app-lobby__waiting"><span></span><span></span><span></span></div>
+  <% end %>
+</aside>

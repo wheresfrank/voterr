@@ -1,5 +1,6 @@
 <%= turbo_stream_from @session %>
 <%= turbo_stream_from @session, :host %>
+<%= turbo_stream_from @session, "voter-#{@voter.id}" if @voter %>
 <%= turbo_frame_tag "session_#{@session.id}" do %>
   <%= render "vote", session: @session %>
 <% end %>

@@ -43,8 +43,8 @@ class SessionsController < ApplicationController
   def show
     @user = current_user
     @session = current_user.sessions.find(params[:id])
-    voter = @session.voters.find_by(user: current_user)
-    @movie = @session.next_unvoted_movie(voter) if @session.voting? && voter
+    @voter = @session.voters.find_by(user: current_user)
+    @movie = @session.next_unvoted_movie(@voter) if @session.voting? && @voter
   end
 
   def start_voting
@@ -58,7 +58,7 @@ class SessionsController < ApplicationController
       redirect_to session_path(@session), notice: "Voting is already in progress."
     else
       @session.update!(voting_started_at: Time.current)
-      broadcast_session_update(@session)
+      broadcast_voting_started(@session)
       redirect_to session_path(@session), notice: "Voting started. The guest list is now locked."
     end
   end
@@ -91,10 +91,10 @@ class SessionsController < ApplicationController
     return redirect_to(root_path, alert: "Session not found.") unless @session
 
     @guest_name = session[:guest_name]
-    voter = @session.voters.find_by(name: @guest_name)
-    return redirect_to(join_session_path(token: params[:token]), alert: "Join the session before voting.") unless voter
+    @voter = @session.voters.find_by(name: @guest_name)
+    return redirect_to(join_session_path(token: params[:token]), alert: "Join the session before voting.") unless @voter
 
-    @movie = @session.next_unvoted_movie(voter) if @session.voting?
+    @movie = @session.next_unvoted_movie(@voter) if @session.voting?
   end
 
   def join
@@ -131,20 +131,7 @@ class SessionsController < ApplicationController
       if voter.persisted?
         session[:guest_name] = guest_name
 
-        Turbo::StreamsChannel.broadcast_update_to(
-          @session, 
-          target: "voters-session-#{@session.id}",
-          partial: "sessions/voters", 
-          locals: { session: @session, host_controls: false }
-        )
-
-        Turbo::StreamsChannel.broadcast_update_to(
-          @session,
-          :host,
-          target: "voters-session-#{@session.id}",
-          partial: "sessions/voters",
-          locals: { session: @session, host_controls: true }
-        )
+        broadcast_lobby_update(@session)
 
         respond_to do |format|
           format.html { redirect_to show_guest_session_path(@session.session_token) }
@@ -163,6 +150,45 @@ class SessionsController < ApplicationController
   end
   
   private
+
+  # Lobby state: keep the roster card (guest count + list) and the host's
+  # start controls in sync as people join or are removed.
+  def broadcast_lobby_update(session)
+    Turbo::StreamsChannel.broadcast_update_to(
+      session,
+      target: "lobby_roster_#{session.id}",
+      partial: "sessions/lobby_roster",
+      locals: { session: session, host_controls: false }
+    )
+
+    Turbo::StreamsChannel.broadcast_update_to(
+      session, :host,
+      target: "lobby_roster_#{session.id}",
+      partial: "sessions/lobby_roster",
+      locals: { session: session, host_controls: true }
+    )
+
+    Turbo::StreamsChannel.broadcast_update_to(
+      session, :host,
+      target: "lobby_controls_#{session.id}",
+      partial: "sessions/lobby_controls",
+      locals: { session: session, host_controls: true }
+    )
+  end
+
+  # Voting start: each voter gets their own randomized movie card, so the
+  # update is personalized per voter stream (a single shared broadcast
+  # cannot carry every voter's card).
+  def broadcast_voting_started(session)
+    session.voters.find_each do |voter|
+      Turbo::StreamsChannel.broadcast_update_to(
+        session, "voter-#{voter.id}",
+        target: "session_#{session.id}",
+        partial: "sessions/vote",
+        locals: { session: session, movie: session.next_unvoted_movie(voter) }
+      )
+    end
+  end
 
   def broadcast_session_update(session)
     Turbo::StreamsChannel.broadcast_update_to(
