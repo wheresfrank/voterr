@@ -3,13 +3,6 @@
     <% vote_counts = session.positive_vote_counts %>
     <% finalists = session.top_movies_by_positive_votes %>
     <section class="app-session-panel">
-    <% if host_controls %>
-        <div class="app-invite" data-controller="clipboard" data-clipboard-success-content-value="Copied!">
-            <p class="app-card__kicker">Invite the crew</p><h2>Share this room</h2><p>Friends only need a name to join in.</p>
-            <input type="hidden" value='<%= join_session_url(token: session.session_token) %>' data-clipboard-target="source" />
-            <button type="button", class="app-button app-button--primary app-button--wide" data-action="clipboard#copy" data-clipboard-target="button">Copy invite link</button>
-        </div>
-    <% end %>
     <div class="app-panel-stat"><strong><%= session.movies.count %></strong><span>movies currently in the voting pool</span></div>
     <% if session.selected_genres.present? || session.only_unwatched? %>
       <div class="app-filter-list">
