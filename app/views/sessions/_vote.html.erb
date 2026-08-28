@@ -1,3 +1,4 @@
+<% movie = local_assigns.fetch(:movie, @movie) %>
 <%= turbo_frame_tag "session_#{session.id}" do %>
     <main class="app-page app-vote-page">
     <% if session.winner.present? %>
@@ -14,10 +15,12 @@
         </section>
         <div class="app-vote-layout">
             <div>
-                <% if @movie %>
-                    <%= turbo_frame_tag "movie_#{@movie.plex_id}" do %>
-                        <%= render "sessions/movie", movie: @movie, session: session %>
+                <% if movie %>
+                    <%= turbo_frame_tag "movie_#{movie.plex_id}" do %>
+                        <%= render "sessions/movie", movie: movie, session: session %>
                     <% end %>
+                <% elsif session.movies.any? %>
+                    <div class="app-empty-state"><span>✓</span><h2>You've voted on everything</h2><p>Hang tight while the others finish. The host will pick from the top three.</p></div>
                 <% else %>
                     <div class="app-empty-state"><span>⋯</span><h2>Getting movies ready</h2><p>Movies may still be loading. Refresh in a moment.</p></div>
                 <% end %>
