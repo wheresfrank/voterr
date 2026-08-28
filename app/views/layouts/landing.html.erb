@@ -46,7 +46,9 @@
   <meta name="twitter:image" content="<%= asset_url("voterr_logo.svg") %>">
 
   <script type="application/ld+json">
-  <%= raw({
+  <%# json_escape prevents `</script>` inside any value from breaking out of
+      the script tag. %>
+  <%= raw json_escape({
     "@context" => "https://schema.org",
     "@type" => "WebApplication",
     "name" => "Voterr",

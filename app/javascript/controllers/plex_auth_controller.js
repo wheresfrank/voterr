@@ -97,7 +97,8 @@ export default class extends Controller {
   }
 
   async sendAuthTokenToServer(authToken) {
-    console.log('Sending auth token to server:', authToken);
+    // Never log the Plex auth token — browser console output is readable by
+    // extensions, screen shares, and shared sessions.
     try {
       const response = await fetch('/plex_auth/callback', {
         method: 'POST',

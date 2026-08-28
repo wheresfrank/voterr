@@ -33,3 +33,9 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# OS/editor artifacts and local dev data — never commit.
+.DS_Store
+.byebug_history
+dump.rdb
+*.rdb

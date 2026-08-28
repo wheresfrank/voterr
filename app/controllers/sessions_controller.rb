@@ -1,6 +1,10 @@
 class SessionsController < ApplicationController
   before_action :require_login, except: [:join, :show_guest, :guest_vote]
 
+  # Unauthenticated lobby joins are limited per IP to prevent voter spam
+  # (Rails 7.2+/8 built-in rate limiting; uses Rails.cache).
+  rate_limit to: 10, within: 1.minute, only: :guest_vote
+
   def new
     @session = Session.new
   end
@@ -76,7 +80,9 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    @session = Session.find(params[:id])
+    # Scope to the current user's sessions: any signed-in user must not be
+    # able to delete sessions they do not own.
+    @session = current_user.sessions.find(params[:id])
     @session.destroy
     redirect_to sessions_path, notice: "Session was successfully deleted."
   end

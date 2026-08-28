@@ -36,8 +36,8 @@ Voterr is an open-source web application that democratizes movie night decisions
 
 ## Tech Stack
 
-- Ruby 3.1.1
-- Rails 7.1.4
+- Ruby 3.3.12
+- Rails 8.0.5
 - PostgreSQL 16
 - Stimulus.js
 - Bulma CSS Framework
@@ -47,8 +47,8 @@ Voterr is an open-source web application that democratizes movie night decisions
 
 ### Prerequisites
 
-- Ruby 3.1.1
-- Rails 7.1.4
+- Ruby 3.3.12
+- Rails 8.0.5
 - PostgreSQL 16
 - Plex account and server
 

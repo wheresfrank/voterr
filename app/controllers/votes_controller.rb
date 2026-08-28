@@ -1,4 +1,6 @@
 class VotesController < ApplicationController
+  rate_limit to: 60, within: 1.minute
+
   def create
     session_token = params[:session_token]
     movie_id = params[:movie_id]
@@ -21,7 +23,9 @@ class VotesController < ApplicationController
     # Create the vote, associating it with the correct session, movie, and voter
     @vote = @session.votes.find_or_initialize_by(movie: @movie, voter: @voter)
     @vote.assign_attributes(
-      positive: params[:positive],
+      # Cast explicitly: any string other than the documented falsey values
+      # must not silently become `true`.
+      positive: ActiveModel::Type::Boolean.new.cast(params[:positive]),
       guest_name: @voter.name,
       user: @session.user
     )
