@@ -1006,3 +1006,14 @@ $landing-variant: #262626;
   }
 }
 
+.landing-flash {
+  transition: opacity .35s ease;
+}
+
+/* Dismiss state set by the shared flash controller; overrides the
+   fixed-banner transform meant for .app-flash. */
+.landing-flash.app-flash--leaving {
+  transform: none;
+  opacity: 0;
+  pointer-events: none;
+}

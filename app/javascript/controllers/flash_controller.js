@@ -2,11 +2,11 @@ import { Controller } from "@hotwired/stimulus"
 
 // Auto-dismisses flash messages a few seconds after they appear,
 // with a fade-out. Also dismissible via the close button.
-export default class extends Controller {
-  static dismissAfter = 4000
+const DISMISS_AFTER_MS = 4000
 
+export default class extends Controller {
   connect() {
-    this.timeout = setTimeout(() => this.dismiss(), this.constructor.dismissAfter)
+    this.timeout = setTimeout(() => this.dismiss(), DISMISS_AFTER_MS)
   }
 
   disconnect() {

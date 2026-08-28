@@ -65,9 +65,10 @@
   <%= render "layouts/landing_navbar" %>
   <% flash.each do |name, message| %>
     <% next if message.blank? %>
-    <div class="landing-flash container is-fluid px-4">
+    <div class="landing-flash container is-fluid px-4" data-controller="flash">
       <div class="notification <%= name.to_s == "notice" ? "is-success" : "is-danger" %> is-light my-3">
         <%= message %>
+        <button type="button" class="delete" data-action="flash#dismiss" aria-label="Dismiss notification"></button>
       </div>
     </div>
   <% end %>
