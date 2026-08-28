@@ -40,8 +40,6 @@ gem "bootsnap", require: false
 
 gem 'faraday'
 
-gem 'nokogiri'
-
 gem 'sassc'
 
 gem 'browser'
