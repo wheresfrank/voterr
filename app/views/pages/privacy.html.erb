@@ -1,0 +1,79 @@
+<% content_for :title, "Privacy — Voterr Plex movie-night voting" %>
+<% content_for :description, "How Voterr uses Plex OAuth, what host and guest data is stored, and how to reach the operator. Written for a Plex movie-night voting app." %>
+
+<main class="landing-doc">
+  <header class="landing-doc-header">
+    <p class="landing-bento-label">Privacy</p>
+    <h1 class="landing-headline landing-doc-title">Privacy</h1>
+    <p class="landing-text-muted landing-doc-lead">
+      Voterr is a Plex movie-night voting app. This page describes the official hosted service at voterr.tv,
+      operated by <%= link_to "Frank Johnette", SeoHelper::AUTHOR_URL, class: "landing-inline-link" %>.
+      Self-hosted copies of the open-source app are run by whoever deploys them.
+    </p>
+    <p class="landing-text-muted">Last updated: 28 August 2026</p>
+  </header>
+
+  <article class="landing-doc-card landing-prose">
+    <h2 class="landing-headline landing-doc-heading">What Voterr is</h2>
+    <p>
+      The host signs in with <strong>Plex OAuth</strong> so Voterr can identify them and read movie metadata from their Plex libraries.
+      Guests never sign in with Plex; they join a session by entering a display name.
+    </p>
+
+    <h2 class="landing-headline landing-doc-heading">Data we store for hosts</h2>
+    <p>After a successful Plex sign-in, the hosted app stores:</p>
+    <ul>
+      <li>Plex username and email</li>
+      <li>A Plex authentication token, used server-side to list servers and movie libraries</li>
+      <li>Plex client, server, and section identifiers used to refresh that library</li>
+      <li>Movie metadata needed to run a vote (title, year, genres, summary, watched flags, duration, ratings, and poster URLs)</li>
+      <li>Voting sessions you create, including invite tokens, selected filters, votes, and the winning title</li>
+    </ul>
+    <p>
+      Voterr uses the token to fetch library data and to help you open a winning movie in Plex.
+      It does not post to your Plex social feed, manage Plex friends, or use your account to log into Plex as you in the browser after the OAuth popup closes.
+    </p>
+
+    <h2 class="landing-headline landing-doc-heading">Data we store for guests</h2>
+    <p>
+      Guests provide a <strong>name</strong> so the room can show who has joined and who has voted.
+      Guests are not asked for an email, password, or Plex account. Vote records are tied to that session and voter name.
+    </p>
+
+    <h2 class="landing-headline landing-doc-heading">Analytics</h2>
+    <p>
+      The open-source app ships <strong>no analytics by default</strong>. The official voterr.tv deployment may use
+      cookieless <%= link_to "Plausible Analytics", "https://plausible.io", class: "landing-inline-link" %>
+      when those environment variables are set. See the README.
+    </p>
+
+    <h2 class="landing-headline landing-doc-heading">Cookies and sessions</h2>
+    <p>
+      Voterr uses a session cookie so the host stays signed in and a guest stays attached to the name they joined with.
+      That is required for the product to work. There is no advertising cookie.
+    </p>
+
+    <h2 class="landing-headline landing-doc-heading">Third parties</h2>
+    <ul>
+      <li><strong>Plex</strong> — OAuth and library APIs. Their privacy policy applies to your Plex account.</li>
+      <li><strong>The Movie Database (TMDB)</strong> — poster artwork for titles. Voterr is not endorsed or certified by TMDB.</li>
+      <li><strong>Hosting</strong> — the official app runs on Render. Infrastructure logs may include IP addresses and request paths.</li>
+    </ul>
+    <p>Voterr is not affiliated with Plex, Inc. or with voterr.io.</p>
+
+    <h2 class="landing-headline landing-doc-heading">Retention and deletion</h2>
+    <p>
+      Host accounts, library metadata, and sessions remain until you delete sessions or ask for the account to be removed.
+      You can delete individual voting sessions from the dashboard. To delete a hosted account and associated Plex token, open an issue on
+      <%= link_to "GitHub", SeoHelper::GITHUB_REPO_URL, class: "landing-inline-link" %>
+      or contact <%= link_to "Frank Johnette", SeoHelper::AUTHOR_URL, class: "landing-inline-link" %>.
+    </p>
+
+    <h2 class="landing-headline landing-doc-heading">Open source</h2>
+    <p>
+      You can read exactly what the app stores in
+      <%= link_to "the public repository", SeoHelper::GITHUB_REPO_URL, class: "landing-inline-link" %>.
+      If you run your own instance, you are the operator for that instance’s privacy practices.
+    </p>
+  </article>
+</main>

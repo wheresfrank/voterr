@@ -1,52 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <title><%= content_for?(:title) ? yield(:title) : "Voterr - Democratize Your Movie Nights" %></title>
-  
-  <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Voterr helps you and your friends choose movies from your Plex library for the perfect movie night. Vote, decide, and enjoy together!" %>">
-  
+
+  <title><%= content_for?(:title) ? yield(:title) : SeoHelper::DEFAULT_TITLE %></title>
+  <meta name="description" content="<%= content_for?(:description) ? yield(:description) : SeoHelper::DEFAULT_DESCRIPTION %>">
+  <meta name="robots" content="noindex, nofollow">
+
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
-  
+
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   <%= javascript_importmap_tags %>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  
-  <%= favicon_link_tag asset_path('favicon.png') %>
-  
-  <link rel="canonical" href="<%= request.original_url %>">
-  
-  <!-- Open Graph / Facebook -->
+
+  <%= favicon_link_tag asset_path("favicon.png") %>
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
   <meta property="og:type" content="website">
-  <meta property="og:url" content="<%= request.original_url %>">
-  <meta property="og:title" content="<%= content_for?(:title) ? yield(:title) : "Voterr - Democratize Your Movie Nights" %>">
-  <meta property="og:description" content="<%= content_for?(:description) ? yield(:description) : "Voterr helps you and your friends choose movies from your Plex library for the perfect movie night. Vote, decide, and enjoy together!" %>">
-  <meta property="og:image" content="<%= asset_url('voterr_logo.svg') %>">
+  <meta property="og:site_name" content="Voterr">
+  <meta property="og:url" content="<%= SeoHelper::CANONICAL_ORIGIN %>/">
+  <meta property="og:title" content="<%= content_for?(:title) ? yield(:title) : SeoHelper::DEFAULT_TITLE %>">
+  <meta property="og:description" content="<%= content_for?(:description) ? yield(:description) : SeoHelper::DEFAULT_DESCRIPTION %>">
+  <meta property="og:image" content="<%= seo_image_url %>">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="<%= SeoHelper::OG_IMAGE_WIDTH %>">
+  <meta property="og:image:height" content="<%= SeoHelper::OG_IMAGE_HEIGHT %>">
 
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="<%= request.original_url %>">
-  <meta property="twitter:title" content="<%= content_for?(:title) ? yield(:title) : "Voterr - Democratize Your Movie Nights" %>">
-  <meta property="twitter:description" content="<%= content_for?(:description) ? yield(:description) : "Voterr helps you and your friends choose movies from your Plex library for the perfect movie night. Vote, decide, and enjoy together!" %>">
-  <meta property="twitter:image" content="<%= asset_url('voterr_logo.svg') %>">
-
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Voterr",
-    "description": "Voterr helps you and your friends choose movies from your Plex library for the perfect movie night. Vote, decide, and enjoy together!",
-    "url": "<%= request.base_url %>",
-    "applicationCategory": "EntertainmentApplication",
-    "operatingSystem": "Web"
-  }
-  </script>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="<%= content_for?(:title) ? yield(:title) : SeoHelper::DEFAULT_TITLE %>">
+  <meta name="twitter:description" content="<%= content_for?(:description) ? yield(:description) : SeoHelper::DEFAULT_DESCRIPTION %>">
+  <meta name="twitter:image" content="<%= seo_image_url %>">
 
   <%= yield(:head) %>
 

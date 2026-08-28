@@ -1,0 +1,36 @@
+# Voterr
+
+Voterr is a hosted Plex movie-night voting app at https://www.voterr.tv/.
+
+A host signs in with Plex OAuth, creates a voting session from their Plex movie library, and shares one invite link. Guests join by entering a name. Guests do not log into Plex. When everyone likes the same title, that movie wins.
+
+Voterr is not voterr.io. voterr.io is an unrelated Chrome extension. This product is voterr.tv, built by Frank Johnette (https://frankjohnette.xyz).
+
+## Why it exists
+
+Most Plex “what should we watch” tools are self-hosted Docker apps that expect a Plex token in a config file. Voterr is the hosted alternative: Plex OAuth in the browser, guests by name, no Docker required to run movie night.
+
+## Stack
+
+- Ruby on Rails (Hotwire / Stimulus / Turbo)
+- PostgreSQL
+- Bulma CSS
+- Plex API (OAuth for the host; library metadata synced server-side)
+
+## Links
+
+- Live app: https://www.voterr.tv/
+- Compare vs MovieMatch, What to Watch on Plex, and Swiparr: https://www.voterr.tv/compare
+- About: https://www.voterr.tv/about
+- Privacy: https://www.voterr.tv/privacy
+- Source: https://github.com/wheresfrank/voterr
+- Author: Frank Johnette — https://frankjohnette.xyz — https://github.com/wheresfrank
+
+## Hosted vs self-host
+
+Official deployment: https://www.voterr.tv/ (hosted; host uses Plex OAuth).
+Self-host: clone https://github.com/wheresfrank/voterr, bundle, PostgreSQL, `rails server`. See the README.
+
+## Not in scope
+
+Voterr does not replace Plex, Radarr, or Sonarr. It does not scrape other people’s libraries. It does not require guests to have Plex accounts.

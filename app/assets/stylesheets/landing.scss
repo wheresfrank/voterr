@@ -772,3 +772,237 @@ $landing-variant: #262626;
 .landing-columns-align.columns {
   align-items: center;
 }
+
+.landing-navbar-actions {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.landing-navbar-cta {
+  padding: 0.55rem 1.1rem !important;
+  font-size: 0.88rem !important;
+  box-shadow: 0 8px 20px rgba(255, 184, 0, 0.18) !important;
+
+  &:hover {
+    transform: scale(1.03);
+  }
+}
+
+.landing-hero--short {
+  min-height: calc(100dvh - 5rem);
+  padding-bottom: 6rem;
+}
+
+.landing-cta-row--start {
+  justify-content: flex-start;
+  margin: 1.5rem 0 0;
+}
+
+.landing-inline-link {
+  color: $landing-primary;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+
+  &:hover {
+    color: lighten($landing-primary, 8%);
+  }
+}
+
+.landing-footer-byline {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.landing-screenshot {
+  margin: 0 auto;
+  max-width: 64rem;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 0.85rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  }
+
+  figcaption {
+    margin-top: 0.85rem;
+    color: $landing-muted;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  &--inset {
+    max-width: none;
+    margin-top: 0.25rem;
+
+    img {
+      border-radius: 0.65rem;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+    }
+  }
+}
+
+.landing-doc {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 5rem;
+}
+
+.landing-doc-header {
+  margin-bottom: 2.5rem;
+}
+
+.landing-doc-title {
+  font-size: unquote("clamp(2rem, 6vw, 3.4rem)");
+  margin: 0.4rem 0 1rem;
+}
+
+.landing-doc-lead {
+  font-size: 1.15rem;
+  line-height: 1.65;
+  max-width: 42rem;
+}
+
+.landing-doc-grid {
+  display: grid;
+  gap: 1.25rem;
+
+  @media screen and (min-width: 768px) {
+    grid-template-columns: 1.2fr 0.8fr;
+    align-items: start;
+  }
+}
+
+.landing-doc-card {
+  background: $landing-surface-high;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 0.85rem;
+  padding: 1.5rem 1.35rem;
+  margin-bottom: 1.25rem;
+
+  p,
+  li {
+    color: rgba(255, 255, 255, 0.78);
+    line-height: 1.7;
+  }
+}
+
+.landing-doc-heading {
+  font-size: 1.45rem;
+  margin: 0 0 0.85rem;
+}
+
+.landing-doc-note {
+  color: $landing-muted;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin-top: 1rem;
+}
+
+.landing-step-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.85rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    color: #ddd9d2;
+    font-size: 0.95rem;
+
+    &:first-child {
+      border-top: 0;
+    }
+
+    span {
+      color: $landing-primary;
+      font: 700 0.72rem "Space Grotesk", sans-serif;
+      letter-spacing: 0.08em;
+    }
+  }
+}
+
+.landing-table-wrap {
+  overflow-x: auto;
+  margin: 1.25rem 0;
+}
+
+.landing-compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+
+  th,
+  td {
+    text-align: left;
+    vertical-align: top;
+    padding: 0.85rem 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.45;
+  }
+
+  thead th {
+    color: $landing-primary;
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  tbody th {
+    color: #fff;
+    font-weight: 600;
+    min-width: 8.5rem;
+  }
+}
+
+.landing-faq {
+  margin: 0;
+}
+
+.landing-faq-item {
+  padding: 1rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+  &:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  dt {
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin-bottom: 0.45rem;
+    color: #fff;
+  }
+
+  dd {
+    margin: 0;
+    color: $landing-muted;
+    line-height: 1.65;
+  }
+}
+
+.landing-prose {
+  h2 {
+    margin-top: 1.75rem;
+  }
+
+  ul {
+    margin: 0 0 1rem 1.2rem;
+    padding: 0;
+  }
+
+  li {
+    margin: 0.35rem 0;
+  }
+}
+
