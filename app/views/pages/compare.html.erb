@@ -1,20 +1,22 @@
 <% content_for :title, "Voterr vs MovieMatch, WTWP & Swiparr — hosted Plex movie-night voting" %>
 <% content_for :description, "Vote on a movie from your Plex library — no Docker, guests don’t need Plex. See how hosted Voterr compares with What to Watch on Plex, MovieMatch, and Swiparr." %>
-<% content_for :json_ld, {
-  "@context" => "https://schema.org",
-  "@type" => "FAQPage",
-  "mainEntity" => @faqs.map { |faq|
-    {
-      "@type" => "Question",
-      "name" => faq[:question],
-      "acceptedAnswer" => {
-        "@type" => "Answer",
-        "text" => faq[:answer]
+<% content_for :head do %>
+  <%= json_ld_tag({
+    "@context" => "https://schema.org",
+    "@type" => "FAQPage",
+    "mainEntity" => @faqs.map { |faq|
+      {
+        "@type" => "Question",
+        "name" => faq[:question],
+        "acceptedAnswer" => {
+          "@type" => "Answer",
+          "text" => faq[:answer]
+        }
       }
-    }
-  },
-  "url" => canonical_page_url
-}.to_json %>
+    },
+    "url" => canonical_page_url
+  }) %>
+<% end %>
 
 <main class="landing-doc">
   <header class="landing-doc-header">

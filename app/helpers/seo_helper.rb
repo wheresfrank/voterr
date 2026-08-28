@@ -39,6 +39,10 @@ module SeoHelper
     "#{CANONICAL_ORIGIN}#{OG_IMAGE_PATH}"
   end
 
+  def json_ld_tag(data)
+    tag.script((data.is_a?(String) ? data : data.to_json).html_safe, type: "application/ld+json")
+  end
+
   def web_application_json_ld
     {
       "@context" => "https://schema.org",

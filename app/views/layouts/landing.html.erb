@@ -52,12 +52,6 @@
   <meta name="twitter:description" content="<%= seo_description %>">
   <meta name="twitter:image" content="<%= seo_image_url %>">
 
-  <% if content_for?(:json_ld) %>
-    <script type="application/ld+json">
-      <%= raw(content_for(:json_ld)) %>
-    </script>
-  <% end %>
-
   <%= yield(:head) %>
 
   <%# Privacy-friendly analytics, opt-in for the official deployment only.

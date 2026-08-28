@@ -1,6 +1,8 @@
 <% content_for :title, SeoHelper::DEFAULT_TITLE %>
 <% content_for :description, SeoHelper::DEFAULT_DESCRIPTION %>
-<% content_for :json_ld, web_application_json_ld.to_json %>
+<% content_for :head do %>
+  <%= json_ld_tag(web_application_json_ld) %>
+<% end %>
 
 <main id="top" class="landing-main">
   <section class="landing-hero" aria-labelledby="landing-hero-heading">

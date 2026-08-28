@@ -17,6 +17,7 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     assert_select "meta[property='og:image'][content='https://www.voterr.tv/og-image.jpg']"
     assert_select "meta[name='robots'][content='index, follow']"
     assert_select "a[href='#{new_plex_auth_path}']", text: /Log in with Plex/
+    assert_select "img[fetchpriority='high']"
     assert_select "footer", /Frank Johnette/
     assert_select "footer a[href='https://frankjohnette.xyz']"
     assert_select "footer a[href='https://github.com/wheresfrank/voterr']"
