@@ -1,0 +1,119 @@
+<% content_for :title, "Voterr vs MovieMatch, WTWP & Swiparr — hosted Plex movie-night voting" %>
+<% content_for :description, "Vote on a movie from your Plex library — no Docker, guests don’t need Plex. See how hosted Voterr compares with What to Watch on Plex, MovieMatch, and Swiparr." %>
+<% content_for :head do %>
+  <%= json_ld_tag({
+    "@context" => "https://schema.org",
+    "@type" => "FAQPage",
+    "mainEntity" => @faqs.map { |faq|
+      {
+        "@type" => "Question",
+        "name" => faq[:question],
+        "acceptedAnswer" => {
+          "@type" => "Answer",
+          "text" => faq[:answer]
+        }
+      }
+    },
+    "url" => canonical_page_url
+  }) %>
+<% end %>
+
+<main class="landing-doc">
+  <header class="landing-doc-header">
+    <p class="landing-bento-label">Compare</p>
+    <h1 class="landing-headline landing-doc-title">Vote on a movie from your Plex library — no Docker, guests don’t need Plex</h1>
+    <p class="landing-text-muted landing-doc-lead">
+      Voterr is hosted Plex movie-night voting. The host signs in with Plex OAuth. Friends join by name.
+      You should not need a homelab, a pasted token, or a Chrome extension to pick something tonight.
+    </p>
+    <p class="landing-cta-row landing-cta-row--start">
+      <%= link_to "Log in with Plex", new_plex_auth_path, class: "button landing-button-primary" %>
+      <%= link_to "How Voterr works", root_path(anchor: "how-it-works"), class: "button landing-button-ghost" %>
+    </p>
+  </header>
+
+  <section class="landing-doc-card" aria-labelledby="compare-table-heading">
+    <h2 id="compare-table-heading" class="landing-headline landing-doc-heading">Hosted Voterr vs self-hosted Plex pickers</h2>
+    <p class="landing-text-muted">
+      MovieMatch, What to Watch on Plex (WTWP / netplexflix), and Swiparr are strong options if you already run Docker and are comfortable storing a Plex token.
+      Voterr is for groups that want the same outcome — a movie from <em>your</em> library — without standing up another container.
+    </p>
+    <div class="landing-table-wrap">
+      <table class="landing-compare-table">
+        <caption class="sr-only">Feature comparison of Voterr, What to Watch on Plex, MovieMatch, and Swiparr</caption>
+        <thead>
+          <tr>
+            <th scope="col"> </th>
+            <th scope="col">Voterr</th>
+            <th scope="col">What to Watch on Plex</th>
+            <th scope="col">MovieMatch</th>
+            <th scope="col">Swiparr</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">How you run it</th>
+            <td>Hosted at voterr.tv (open source if you self-host)</td>
+            <td>Self-hosted (Docker)</td>
+            <td>Self-hosted</td>
+            <td>Self-hosted (Docker)</td>
+          </tr>
+          <tr>
+            <th scope="row">Plex access</th>
+            <td>Plex OAuth in the browser</td>
+            <td>Plex token (typical)</td>
+            <td>Plex token (typical)</td>
+            <td>Plex / *arr API tokens</td>
+          </tr>
+          <tr>
+            <th scope="row">Guests</th>
+            <td>Join by name. No Plex login.</td>
+            <td>Depends on your deploy; often everyone uses the same instance</td>
+            <td>Matching between people who can reach your server</td>
+            <td>Swipe UI for the operator, not a guest-by-name room</td>
+          </tr>
+          <tr>
+            <th scope="row">What you pick from</th>
+            <td>Host’s Plex movie library, with genre and unwatched filters</td>
+            <td>Your Plex library</td>
+            <td>Shared Plex library overlap</td>
+            <td>Library / Radarr / Sonarr queues</td>
+          </tr>
+          <tr>
+            <th scope="row">How a title wins</th>
+            <td>Unanimous yes, or host picks from the top vote-getters</td>
+            <td>Swipe / vote flows in that app</td>
+            <td>Mutual matches</td>
+            <td>Swipe to add or keep</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="landing-doc-note">
+      Other projects change quickly. This table describes the usual setup, not a legal claim about any third-party app.
+      Voterr is not affiliated with Plex, WTWP, MovieMatch, Swiparr, or voterr.io.
+    </p>
+  </section>
+
+  <section class="landing-doc-card" aria-labelledby="not-voterr-io">
+    <h2 id="not-voterr-io" class="landing-headline landing-doc-heading">Not voterr.io</h2>
+    <p>
+      Search results sometimes mix up <strong>Voterr</strong> (this site, voterr.tv) with <strong>voterr.io</strong>,
+      a Chrome extension. They are different products. This Voterr is a Rails app for Plex movie-night voting,
+      written by <%= link_to "Frank Johnette", SeoHelper::AUTHOR_URL, class: "landing-inline-link" %>.
+      Source: <%= link_to SeoHelper::GITHUB_REPO_URL, SeoHelper::GITHUB_REPO_URL, class: "landing-inline-link" %>.
+    </p>
+  </section>
+
+  <section class="landing-doc-card" id="faq" aria-labelledby="faq-heading">
+    <h2 id="faq-heading" class="landing-headline landing-doc-heading">FAQ</h2>
+    <dl class="landing-faq">
+      <% @faqs.each do |faq| %>
+        <div class="landing-faq-item">
+          <dt><%= faq[:question] %></dt>
+          <dd><%= faq[:answer] %></dd>
+        </div>
+      <% end %>
+    </dl>
+  </section>
+</main>

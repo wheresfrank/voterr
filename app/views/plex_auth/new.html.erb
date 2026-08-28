@@ -1,9 +1,10 @@
-<% content_for :title, "Voterr — Movie nights from your Plex library" %>
-<% content_for :description, "Sign in with Plex, start a voting session, and pick a movie everyone agrees on—using only titles from your library." %>
+<% content_for :title, "Log in with Plex — Voterr" %>
+<% content_for :description, "Sign in with Plex to host a movie-night vote on Voterr. Guests you invite will join by name and will not need a Plex login." %>
+<% content_for :robots, "noindex, nofollow" %>
 
 <main
   id="top"
-  class="landing-main"
+  class="landing-main landing-login"
   data-controller="plex-auth"
   data-plex-auth-plex-base-url-value="https://plex.tv"
   data-plex-auth-plex-product-value="<%= @plex_product %>"
@@ -14,188 +15,31 @@
   data-plex-auth-device-value="<%= @device %>"
   data-plex-auth-device-name-value="<%= @device_name %>"
   data-plex-auth-callback-url-value="<%= @callback_url %>"
+  data-plex-auth-redirect-url-value="<%= sessions_path %>"
 >
-  <section class="landing-hero" aria-labelledby="landing-hero-heading">
+  <section class="landing-hero landing-hero--short" aria-labelledby="login-heading">
     <div class="landing-hero-backdrop" aria-hidden="true">
-      <%= image_tag stitch_hero_theater_url, alt: "", class: "landing-hero-photo", loading: "eager", decoding: "async" %>
       <div class="landing-hero-scrim"></div>
     </div>
-
     <div class="landing-hero-inner">
-      <h1 id="landing-hero-heading" class="landing-headline landing-hero-title mb-5">
-        Movie night<br>
-        <span class="landing-accent">made easy</span>
+      <h1 id="login-heading" class="landing-headline landing-hero-title mb-5">
+        Log in with<br>
+        <span class="landing-accent">Plex</span>
       </h1>
       <p class="landing-hero-tagline landing-hero-tagline--light">
-        Connect your Plex library, start a session, and share one link so your group votes only on movies you actually own.
-        When everyone likes the same title, you've got your winner.
+        Hosts sign in with Plex OAuth so Voterr can load movies from your library.
+        Friends you invite still join by name — they never need a Plex login.
       </p>
       <div class="landing-cta-row">
         <button type="button" class="button landing-button-primary" data-action="click->plex-auth#initiate">
           Log in with Plex
         </button>
-        <%= link_to "How it works", "#how-it-works", class: "button landing-button-ghost" %>
+        <%= link_to "Back to Voterr", root_path, class: "button landing-button-ghost" %>
       </div>
       <p class="landing-status" data-plex-auth-target="status" aria-live="polite"></p>
-    </div>
-
-    <div class="landing-poster-fan" aria-hidden="true">
-      <% stitch_fan_poster_urls.each do |url| %>
-        <div class="landing-poster-card">
-          <%= image_tag url, alt: "", loading: "lazy", decoding: "async" %>
-        </div>
-      <% end %>
+      <noscript>
+        <p class="landing-text-muted">Plex sign-in needs JavaScript so Voterr can open the Plex authorization window.</p>
+      </noscript>
     </div>
   </section>
-
-  <section id="how-it-works" class="landing-section landing-section-feature landing-section-surface">
-    <div class="container is-max-widescreen">
-      <h2 class="landing-headline landing-section-heading has-text-centered mb-6">How Voterr works</h2>
-      <div class="columns is-multiline">
-        <div class="column is-one-third">
-          <div class="landing-feature-card">
-            <div class="landing-feature-icon landing-feature-icon--primary landing-feature-icon--pop">
-              <span class="material-symbols-outlined landing-ms-feature landing-ms--fill">cable</span>
-            </div>
-            <h3 class="landing-headline landing-feature-title mb-4">Sign in with Plex</h3>
-            <p class="landing-text-muted">
-              We use Plex OAuth to identify you and sync movies from your library into Voterr—no separate password here.
-            </p>
-          </div>
-        </div>
-        <div class="column is-one-third">
-          <div class="landing-feature-card">
-            <div class="landing-feature-icon landing-feature-icon--secondary landing-feature-icon--pop">
-              <span class="material-symbols-outlined landing-ms-feature landing-ms--fill">how_to_vote</span>
-            </div>
-            <h3 class="landing-headline landing-feature-title mb-4">Start a session &amp; invite friends</h3>
-            <p class="landing-text-muted">
-              Create a session (optionally filter by genre or unwatched titles). Voterr samples random picks from your library;
-              you copy an invite link so guests can join with just their name.
-            </p>
-          </div>
-        </div>
-        <div class="column is-one-third">
-          <div class="landing-feature-card">
-            <div class="landing-feature-icon landing-feature-icon--tertiary landing-feature-icon--pop">
-              <span class="material-symbols-outlined landing-ms-feature landing-ms--fill">movie</span>
-            </div>
-            <h3 class="landing-headline landing-feature-title mb-4">Vote until you all agree</h3>
-            <p class="landing-text-muted">
-              Each person votes yes or no on suggested titles. The session wins when every voter has liked the same movie—then you pick what to watch next in Plex.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="session-spotlight" class="landing-section-tight landing-section-deep landing-section-bento-wrap">
-    <div class="container is-max-widescreen">
-      <div class="landing-bento-grid">
-        <div class="landing-bento-grid__main">
-          <div class="landing-bento-large landing-relative">
-            <div class="landing-bento-large-copy">
-              <span class="landing-bento-label">Live session</span>
-              <h2 class="landing-headline landing-bento-large-title mb-3">
-                Stay in sync while everyone votes
-              </h2>
-              <p class="landing-text-muted landing-bento-lead mb-0">
-                Turbo Streams refresh the guest list and host tools as people join and cast votes—real activity from your session, not a mock scoreboard.
-              </p>
-            </div>
-            <div class="landing-mock-panel">
-              <p class="sr-only">Decorative sample bars from the original design comp—not live vote data.</p>
-              <div class="landing-mock-bars" aria-hidden="true">
-                <div class="landing-mock-row">
-                  <div class="landing-mock-labels">
-                    <span>Interstellar</span>
-                    <span>82%</span>
-                  </div>
-                  <div class="landing-progress">
-                    <div class="landing-progress-fill landing-progress-fill--glow" style="width: 82%;"></div>
-                  </div>
-                </div>
-                <div class="landing-mock-row">
-                  <div class="landing-mock-labels">
-                    <span>Inception</span>
-                    <span>45%</span>
-                  </div>
-                  <div class="landing-progress">
-                    <div class="landing-progress-fill landing-progress-fill--muted" style="width: 45%;"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="landing-bento-grid__aside">
-          <div class="landing-bento-aside">
-            <div>
-              <span class="material-symbols-outlined landing-bento-aside-icon">groups</span>
-              <h3 class="landing-headline landing-bento-aside-title">Bring the whole group</h3>
-            </div>
-            <p>
-              Share one invite link and add as many voters as you like—Voterr does not cap headcount for movie night.
-            </p>
-          </div>
-        </div>
-        <div class="landing-bento-grid__guests">
-          <div class="landing-bento-guests">
-            <div class="landing-bento-guests-row">
-              <div class="landing-avatar-stack">
-                <% stitch_guest_avatar_urls.each do |src| %>
-                  <%= image_tag src, alt: "", class: "landing-avatar" %>
-                <% end %>
-              </div>
-              <span class="landing-bento-guests-badge">Guests</span>
-            </div>
-            <h3 class="landing-headline landing-bento-guests-title mb-3">Join with a name</h3>
-            <p class="landing-text-muted is-size-7 mb-0">
-              Friends open your link, enter the name they want on the roster, and vote—no Plex login required on their side.
-            </p>
-          </div>
-        </div>
-        <div class="landing-bento-grid__theater">
-          <div class="landing-bento-theater">
-            <div class="landing-bento-theater-copy">
-              <h3 class="landing-headline landing-bento-theater-title mb-4">Theater-friendly UI</h3>
-              <p class="landing-text-muted mb-0">
-                Dark surfaces and bold type stay legible on a dim couch or a TV browser so the group can focus on the picks, not the glare.
-              </p>
-            </div>
-            <span class="material-symbols-outlined landing-bento-tv-icon landing-hide-below-tablet" aria-hidden="true">tv_gen</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="landing-cta-section has-text-centered">
-    <div class="landing-glow" aria-hidden="true"></div>
-    <div class="container landing-relative landing-cta-inner">
-      <h2 class="landing-headline landing-cta-title mb-5">Ready to transform your movie nights?</h2>
-      <p class="landing-text-muted landing-cta-sub mb-6">
-        Log in with Plex to pull in your library and launch your first voting session.
-      </p>
-      <button type="button" class="button landing-button-primary landing-button-primary--xl" data-action="click->plex-auth#initiate">
-        Log in with Plex
-      </button>
-    </div>
-  </section>
-
-  <footer class="landing-footer">
-    <div class="landing-footer-inner">
-      <div>
-        <div class="landing-footer-brand-row mb-2">
-          <span class="landing-wordmark landing-wordmark--footer">Voterr</span>
-        </div>
-        <p class="landing-footer-meta mb-1">© <%= Time.current.year %> Voterr.</p>
-        <p class="landing-footer-tagline mb-0">Movie nights from your Plex library.</p>
-      </div>
-      <div class="landing-footer-links">
-        <%= link_to "About", about_path, class: "landing-navbar-link" %>
-      </div>
-    </div>
-  </footer>
 </main>

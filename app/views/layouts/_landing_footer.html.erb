@@ -1,0 +1,22 @@
+<footer class="landing-footer">
+  <div class="landing-footer-inner">
+    <div>
+      <div class="landing-footer-brand-row mb-2">
+        <%= link_to "Voterr", root_path, class: "landing-wordmark landing-wordmark--footer" %>
+      </div>
+      <p class="landing-footer-meta mb-1">© <%= Time.current.year %> Voterr.</p>
+      <p class="landing-footer-tagline mb-1">Plex movie-night voting. Guests join by name.</p>
+      <p class="landing-footer-byline mb-0">
+        Built by <%= link_to "Frank Johnette", SeoHelper::AUTHOR_URL, rel: "author me", class: "landing-inline-link" %>
+        ·
+        <%= link_to "GitHub", SeoHelper::GITHUB_REPO_URL, class: "landing-inline-link" %>
+      </p>
+    </div>
+    <nav class="landing-footer-links" aria-label="Footer">
+      <%= link_to "About", about_path, class: "landing-navbar-link" %>
+      <%= link_to "Compare", compare_path, class: "landing-navbar-link" %>
+      <%= link_to "Privacy", privacy_path, class: "landing-navbar-link" %>
+      <%= link_to "GitHub", SeoHelper::GITHUB_REPO_URL, class: "landing-navbar-link" %>
+    </nav>
+  </div>
+</footer>

@@ -3,7 +3,9 @@
 Voterr is an open-source web application that democratizes movie night decisions by allowing friends to vote on movies from a shared Plex library.
 
 ## Live App
-[Voterr.tv](https://voterr.tv)
+[Voterr.tv](https://www.voterr.tv) — hosted Plex movie-night voting. Guests join by name and do not need a Plex login.
+
+Public pages: [`/`](https://www.voterr.tv/), [`/about`](https://www.voterr.tv/about), [`/compare`](https://www.voterr.tv/compare), [`/privacy`](https://www.voterr.tv/privacy). Hosts sign in at `/plex_auth/new`.
 
 ![Voterr Logo](app/assets/images/voterr_logo.svg)
 

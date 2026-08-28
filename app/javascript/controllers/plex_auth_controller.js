@@ -12,7 +12,8 @@ export default class extends Controller {
     browserVersion: String,
     device: String,
     deviceName: String,
-    callbackUrl: String
+    callbackUrl: String,
+    redirectUrl: { type: String, default: "/sessions" }
   }
 
   async initiate() {
@@ -114,8 +115,7 @@ export default class extends Controller {
   
       if (result.success) {
         this.statusTarget.textContent = result.message;
-        // Redirect in the main window
-        window.location.href = '/'; // or wherever you want to redirect after successful auth
+        window.location.href = this.redirectUrlValue || "/sessions"
       } else {
         throw new Error(result.message);
       }

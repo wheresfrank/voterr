@@ -4,15 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title><%= content_for?(:title) ? yield(:title) : "Voterr — Movie nights from your Plex library" %></title>
-
-  <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Sign in with Plex, start a voting session, and pick a movie everyone agrees on—using only titles from your library." %>">
+  <title><%= seo_title %></title>
+  <meta name="description" content="<%= seo_description %>">
+  <meta name="robots" content="<%= seo_robots %>">
 
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
+  <link rel="canonical" href="<%= canonical_page_url %>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://lh3.googleusercontent.com">
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" referrerpolicy="no-referrer">
@@ -30,34 +32,25 @@
   <%= javascript_importmap_tags %>
 
   <%= favicon_link_tag asset_path("favicon.png") %>
-
-  <link rel="canonical" href="<%= request.original_url %>">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
   <meta property="og:type" content="website">
-  <meta property="og:url" content="<%= request.original_url %>">
-  <meta property="og:title" content="<%= content_for?(:title) ? yield(:title) : "Voterr — Movie nights from your Plex library" %>">
-  <meta property="og:description" content="<%= content_for?(:description) ? yield(:description) : "Sign in with Plex, start a voting session, and pick a movie everyone agrees on—using only titles from your library." %>">
-  <meta property="og:image" content="<%= asset_url("voterr_logo.svg") %>">
+  <meta property="og:site_name" content="Voterr">
+  <meta property="og:url" content="<%= canonical_page_url %>">
+  <meta property="og:title" content="<%= seo_title %>">
+  <meta property="og:description" content="<%= seo_description %>">
+  <meta property="og:image" content="<%= seo_image_url %>">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="<%= SeoHelper::OG_IMAGE_WIDTH %>">
+  <meta property="og:image:height" content="<%= SeoHelper::OG_IMAGE_HEIGHT %>">
+  <meta property="og:image:alt" content="Voterr dashboard for Plex movie-night voting">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="<%= request.original_url %>">
-  <meta name="twitter:title" content="<%= content_for?(:title) ? yield(:title) : "Voterr — Movie nights from your Plex library" %>">
-  <meta name="twitter:description" content="<%= content_for?(:description) ? yield(:description) : "Sign in with Plex, start a voting session, and pick a movie everyone agrees on—using only titles from your library." %>">
-  <meta name="twitter:image" content="<%= asset_url("voterr_logo.svg") %>">
-
-  <script type="application/ld+json">
-  <%# json_escape prevents `</script>` inside any value from breaking out of
-      the script tag. %>
-  <%= raw json_escape({
-    "@context" => "https://schema.org",
-    "@type" => "WebApplication",
-    "name" => "Voterr",
-    "description" => "Sign in with Plex, start a voting session, and pick a movie everyone agrees on—using only titles from your library.",
-    "url" => request.base_url,
-    "applicationCategory" => "EntertainmentApplication",
-    "operatingSystem" => "Web"
-  }.to_json) %>
-  </script>
+  <meta name="twitter:url" content="<%= canonical_page_url %>">
+  <meta name="twitter:title" content="<%= seo_title %>">
+  <meta name="twitter:description" content="<%= seo_description %>">
+  <meta name="twitter:image" content="<%= seo_image_url %>">
 
   <%= yield(:head) %>
 
@@ -79,5 +72,6 @@
     </div>
   <% end %>
   <%= yield %>
+  <%= render "layouts/landing_footer" %>
 </body>
 </html>
