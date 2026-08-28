@@ -1,15 +1,22 @@
 <%= form_with model: @session, url: sessions_path, local: true do |f| %>
   <div class="app-field">
     <%= f.label :session_name, "Give your session a name" %>
-    <%= f.text_field :session_name, class: "app-input", placeholder: "Friday night with friends" %>
+    <%= f.text_field :session_name, class: "app-input", placeholder: "Friday night with friends", required: true %>
   </div>
+  <% if @session.errors.any? %>
+    <div class="app-field__errors" role="alert">
+      <% @session.errors.full_messages.each do |message| %>
+        <p><%= message %></p>
+      <% end %>
+    </div>
+  <% end %>
   <div class="app-field">
     <%= f.label :genres, "Set the mood (optional)" %>
     <%= hidden_field_tag "session[genres][]", "" %>
     <div class="app-chip-grid" role="group" aria-label="Movie genres">
       <% @available_genres.each do |genre| %>
         <% genre_id = "session_genre_#{genre.parameterize}" %>
-        <%= check_box_tag "session[genres][]", genre, false, id: genre_id, class: "app-chip__input" %>
+        <%= check_box_tag "session[genres][]", genre, @session.selected_genres.include?(genre), id: genre_id, class: "app-chip__input" %>
         <%= label_tag genre_id, genre, class: "app-chip" %>
       <% end %>
     </div>
