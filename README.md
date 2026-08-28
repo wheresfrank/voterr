@@ -88,6 +88,20 @@ Voterr is an open-source web application that democratizes movie night decisions
 7. When a movie receives a positive vote from all participants, it's declared the winner.
 8. The session creator can open the winning movie directly in Plex from the winner page.
 
+## Analytics
+
+Voterr ships **no analytics by default**. The official deployment (voterr.tv)
+opts in to privacy-friendly, cookieless [Plausible Analytics](https://plausible.io)
+via environment variables — self-hosted instances track nothing unless you
+point the same variables at your own Plausible instance:
+
+| Variable | Example | Purpose |
+| --- | --- | --- |
+| `PLAUSIBLE_SCRIPT_SRC` | `https://stats.example.com/js/pa-XXXX.js` | URL of your Plausible tracker script |
+| `PLAUSIBLE_DOMAIN` | `voterr.example.com` | The `data-domain` the script reports |
+
+When unset, no tracking script is loaded at all.
+
 ## Contributing
 
 We welcome contributions to Voterr! Please follow these steps to contribute:

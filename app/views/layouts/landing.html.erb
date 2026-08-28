@@ -65,6 +65,13 @@
     gtag('js', new Date());
     gtag('config', 'G-4R9KKJEZ70');
   </script>
+
+  <%# Privacy-friendly analytics, opt-in for the official deployment only.
+      Self-hosters get no tracking unless they set these env vars to their own
+      Plausible instance. See README "Analytics". %>
+  <% if ENV["PLAUSIBLE_SCRIPT_SRC"].present? && ENV["PLAUSIBLE_DOMAIN"].present? %>
+    <script defer data-domain="<%= ENV["PLAUSIBLE_DOMAIN"] %>" src="<%= ENV["PLAUSIBLE_SCRIPT_SRC"] %>"></script>
+  <% end %>
 </head>
 <body class="landing-body">
   <%= render "layouts/landing_navbar" %>
