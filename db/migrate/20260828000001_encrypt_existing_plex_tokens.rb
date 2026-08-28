@@ -17,12 +17,12 @@ class EncryptExistingPlexTokens < ActiveRecord::Migration[8.0]
 
         begin
           # Already encrypted under the configured keys — leave untouched.
-          ActiveRecord::Encryption.decrypt(raw)
+          ActiveRecord::Encryption.encryptor.decrypt(raw)
           already_count += 1
         rescue StandardError
           # Not decryptable => legacy plaintext written before encryption was
           # enabled. Encrypt in place using the same keys the model uses.
-          ciphertext = ActiveRecord::Encryption.encrypt(raw)
+          ciphertext = ActiveRecord::Encryption.encryptor.encrypt(raw)
           execute(
             "UPDATE users SET plex_token = #{connection.quote(ciphertext)} WHERE id = #{row['id']}"
           )
