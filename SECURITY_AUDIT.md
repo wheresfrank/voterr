@@ -15,7 +15,7 @@ All findings below have been remediated in this working tree:
 |---|---|---|
 | C1 | Unauthenticated SSRF `/proxy_image` | Endpoint deleted (`ImagesController` + route removed; it was unreferenced). `open-uri` gem dep removed. |
 | H1 | Any user could delete any session | `SessionsController#destroy` now scopes via `current_user.sessions.find` |
-| H2 | Plaintext `plex_token` | `encrypts :plex_token` on `User` (Active Record Encryption). **Deploy note:** pre-existing tokens fail decryption until each user re-authenticates with Plex |
+| H2 | Plaintext `plex_token` | `encrypts :plex_token` on `User` (Active Record Encryption). Keys are derived from `secret_key_base` via `config/initializers/active_record_encryption.rb` (Rails requires three explicit credentials — without them every encrypted write raises). A data migration (`20260828000001_encrypt_existing_plex_tokens`) encrypts legacy plaintext rows and widens the column to `text`. **Deploy note:** users must be logged in fresh — existing tokens are re-encrypted in place by the migration; any user whose login failed before the key fix can simply log in again |
 | M1 | `verify_mode: 0` in cable DB TLS | Set to `1` (VERIFY_PEER) in `config/cable.yml` |
 | M2 | Unanchored host regex | `/\A[\w-]+\.voterr\.tv\z/` in `production.rb` |
 | M3 | Unauthorized ActionCable channel | `SessionVotersChannel` deleted (dead code); Turbo's signed-stream auth untouched |
@@ -32,8 +32,8 @@ All findings below have been remediated in this working tree:
 
 **⚠️ Post-deploy steps required (Ruby is not runnable in the audit sandbox, so bundler/tests could not be executed here):**
 1. Run `bundle install` (or `bundle lock --update`) locally to let bundler confirm the lockfile — especially the nokogiri platform variants, which moved to the `-gnu`/`-musl` naming scheme. If bundler complains, `bundle update nokogiri` regenerates them cleanly.
-2. Set `ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY` / `_DETERMINISTIC_KEY` / `_KEY_DERIVATION_SALT` env vars in production if you want explicit keys (otherwise keys derive from `secret_key_base`; rotating that secret invalidates stored tokens).
-3. Run `bin/rails db:migrate` (the new indexes fail loudly if legacy data contains duplicate tokens/names — dedupe first if that happens).
+2. Encryption keys: `config/initializers/active_record_encryption.rb` derives the three required credentials from `secret_key_base`. To use dedicated keys instead, set `ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY` / `_DETERMINISTIC_KEY` / `_KEY_DERIVATION_SALT` env vars in production (rotating `secret_key_base` invalidates stored ciphertext; users re-auth with Plex to refresh).
+3. Run `bin/rails db:migrate` (the new indexes fail loudly if legacy data contains duplicate tokens/names — dedupe first if that happens; the token-encryption migration re-encrypts legacy plaintext rows).
 4. Run the test suite: `bin/rails test`.
 
 Not addressed (by design): guest identity remains name-based (documented product decision, M5); TMDB poster lookup caching (performance item, L9).
