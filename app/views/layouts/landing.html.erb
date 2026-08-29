@@ -58,7 +58,15 @@
       Self-hosters get no tracking unless they set these env vars to their own
       Plausible instance. See README "Analytics". %>
   <% if ENV["PLAUSIBLE_SCRIPT_SRC"].present? && ENV["PLAUSIBLE_DOMAIN"].present? %>
-    <script defer data-domain="<%= ENV["PLAUSIBLE_DOMAIN"] %>" src="<%= ENV["PLAUSIBLE_SCRIPT_SRC"] %>"></script>
+    <%# Plausible v3 per-site script (pa-*.js) defines init() but does not
+        auto-start capture; the official queue shim + init() call is required.
+        The shim must come AFTER the tracker tag. %>
+    <script async data-domain="<%= ENV["PLAUSIBLE_DOMAIN"] %>" src="<%= ENV["PLAUSIBLE_SCRIPT_SRC"] %>"></script>
+    <%= javascript_tag nonce: true do %>
+      window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)};
+      plausible.init=plausible.init||function(i){plausible.o=i||{}};
+      plausible.init();
+    <% end %>
   <% end %>
 </head>
 <body class="landing-body">
