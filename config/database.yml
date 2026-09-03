@@ -15,28 +15,17 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  pool: <%= ENV.fetch("DB_POOL") { ENV.fetch("RAILS_MAX_THREADS") { 5 } } %>
+  idle_timeout: <%= ENV.fetch("DB_IDLE_TIMEOUT") { 300 } %>
 
 development:
-  primary:
-    <<: *default
-    database: voterr_development
-  queue:
-    <<: *default
-    database: voterr_queue_development
+  <<: *default
+  database: voterr_development
 
 test:
-  primary:
-    <<: *default
-    database: voterr_test
-  queue:
-    <<: *default
-    database: voterr_queue_test
+  <<: *default
+  database: voterr_test
 
 production:
-  primary:
-    <<: *default
-    url: <%= ENV['DATABASE_URL'] %>
-  queue:
-    <<: *default
-    url: <%= ENV['QUEUE_DATABASE_URL'] %>
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>

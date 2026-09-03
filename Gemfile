@@ -42,10 +42,6 @@ gem 'sassc'
 
 gem 'browser'
 
-gem 'solid_queue'
-
-gem "solid_cable"
-
 # --- Security floors (see SECURITY_AUDIT.md, dependency CVEs) ---------------
 # Keep these in sync with Gemfile.lock; bump via `bundle update <gem>` when
 # new advisories land and run `bundle exec bundler-audit` in CI.

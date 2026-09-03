@@ -52,9 +52,10 @@ Rails.application.configure do
   # shared store (memcached/redis/solid_cache) if exactness matters.
   config.cache_store = :memory_store, { size: 64.megabytes }
 
-  # Replace the default in-process and non-durable queuing backend for Active Job.
-  config.active_job.queue_adapter = :solid_queue
-  config.solid_queue.connects_to = { database: { writing: :queue } }
+  # Keep low-volume jobs in the web process. A database-backed queue continuously
+  # polls Postgres even when no work is pending, preventing Neon from suspending.
+  # This trades durability across deploys for substantially lower idle compute.
+  config.active_job.queue_adapter = :async
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.

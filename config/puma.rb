@@ -33,14 +33,13 @@ port ENV.fetch("PORT", 3000)
 # Allow puma to be restarted by `bin/rails restart` command.
 plugin :tmp_restart
 
-# Run the Solid Queue supervisor inside of Puma
-plugin :solid_queue
-
 # Specify the PID file. Defaults to tmp/pids/server.pid in development.
 # In other environments, only set the PID file if requested.
 pidfile ENV["PIDFILE"] if ENV["PIDFILE"]
 
-workers ENV.fetch("WEB_CONCURRENCY") { 4 }
+# Action Cable uses the in-process async adapter in production, so all HTTP and
+# WebSocket traffic must share one process. Threads still provide concurrency.
+workers ENV.fetch("WEB_CONCURRENCY") { 1 }
 
 preload_app!
 

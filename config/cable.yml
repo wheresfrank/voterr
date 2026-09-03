@@ -1,18 +1,10 @@
-# Async adapter only works within the same process, so for manually triggering cable updates from a console,
-# and seeing results in the browser, you must do so from the web console (running inside the dev process),
-# not a terminal started via bin/rails console! Add "console" to any action or any ERB template view
-# to make the web console appear.
 development:
-  adapter: solid_cable
-  database: cable_development
+  adapter: async
 
 test:
   adapter: test
 
 production:
-  adapter: solid_cable
-  database: cable
-  # Verify the server certificate (OpenSSL::SSL::VERIFY_PEER). Do NOT set this
-  # back to 0 — it disables TLS verification and allows MITM of the cable DB.
-  ssl_params:
-    verify_mode: 1
+  # Voterr intentionally runs one Puma worker in production. Keeping Action
+  # Cable in that process avoids Solid Cable's 100 ms database polling loop.
+  adapter: async
