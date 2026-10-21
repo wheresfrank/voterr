@@ -38,10 +38,13 @@ test("distrusts renamed G3/AAA anchors, preserves unrelated roots, and is idempo
 
     const bundle = join(root, "filtered.pem");
     writeFileSync(bundle, readdirSync(ca).filter(p => p.endsWith(".crt")).map(p => readFileSync(join(ca, p), "utf8")).join("\n"));
-    const args = ["verify", "-CAfile", bundle, "-CApath", local];
+    // -trusted isolates the fixture anchors, including on OpenSSL 3 where
+    // -CAfile/-CApath alone can still consult the default CAstore.
+    const args = ["verify", "-trusted", bundle];
     assert.equal(run("openssl", [...args, join(here, "ca-fixtures/isrg.pem")]).status, 0);
     for (const name of ["emsign", "aaa"]) {
-      assert.notEqual(run("openssl", [...args, join(here, "ca-fixtures", name + ".pem")]).status, 0);
+      const result = run("openssl", [...args, join(here, "ca-fixtures", name + ".pem")]);
+      assert.notEqual(result.status, 0, name + " must be distrusted: " + result.stdout + result.stderr);
     }
   } finally {
     rmSync(root, { recursive: true, force: true });
