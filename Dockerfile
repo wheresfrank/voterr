@@ -4,6 +4,13 @@
 ARG RUBY_VERSION=3.3.12
 FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim as base
 
+# Apply the October 2026 CA distrust before Bundler or app HTTPS requests.
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y ca-certificates openssl && \
+    rm -rf /var/lib/apt/lists/*
+COPY scripts/distrust-compromised-cas.sh /usr/local/bin/distrust-compromised-cas
+RUN sh /usr/local/bin/distrust-compromised-cas && update-ca-certificates --fresh
+
 # Rails app lives here
 WORKDIR /rails
 
@@ -60,3 +67,4 @@ ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
 CMD ["./bin/rails", "server"]
+
