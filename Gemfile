@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "3.3.12"
+ruby "3.3.13"
 
 gem "ffi", "< 1.17.0"
 
