@@ -1,4 +1,9 @@
 <%= link_to "Back to dashboard", sessions_path, class: "app-button app-button--quiet", data: { turbo: false } %>
-<%= form_with url: session_path(session), method: :delete, data: { turbo: false, confirm: "Are you sure you want to delete this session?" }, local: true do |form| %>
+<%# Submitted via Turbo (not `turbo: false`): Turbo injects the live X-CSRF-Token
+    header, which is required because Turbo Stream broadcasts re-render this form
+    server-side without a session, baking in an invalid authenticity_token.
+    turbo_frame: "_top" makes the post-delete redirect navigate the whole page.
+    `confirm` is rails-ujs syntax and is ignored under Turbo; use turbo_confirm. %>
+<%= form_with url: session_path(session), method: :delete, data: { turbo_frame: "_top", turbo_confirm: "Are you sure you want to delete this session?" } do |form| %>
     <%= form.submit "Delete session", class: "app-button app-button--danger" %>
 <% end %>
